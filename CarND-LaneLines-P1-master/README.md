@@ -1,12 +1,9 @@
 # **Finding Lane Lines on the Road** 
+This project is about finding lanes on the street and drawing lines to mark lanes for a car to drive.
 
-## Writeup Template
+The following methods will be used to achieve this goal. Pictures will be processed (turned into gray color scheme, we will limit region of interesto to the secio
 
-### You can use this file as a template for your writeup if you want to submit it as a markdown file. But feel free to use some other method and submit a pdf if you prefer.
-
----
-
-**Finding Lane Lines on the Road**
+The tools you have are color selection, region of interest selection, grayscaling, Gaussian smoothing, Canny Edge Detection and Hough Tranform line detection. 
 
 The goals / steps of this project are the following:
 * Make a pipeline that finds lane lines on the road
