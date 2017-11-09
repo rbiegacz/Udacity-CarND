@@ -7,20 +7,18 @@ Below you can find information about how the pipeline processing and annotating 
 
 ### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
+The core function is process_image() function which implements the pipeline which consists of the following steps:
+1. Changing image from color one to gray scale.
+2. Selecting region of interest from the image. The shape of the selected region is a trapezoid.
+3. Smoothing the image using Gaussian smoothing (https://en.wikipedia.org/wiki/Gaussian_blur) 
+4. Selecting white color in the select region.
+5. Discovering lines in the picture using Canny Edge Detection algorithm (https://en.wikipedia.org/wiki/Canny_edge_detector)
+6. Drawing Hough lines.
+7. Overlaying an image with drawn lines over the original image.
 
-My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I .... 
-
-In order to draw a single line on the left and right lanes, I modified the draw_lines() function by ...
-
-If you'd like to include images to show how the pipeline works, here is how to include an image: 
+The examplary output of the pipeline looks like this: 
 
 ![alt text][test_images\output_solidWhiteCurve.jpg]
-
-The following methods will be used to achieve this goal. Pictures will be processed (turned into gray color scheme, we will limit region of interesto to the secio
-
-The tools you have are color selection, region of interest selection, grayscaling, Gaussian smoothing, Canny Edge Detection and Hough Tranform line detection. 
-
-
 
 ### 2. Identify potential shortcomings with your current pipeline
 
