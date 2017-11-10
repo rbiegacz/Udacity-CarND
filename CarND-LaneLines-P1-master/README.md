@@ -18,7 +18,11 @@ The core function is process_image() function which implements the pipeline whic
 
 The examplary output of the pipeline looks like this: 
 
-![alt text][test_images\output_solidWhiteCurve.jpg]
+[//]: # (Image References)
+
+[image1]: ./test_images/output_solidWhiteCurve.jpg "Annotated picture"
+
+![alt text][image1]
 
 draw_lines(...) function works in the following way.
 * It goes thru all the lines identified by Canny Edge Detection alorithm.
