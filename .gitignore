@@ -45,3 +45,8 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+CarND-LaneLines-P1-master/.ipynb_checkpoints/*
+CarND-LaneLines-P1-master/*.zip
+CarND-LaneLines-P1-master/*/*.mp4
+CarND-Traffic-Sign-Classifier-Project-master/.ipynb_checkpoints/*
