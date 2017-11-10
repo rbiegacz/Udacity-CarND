@@ -20,12 +20,20 @@ The examplary output of the pipeline looks like this:
 
 ![alt text][test_images\output_solidWhiteCurve.jpg]
 
+draw_lines(...) function works in the following way.
+* It goes thru all the lines identified by Canny Edge Detection alorithm.
+* It calculates slope and y-intercept for each line detected by Canny Edge Detection algorithm.
+* If absolute value of slope is smaller than 0.5 a line is rejected.
+* Algorithm divides lines into two groups: one with lines with negative and one with lines with postitive slope.
+* Algorithm tries to select the longest line out of the lines with positive slope.
+  Once the line is selected, then based on slope and y-intercept values I calcualte coordinates of the points belonging to line 
+  and lying at the bottom of the picture and and the top of the trapezoid.
+* The previous step is repeated but for lines with negative slope.
+* Finally, the lines are draw and image with the lines is returned by the function.
+
 ### 2. Identify potential shortcomings with your current pipeline
+One can definitely improve draw_lines() function.
 
-
-One potential shortcoming would be what would happen when ... 
-
-Another shortcoming could be ...
 
 
 ### 3. Suggest possible improvements to your pipeline
