@@ -36,12 +36,9 @@ draw_lines(...) function works in the following way.
 * Finally, the lines are draw and image with the lines is returned by the function.
 
 ### 2. Identify potential shortcomings with your current pipeline
-One can definitely improve draw_lines() function.
+Current implementation of draw_lines() function picks only two lines: left and right line.
 
-
+Lines are selected based on their lengths - this selection algorithm is not
 
 ### 3. Suggest possible improvements to your pipeline
-
-A possible improvement would be to ...
-
-Another potential improvement could be to ...
+One can try to
