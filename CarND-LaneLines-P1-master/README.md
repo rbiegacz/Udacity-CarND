@@ -36,9 +36,9 @@ draw_lines(...) function works in the following way.
 * Finally, the lines are draw and image with the lines is returned by the function.
 
 ### 2. Identify potential shortcomings with your current pipeline
-Current implementation of draw_lines() function picks only two lines: left and right line.
+Current implementation of draw_lines() function picks only two lines: left and right line. That's why the lines are shaky which is visible in annotated videos. One could use a different mechanism for "selecting"/calculating lines which was suggested in the next section.
 
-Lines are selected based on their lengths - this selection algorithm is not
+Anoher shortcoming is that lines are rejected based on slope. If absolute value of a line slope is smaller than 0.5 threshold then the line is rejected by draw_lines() function. 0.5 is ad hoc/arbitrary value - one could think about more sophistiated method of choosing a slope threshold value. 
 
 ### 3. Suggest possible improvements to your pipeline
-One can try to
+draw_lines() algorithm can calculate lane lines based on average slope and average y-intercept - this "selection" mechanism probably will be better compared to selecing the longest line selected by Canny Edge Detection routine.
