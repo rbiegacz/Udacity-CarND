@@ -1,3 +1,5 @@
+__pycache__
+bvlc-alexnet.npy
 data
 .ipynb_checkpoints
 *.h5
