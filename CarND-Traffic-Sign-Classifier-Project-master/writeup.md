@@ -1,21 +1,18 @@
-#**Traffic Sign Recognition** 
-
-##Writeup Template
-
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
+#**Traffic Sign Recognition** - Project Report
 
 ---
 
-**Build a Traffic Sign Recognition Project**
+**Project Purpose**
 
-The goals / steps of this project are the following:
-* Load the data set (see below for links to the project data set)
-* Explore, summarize and visualize the data set
-* Design, train and test a model architecture
-* Use the model to make predictions on new images
+The goal of this project is to implement German road signs recognition based on deep neural networks (especially convolutional networks) with the use of Tensorflow. 
+
+Project implementation will consist of the following steps:
+* Loading the data set that will be used for training, validation and measuring algorithm accuracy
+* Exploring, summarizing and visualizing the data set
+* Designing, training and testing a model architecture
+* Using the model to make predictions on new images
 * Analyze the softmax probabilities of the new images
 * Summarize the results with a written report
-
 
 [//]: # (Image References)
 
@@ -28,7 +25,7 @@ The goals / steps of this project are the following:
 [image7]: ./examples/placeholder.png "Traffic Sign 4"
 [image8]: ./examples/placeholder.png "Traffic Sign 5"
 
-## Rubric Points
+## Project was implemented to meet the requirements mentioned in Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
 
 ---
