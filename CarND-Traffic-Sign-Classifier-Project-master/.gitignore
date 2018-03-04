@@ -7,3 +7,5 @@ models
 *.swp
 *.p
 *.png
+checkpoint
+lenet.*
