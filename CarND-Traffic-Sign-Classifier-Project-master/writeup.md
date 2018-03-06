@@ -19,11 +19,16 @@ Project implementation will consist of the following steps:
 [image1]: ./examples/visualization.jpg "Visualization"
 [image2]: ./examples/grayscale.jpg "Grayscaling"
 [image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+[image4]: ./test_images/sign1.png "Traffic Sign 1"
+[image5]: ./test_images/sign2.png "Traffic Sign 2"
+[image6]: ./test_images/sign3.png "Traffic Sign 3"
+[image7]: ./test_images/sign4.png "Traffic Sign 4"
+[image8]: ./test_images/sign5.png "Traffic Sign 5"
+[image8]: ./test_images/sign6.png "Traffic Sign 6"
+[image8]: ./test_images/sign7.png "Traffic Sign 7"
+[image8]: ./test_images/sign8.png "Traffic Sign 8"
+[image8]: ./test_images/sign9.png "Traffic Sign 9"
+[image8]: ./test_images/sign10.png "Traffic Sign 10"
 
 Project Quality Expectations
 Project was implemented to meet the requirements mentioned in [rubric points](https://review.udacity.com/#!/rubrics/481/view).
