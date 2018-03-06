@@ -19,13 +19,18 @@ Project implementation will consist of the following steps:
 [image1]: ./examples/visualization.jpg "Visualization"
 [image2]: ./examples/grayscale.jpg "Grayscaling"
 [image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+[image4]: ./test_images/sign1_32_32.png "Traffic Sign 1"
+[image5]: ./test_images/sign2_32_32.png "Traffic Sign 2"
+[image6]: ./test_images/sign3_32_32.png "Traffic Sign 3"
+[image7]: ./test_images/sign4_32_32.png "Traffic Sign 4"
+[image8]: ./test_images/sign5_32_32.png "Traffic Sign 5"
+[image9]: ./test_images/sign6_32_32.png "Traffic Sign 6"
+[image10]: ./test_images/sign7_32_32.png "Traffic Sign 7"
+[image11]: ./test_images/sign8_32_32.png "Traffic Sign 8"
+[image12]: ./test_images/sign9_32_32.png "Traffic Sign 9"
+[image13]: ./test_images/sign10_32_32.png "Traffic Sign 10"
 
-##Project Requirements
+Project Quality Expectations
 Project was implemented to meet the requirements mentioned in [rubric points](https://review.udacity.com/#!/rubrics/481/view).
 Below you can find information about how each point mentioned there is addressed/answers in the project.
 
@@ -122,8 +127,8 @@ If a well known architecture was chosen:
 
 Here are five German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+![alt text][image4] ![alt text][image5] ![alt text][image6] ![alt text][image7] ![alt text][image8]
+![alt text][image9] ![alt text][image10] ![alt text][image11] ![alt text][image12] ![alt text][image13]
 
 The first image might be difficult to classify because ...
 
