@@ -25,7 +25,7 @@ Project implementation will consist of the following steps:
 [image7]: ./examples/placeholder.png "Traffic Sign 4"
 [image8]: ./examples/placeholder.png "Traffic Sign 5"
 
-##Project Requirements
+Project Quality Expectations
 Project was implemented to meet the requirements mentioned in [rubric points](https://review.udacity.com/#!/rubrics/481/view).
 Below you can find information about how each point mentioned there is addressed/answers in the project.
 
