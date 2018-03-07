@@ -208,17 +208,23 @@ If a well known architecture was chosen:
 
 The road signs presented on real pictures were much simpler to recognize by the network. The icons of road signs were much more difficult for the model to recognize - the main reason is that such examples of road signs were not part of training/validation/testing set.
 
-####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+#### 2. Here are the predictions for test images delivered by the developed model.
 
 Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| Speed limit (50km/h)      		| Slippery road   									| 
+| No passing     			| No passing 										|
+| Road work					| Road work											|
+| Road narrows on the right      		| Speed limit (20km/h)					 				|
+| Double curve			| Double curve      							|
+| Speed limit (70km/h)      		| Speed limit (70km/h) | 
+| Yield     			| Yield 										|
+| No Entry				| Priority road |
+| Stop      		| No entry					 				|
+| Roundabout mandatory			| Roundabout mandatory							|
+| Speed limit (70km/h)      		| Yield   									| 
 
 
 The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
