@@ -30,7 +30,7 @@ Project implementation will consist of the following steps:
 [image11]: ./test_images/sign8_32_32.png "Traffic Sign 8"
 [image12]: ./test_images/sign9_32_32.png "Traffic Sign 9"
 [image13]: ./test_images/sign10_32_32.png "Traffic Sign 10"
-[image14]: ./test_images/sign10_32_32.png "Traffic Sign 11"
+[image14]: ./test_images/sign11_32_32.png "Traffic Sign 11"
 
 Project Quality Expectations
 Project was implemented to meet the requirements mentioned in [rubric points](https://review.udacity.com/#!/rubrics/481/view).
@@ -57,81 +57,126 @@ It is a bar chart showing how many pictures belonged to a specific road sign cat
 ![alt text][image0]
 
 There are following road signs in the dataset:
+
 0 : Speed limit (20km/h)
+
 1 : Speed limit (30km/h)
+
 2 : Speed limit (50km/h)
+
 3 : Speed limit (60km/h)
+
 4 : Speed limit (70km/h)
+
 5 : Speed limit (80km/h)
+
 6 : End of speed limit (80km/h)
+
 7 : Speed limit (100km/h)
+
 8 : Speed limit (120km/h)
+
 9 : No passing
+
 10 : No passing for vehicles over 3.5 metric tons
+
 11 : Right-of-way at the next intersection
+
 12 : Priority road
+
 13 : Yield
+
 14 : Stop
+
 15 : No vehicles
+
 16 : Vehicles over 3.5 metric tons prohibited
+
 17 : No entry
+
 18 : General caution
+
 19 : Dangerous curve to the left
+
 20 : Dangerous curve to the right
+
 21 : Double curve
+
 22 : Bumpy road
+
 23 : Slippery road
+
 24 : Road narrows on the right
+
 25 : Road work
+
 26 : Traffic signals
+
 27 : Pedestrians
+
 28 : Children crossing
+
 29 : Bicycles crossing
+
 30 : Beware of ice/snow
+
 31 : Wild animals crossing
+
 32 : End of all speed and passing limits
+
 33 : Turn right ahead
+
 34 : Turn left ahead
+
 35 : Ahead only
+
 36 : Go straight or right
+
 37 : Go straight or left
+
 38 : Keep right
+
 39 : Keep left
+
 40 : Roundabout mandatory
+
 41 : End of no passing
+
 42 : End of no passing by vehicles over 3.5 metric tons
 
 ### Design and Test a Model Architecture
 
-#### 1. Data preparationn
-I decided to use normalized color pictures of road signs.
+#### 1. Data preparation
+I decided to use normalized color pictures of road signs so all pixel values for Red, Green and Blue are from the range [0, 1]
 
-Here is an example of an original image and an augmented image:
+I decided not to convert to gray scale. Reduction to gray scale would allow to build smaller (from weights perspective) network that could be tought faster. The speed of learning wasn't an issue, though, in this particular case.
 
-![alt text][image3]
-
-
-####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
-
-My final model consisted of the following layers:
+#### My final model consisted of the following layers:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| Convolution 5x5     	| 1x1 stride, same padding, outputs 32x32x64 	|
 | RELU					|												|
 | Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
+| Convolution 5x5     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| RELU					|												|
+| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
+| Fully Connected Layer | | 
+| Fully Connected Layer | | 
+| Fully Connected Layer | | 
  
 
 
-####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+#### 3. Hyperparameters used to achieve a model with accuracy higher than 95#
 
-To train the model, I used an ....
+1. Batch size: 100 pictures
+
+2. Learning rate: 0.0005
+
+3. Number of Epochs: 30
+
+4. Optimizer: [Adaptive Moment Estimation](http://ruder.io/optimizing-gradient-descent/index.html#adam) was used while training the network
 
 ####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
@@ -153,28 +198,33 @@ If a well known architecture was chosen:
 * How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
  
 
-###Test a Model on New Images
+### Testing Model on New Images
 
-####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+#### 11 images of German traffic signs were downloaded from Internet. One can see them below.
 
-Here are five German traffic signs that I found on the web:
+![alt text][image4] ![alt text][image5] ![alt text][image6] ![alt text][image7]
+![alt text][image8] ![alt text][image9] ![alt text][image10] ![alt text][image11]
+![alt text][image12] ![alt text][image13] ![alt text][image14]
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] ![alt text][image7] ![alt text][image14]
-![alt text][image9] ![alt text][image10] ![alt text][image11] ![alt text][image12] ![alt text][image13]
+The road signs presented on real pictures were much simpler to recognize by the network. The icons of road signs were much more difficult for the model to recognize - the main reason is that such examples of road signs were not part of training/validation/testing set.
 
-The first image might be difficult to classify because ...
-
-####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+#### 2. Here are the predictions for test images delivered by the developed model.
 
 Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| Speed limit (50km/h)      		| Slippery road   									| 
+| No passing     			| No passing 										|
+| Road work					| Road work											|
+| Road narrows on the right      		| Speed limit (20km/h)					 				|
+| Double curve			| Double curve      							|
+| Speed limit (70km/h)      		| Speed limit (70km/h) | 
+| Yield     			| Yield 										|
+| No Entry				| Priority road |
+| Stop      		| No entry					 				|
+| Roundabout mandatory			| Roundabout mandatory							|
+| Speed limit (70km/h)      		| Yield   									| 
 
 
 The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
