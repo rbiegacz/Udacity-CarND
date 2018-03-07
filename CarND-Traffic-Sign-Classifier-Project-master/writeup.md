@@ -71,74 +71,112 @@ There are following road signs in the dataset:
 5 : Speed limit (80km/h)
 
 6 : End of speed limit (80km/h)
+
 7 : Speed limit (100km/h)
+
 8 : Speed limit (120km/h)
+
 9 : No passing
+
 10 : No passing for vehicles over 3.5 metric tons
+
 11 : Right-of-way at the next intersection
+
 12 : Priority road
+
 13 : Yield
+
 14 : Stop
+
 15 : No vehicles
+
 16 : Vehicles over 3.5 metric tons prohibited
+
 17 : No entry
+
 18 : General caution
+
 19 : Dangerous curve to the left
+
 20 : Dangerous curve to the right
+
 21 : Double curve
+
 22 : Bumpy road
+
 23 : Slippery road
+
 24 : Road narrows on the right
+
 25 : Road work
+
 26 : Traffic signals
+
 27 : Pedestrians
+
 28 : Children crossing
+
 29 : Bicycles crossing
+
 30 : Beware of ice/snow
+
 31 : Wild animals crossing
+
 32 : End of all speed and passing limits
+
 33 : Turn right ahead
+
 34 : Turn left ahead
+
 35 : Ahead only
+
 36 : Go straight or right
+
 37 : Go straight or left
+
 38 : Keep right
+
 39 : Keep left
+
 40 : Roundabout mandatory
+
 41 : End of no passing
+
 42 : End of no passing by vehicles over 3.5 metric tons
 
 ### Design and Test a Model Architecture
 
-#### 1. Data preparationn
-I decided to use normalized color pictures of road signs.
+#### 1. Data preparation
+I decided to use normalized color pictures of road signs so all pixel values for Red, Green and Blue are from the range [0, 1]
 
-Here is an example of an original image and an augmented image:
+I decided not to convert to gray scale. Reduction to gray scale would allow to build smaller (from weights perspective) network that could be tought faster. The speed of learning wasn't an issue, though, in this particular case.
 
-![alt text][image3]
-
-
-####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
-
-My final model consisted of the following layers:
+#### My final model consisted of the following layers:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| Convolution 5x5     	| 1x1 stride, same padding, outputs 32x32x64 	|
 | RELU					|												|
 | Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
+| Convolution 5x5     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| RELU					|												|
+| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
+| Fully Connected Layer | | 
+| Fully Connected Layer | | 
+| Fully Connected Layer | | 
  
 
 
-####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+#### 3. Hyperparameters used to achieve a model with accuracy higher than 95#
 
-To train the model, I used an ....
+1. Batch size: 100 pictures
+
+2. Learning rate: 0.0005
+
+3. Number of Epochs: 30
+
+4. Optimizer: [Adaptive Moment Estimation](http://ruder.io/optimizing-gradient-descent/index.html#adam) was used while training the network
 
 ####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
