@@ -30,7 +30,7 @@ Project implementation will consist of the following steps:
 [image11]: ./test_images/sign8_32_32.png "Traffic Sign 8"
 [image12]: ./test_images/sign9_32_32.png "Traffic Sign 9"
 [image13]: ./test_images/sign10_32_32.png "Traffic Sign 10"
-[image14]: ./test_images/sign10_32_32.png "Traffic Sign 11"
+[image14]: ./test_images/sign11_32_32.png "Traffic Sign 11"
 
 Project Quality Expectations
 Project was implemented to meet the requirements mentioned in [rubric points](https://review.udacity.com/#!/rubrics/481/view).
@@ -57,12 +57,19 @@ It is a bar chart showing how many pictures belonged to a specific road sign cat
 ![alt text][image0]
 
 There are following road signs in the dataset:
+
 0 : Speed limit (20km/h)
+
 1 : Speed limit (30km/h)
+
 2 : Speed limit (50km/h)
+
 3 : Speed limit (60km/h)
+
 4 : Speed limit (70km/h)
+
 5 : Speed limit (80km/h)
+
 6 : End of speed limit (80km/h)
 7 : Speed limit (100km/h)
 8 : Speed limit (120km/h)
