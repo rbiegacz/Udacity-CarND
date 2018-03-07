@@ -39,7 +39,7 @@ Below you can find information about how each point mentioned there is addressed
 Here is the link to [project code](https://github.com/rbiegacz/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
 
 ---
-### Data Set Summary & Exploration
+####1. Data Set Summary & Exploration
 
 I used the pandas library to calculate summary statistics of the traffic
 signs data set:
@@ -50,11 +50,11 @@ signs data set:
 * The shape of a traffic sign image is 32 pixels x 32 pixels and there are 3 channels (it means that images are colorful)
 * The number of unique classes/labels in the data set is 43
 
-####2. Include an exploratory visualization of the dataset.
+####2. Exploratory visualization of the dataset.
 
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
+It is a bar chart showing how many pictures belonged to a specific road sign category (in total we have 43 types of signs)
 
-![alt text][Dataset]
+![alt text][image0]
 
 ###Design and Test a Model Architecture
 
