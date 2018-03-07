@@ -39,7 +39,7 @@ Below you can find information about how each point mentioned there is addressed
 Here is the link to [project code](https://github.com/rbiegacz/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
 
 ---
-### Data Set Summary & Exploration
+#### 1. Data Set Summary & Exploration
 
 I used the pandas library to calculate summary statistics of the traffic
 signs data set:
@@ -50,33 +50,65 @@ signs data set:
 * The shape of a traffic sign image is 32 pixels x 32 pixels and there are 3 channels (it means that images are colorful)
 * The number of unique classes/labels in the data set is 43
 
-####2. Include an exploratory visualization of the dataset.
+#### 2. Exploratory visualization of the dataset.
 
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
+It is a bar chart showing how many pictures belonged to a specific road sign category (in total we have 43 types of signs)
 
-![alt text][Dataset]
+![alt text][image0]
 
-###Design and Test a Model Architecture
+There are following road signs in the dataset:
+0 : Speed limit (20km/h)
+1 : Speed limit (30km/h)
+2 : Speed limit (50km/h)
+3 : Speed limit (60km/h)
+4 : Speed limit (70km/h)
+5 : Speed limit (80km/h)
+6 : End of speed limit (80km/h)
+7 : Speed limit (100km/h)
+8 : Speed limit (120km/h)
+9 : No passing
+10 : No passing for vehicles over 3.5 metric tons
+11 : Right-of-way at the next intersection
+12 : Priority road
+13 : Yield
+14 : Stop
+15 : No vehicles
+16 : Vehicles over 3.5 metric tons prohibited
+17 : No entry
+18 : General caution
+19 : Dangerous curve to the left
+20 : Dangerous curve to the right
+21 : Double curve
+22 : Bumpy road
+23 : Slippery road
+24 : Road narrows on the right
+25 : Road work
+26 : Traffic signals
+27 : Pedestrians
+28 : Children crossing
+29 : Bicycles crossing
+30 : Beware of ice/snow
+31 : Wild animals crossing
+32 : End of all speed and passing limits
+33 : Turn right ahead
+34 : Turn left ahead
+35 : Ahead only
+36 : Go straight or right
+37 : Go straight or left
+38 : Keep right
+39 : Keep left
+40 : Roundabout mandatory
+41 : End of no passing
+42 : End of no passing by vehicles over 3.5 metric tons
 
-####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional 
+### Design and Test a Model Architecture
 
-As a first step, I decided to convert the images to grayscale because ...
-
-Here is an example of a traffic sign image before and after grayscaling.
-
-![alt text][image2]
-
-As a last step, I normalized the image data because ...
-
-I decided to generate additional data because ... 
-
-To add more data to the the data set, I used the following techniques because ... 
+#### 1. Data preparationn
+I decided to use normalized color pictures of road signs.
 
 Here is an example of an original image and an augmented image:
 
 ![alt text][image3]
-
-The difference between the original data set and the augmented data set is the following ... 
 
 
 ####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
