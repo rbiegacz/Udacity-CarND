@@ -198,16 +198,15 @@ If a well known architecture was chosen:
 * How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
  
 
-###Test a Model on New Images
+### Testing Model on New Images
 
-####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+#### 11 images of German traffic signs were downloaded from Internet. One can see them below.
 
-Here are five German traffic signs that I found on the web:
+![alt text][image4] ![alt text][image5] ![alt text][image6] ![alt text][image7]
+![alt text][image8] ![alt text][image9] ![alt text][image10] ![alt text][image11]
+![alt text][image12] ![alt text][image13] ![alt text][image14]
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] ![alt text][image7] ![alt text][image14]
-![alt text][image9] ![alt text][image10] ![alt text][image11] ![alt text][image12] ![alt text][image13]
-
-The first image might be difficult to classify because ...
+The road signs presented on real pictures were much simpler to recognize by the network. The icons of road signs were much more difficult for the model to recognize - the main reason is that such examples of road signs were not part of training/validation/testing set.
 
 ####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
