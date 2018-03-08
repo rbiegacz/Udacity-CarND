@@ -295,12 +295,16 @@ Predicted labels:
 Selected label: Priority road
 
 
+![alt text][image12]
 
 Expected label for a sign #8: Stop
-Predicted labels:
-['No entry', 'Stop', 'Dangerous curve to the right', 'Slippery road', 'Speed limit (60km/h)']
-1.000000 0.000000 0.000000 0.000000 0.000000
-Selected label: No entry
+
+Selected label: No entry [INCORRECT]
+
+Predicted labels: ['No entry', 'Stop', 'Dangerous curve to the right', 'Slippery road', 'Speed limit (60km/h)']
+
+SoftMax Probabilities: 1.000000 0.000000 0.000000 0.000000 0.000000
+
 
 
 
@@ -308,9 +312,10 @@ Selected label: No entry
 
 Expected label for a sign #9: Roundabout mandatory
 
-Selected label: Roundabout mandatory
+Selected label: Roundabout mandatory [CORRECT]
 
 Predicted labels: ['Roundabout mandatory', 'Beware of ice/snow', 'Right-of-way at the next intersection', 'Speed limit (100km/h)', 'Speed limit (30km/h)']
+
 SoftMax Probabilities: 1.000000 0.000000 0.000000 0.000000 0.000000
 
 
@@ -318,7 +323,7 @@ SoftMax Probabilities: 1.000000 0.000000 0.000000 0.000000 0.000000
 
 Expected label for a sign #10: Speed limit (70km/h)
 
-Selected label: Speed limit (30km/h)
+Selected label: Speed limit (30km/h) [INCORRECT]
 
 Predicted labels: ['Speed limit (30km/h)', 'Speed limit (20km/h)', 'Yield', 'Speed limit (50km/h)', 'End of all speed and passing limits']
 
