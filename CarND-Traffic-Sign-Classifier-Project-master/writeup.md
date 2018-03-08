@@ -229,19 +229,91 @@ Here are the results of the prediction:
 
 The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
 
-####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
+#### 3. Below you can find 5 highest probable lables predicted by the model for test images.
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+Expected label for a sign #0: Speed limit (50km/h)
+Predicted labels:
+['Speed limit (30km/h)', 'Speed limit (50km/h)', 'Road work', 'Speed limit (60km/h)', 'Speed limit (80km/h)']
+0.694460 0.305537 0.000002 0.000000 0.000000
+Selected label: Speed limit (30km/h)
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
-
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+IMAGE 1: as you can see the model categorized this road sign incorrectly - "Speed limit (30km/h)" instead of "Speed limit (50km/h)". The correct label, though, is pointed by the model as the second highest option.
 
 
-For the second image ... 
+Expected label for a sign #1: No passing
+Predicted labels:
+['No passing', 'No passing for vehicles over 3.5 metric tons', 'No vehicles', 'Dangerous curve to the left', 'Slippery road']
+1.000000 0.000000 0.000000 0.000000 0.000000
+Selected label: No passing
+
+
+
+Expected label for a sign #2: Road work
+Predicted labels:
+['Road work', 'Children crossing', 'Beware of ice/snow', 'Priority road', 'Speed limit (60km/h)']
+1.000000 0.000000 0.000000 0.000000 0.000000
+Selected label: Road work
+
+
+
+Expected label for a sign #3: Road narrows on the right
+Predicted labels:
+['Road narrows on the right', 'Speed limit (20km/h)', 'General caution', 'Traffic signals', 'Bicycles crossing']
+0.607687 0.392025 0.000237 0.000026 0.000017
+Selected label: Road narrows on the right
+
+
+
+Expected label for a sign #4: Double curve
+Predicted labels:
+['Double curve', 'Right-of-way at the next intersection', 'Beware of ice/snow', 'Slippery road', 'Bicycles crossing']
+0.999964 0.000020 0.000016 0.000000 0.000000
+Selected label: Double curve
+
+
+
+Expected label for a sign #5: Speed limit (70km/h)
+Predicted labels:
+['Speed limit (80km/h)', 'Right-of-way at the next intersection', 'Go straight or right', 'Ahead only', 'Speed limit (60km/h)']
+0.991463 0.003396 0.003385 0.000765 0.000595
+Selected label: Speed limit (80km/h)
+
+
+
+Expected label for a sign #6: Yield
+Predicted labels:
+['Yield', 'No vehicles', 'No passing', 'Speed limit (30km/h)', 'Speed limit (60km/h)']
+1.000000 0.000000 0.000000 0.000000 0.000000
+Selected label: Yield
+
+
+
+Expected label for a sign #7: No entry
+Predicted labels:
+['Priority road', 'No passing for vehicles over 3.5 metric tons', 'Road work', 'No vehicles', 'End of no passing by vehicles over 3.5 metric tons']
+1.000000 0.000000 0.000000 0.000000 0.000000
+Selected label: Priority road
+
+
+
+Expected label for a sign #8: Stop
+Predicted labels:
+['No entry', 'Stop', 'Dangerous curve to the right', 'Slippery road', 'Speed limit (60km/h)']
+1.000000 0.000000 0.000000 0.000000 0.000000
+Selected label: No entry
+
+
+
+Expected label for a sign #9: Roundabout mandatory
+Predicted labels:
+['Roundabout mandatory', 'Beware of ice/snow', 'Right-of-way at the next intersection', 'Speed limit (100km/h)', 'Speed limit (30km/h)']
+1.000000 0.000000 0.000000 0.000000 0.000000
+Selected label: Roundabout mandatory
+
+
+
+Expected label for a sign #10: Speed limit (70km/h)
+Predicted labels:
+['Speed limit (30km/h)', 'Speed limit (20km/h)', 'Yield', 'Speed limit (50km/h)', 'End of all speed and passing limits']
+1.000000 0.000000 0.000000 0.000000 0.000000
+Selected label: Speed limit (30km/h)
