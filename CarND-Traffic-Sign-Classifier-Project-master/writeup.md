@@ -153,7 +153,7 @@ I decided not to convert to gray scale. Reduction to gray scale would allow to b
 
 #### My final model consisted of the following layers:
 | Layer         		|     Details	        					| Output |
-|:---------------------:|:---------------------------------------------:| 
+|:----------------:|:--------:|:--------:| 
 | Input         		| n/a | 32x32x3 RGB image |
 | Convolutional | filter 6 with 1x1 stride | outputs (?, 27, 27, 64) |
 | Max Pooling | with stride 2x2 | outputs (?, 13, 13, 64) |
