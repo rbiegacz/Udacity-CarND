@@ -155,14 +155,14 @@ I decided not to convert to gray scale. Reduction to gray scale would allow to b
 | Layer         		|     Details	        					| Output |
 |:----------------:|:--------:|:--------:| 
 | Input         		| n/a | 32x32x3 RGB image |
-| Convolutional | filter 6 with 1x1 stride | outputs (?, 27, 27, 64) |
+| Convolutional | filter 6 with 1x1 stride and valid padding | outputs (?, 27, 27, 64) |
 | Max Pooling | with stride 2x2 | outputs (?, 13, 13, 64) |
-| Convolutional | filter 4 with 1x1 stride | outputs (?, 10, 10, 32) |
-| Max Pooling | with 2x2 stride | outputs (?, 5, 5, 32) |
-| Flattening | n/a | outputs (?, 800) |
+| Convolutional | filter 6 with 1x1 stride and valid padding | outputs (?, 8, 8, 64) |
+| Max Pooling | with 2x2 stride | outputs (?, 4, 4, 64) |
+| Flattening | n/a | outputs (?, 1024) |
 | Fully Connected (Dense) | n/a | outputs (?, 688) |
 | Fully Connected (Dense) | n/a | outputs (?, 344) |
-| Dropout | dropout rate 0.8 | outputs (?, 344) |
+| Dropout | dropout rate 0.7 | outputs (?, 344) |
 | Fully Connected (Dense)| n/a | outputs (?, 86) |
 | Dropout | dropout rate 0.8 | outputs (?, 86) |
 | Logits | n/a | outputs (?, 43) |
@@ -174,7 +174,7 @@ I decided not to convert to gray scale. Reduction to gray scale would allow to b
 
 2. Learning rate: 0.0005
 
-3. Number of Epochs: 30
+3. Number of Epochs: 50
 
 4. Optimizer: [Adaptive Moment Estimation](http://ruder.io/optimizing-gradient-descent/index.html#adam) was used while training the network
 
@@ -206,100 +206,98 @@ If a well known architecture was chosen:
 #### 5. Final Model Result
 
 My final model results were:
-* validation set accuracy of 95.7%
+* validation set accuracy of 96.7%
 * test set accuracy of 94%
 
 Training...
 
 EPOCH 1 ...
-Validation Accuracy = 0.801
-Model saved for accuracy: 0.8006802718925908
+Validation Accuracy = 0.779
+Model saved for accuracy: 0.7791383235362652
 
 
 EPOCH 2 ...
-Validation Accuracy = 0.871
-Model saved for accuracy: 0.8712018136264515
+Validation Accuracy = 0.848
+Model saved for accuracy: 0.8482993245124817
 
 
 EPOCH 3 ...
-Validation Accuracy = 0.889
-Model saved for accuracy: 0.8891156517188835
+Validation Accuracy = 0.900
+Model saved for accuracy: 0.8995464891533193
 
 
 EPOCH 4 ...
-Validation Accuracy = 0.896
-Model saved for accuracy: 0.8961451264465747
+Validation Accuracy = 0.904
+Model saved for accuracy: 0.9043083920770761
 
 
 EPOCH 5 ...
-Validation Accuracy = 0.896
+Validation Accuracy = 0.918
+Model saved for accuracy: 0.9176870762896375
 
 
 EPOCH 6 ...
-Validation Accuracy = 0.914
-Model saved for accuracy: 0.9136054475291245
+Validation Accuracy = 0.920
+Model saved for accuracy: 0.9195011348681115
 
 
 EPOCH 7 ...
-Validation Accuracy = 0.898
+Validation Accuracy = 0.925
+Model saved for accuracy: 0.925170073163212
 
 
 EPOCH 8 ...
-Validation Accuracy = 0.926
-Model saved for accuracy: 0.9258503446232975
+Validation Accuracy = 0.929
+Model saved for accuracy: 0.9290249447703632
 
 
 EPOCH 9 ...
-Validation Accuracy = 0.927
-Model saved for accuracy: 0.9274376460484096
+Validation Accuracy = 0.921
 
 
 EPOCH 10 ...
-Validation Accuracy = 0.924
+Validation Accuracy = 0.949
+Model saved for accuracy: 0.9487528414412691
 
 
 EPOCH 11 ...
-Validation Accuracy = 0.928
-Model saved for accuracy: 0.9283446760134362
+Validation Accuracy = 0.937
 
 
 EPOCH 12 ...
-Validation Accuracy = 0.926
+Validation Accuracy = 0.949
 
 
 EPOCH 13 ...
-Validation Accuracy = 0.932
-Model saved for accuracy: 0.9315192761605018
+Validation Accuracy = 0.940
 
 
 EPOCH 14 ...
-Validation Accuracy = 0.935
-Model saved for accuracy: 0.9353741518223907
+Validation Accuracy = 0.944
 
 
 EPOCH 15 ...
-Validation Accuracy = 0.902
+Validation Accuracy = 0.943
 
 
 EPOCH 16 ...
-Validation Accuracy = 0.926
+Validation Accuracy = 0.949
 
 
 EPOCH 17 ...
-Validation Accuracy = 0.926
+Validation Accuracy = 0.946
 
 
 EPOCH 18 ...
-Validation Accuracy = 0.930
+Validation Accuracy = 0.940
 
 
 EPOCH 19 ...
-Validation Accuracy = 0.920
+Validation Accuracy = 0.939
 
 
 EPOCH 20 ...
-Validation Accuracy = 0.946
-Model saved for accuracy: 0.9462585046448134
+Validation Accuracy = 0.945
 
 
 EPOCH 21 ...
@@ -307,121 +305,125 @@ Validation Accuracy = 0.943
 
 
 EPOCH 22 ...
-Validation Accuracy = 0.941
+Validation Accuracy = 0.946
 
 
 EPOCH 23 ...
-Validation Accuracy = 0.936
+Validation Accuracy = 0.947
 
 
 EPOCH 24 ...
-Validation Accuracy = 0.937
+Validation Accuracy = 0.954
+Model saved for accuracy: 0.9541950171766909
 
 
 EPOCH 25 ...
-Validation Accuracy = 0.944
+Validation Accuracy = 0.942
 
 
 EPOCH 26 ...
-Validation Accuracy = 0.953
-Model saved for accuracy: 0.9526077143999995
+Validation Accuracy = 0.948
 
 
 EPOCH 27 ...
-Validation Accuracy = 0.942
+Validation Accuracy = 0.953
 
 
 EPOCH 28 ...
-Validation Accuracy = 0.936
+Validation Accuracy = 0.947
 
 
 EPOCH 29 ...
-Validation Accuracy = 0.936
+Validation Accuracy = 0.945
 
 
 EPOCH 30 ...
-Validation Accuracy = 0.925
+Validation Accuracy = 0.946
 
 
 EPOCH 31 ...
-Validation Accuracy = 0.924
+Validation Accuracy = 0.959
+Model saved for accuracy: 0.958730162947086
 
 
 EPOCH 32 ...
-Validation Accuracy = 0.938
+Validation Accuracy = 0.951
 
 
 EPOCH 33 ...
-Validation Accuracy = 0.934
+Validation Accuracy = 0.950
 
 
 EPOCH 34 ...
-Validation Accuracy = 0.937
+Validation Accuracy = 0.948
 
 
 EPOCH 35 ...
-Validation Accuracy = 0.933
+Validation Accuracy = 0.945
 
 
 EPOCH 36 ...
-Validation Accuracy = 0.942
+Validation Accuracy = 0.922
 
 
 EPOCH 37 ...
-Validation Accuracy = 0.952
+Validation Accuracy = 0.959
+Model saved for accuracy: 0.9591836786053889
 
 
 EPOCH 38 ...
-Validation Accuracy = 0.936
+Validation Accuracy = 0.960
+Model saved for accuracy: 0.9596371915605333
 
 
 EPOCH 39 ...
-Validation Accuracy = 0.933
+Validation Accuracy = 0.950
 
 
 EPOCH 40 ...
-Validation Accuracy = 0.939
+Validation Accuracy = 0.928
 
 
 EPOCH 41 ...
-Validation Accuracy = 0.937
+Validation Accuracy = 0.951
 
 
 EPOCH 42 ...
-Validation Accuracy = 0.932
+Validation Accuracy = 0.957
 
 
 EPOCH 43 ...
-Validation Accuracy = 0.938
+Validation Accuracy = 0.956
 
 
 EPOCH 44 ...
-Validation Accuracy = 0.942
+Validation Accuracy = 0.960
+Model saved for accuracy: 0.9600907099219947
 
 
 EPOCH 45 ...
-Validation Accuracy = 0.957
-Model saved for accuracy: 0.9573696159721773
+Validation Accuracy = 0.959
 
 
 EPOCH 46 ...
-Validation Accuracy = 0.936
-
-
-EPOCH 47 ...
-Validation Accuracy = 0.937
-
-
-EPOCH 48 ...
 Validation Accuracy = 0.952
 
 
+EPOCH 47 ...
+Validation Accuracy = 0.947
+
+
+EPOCH 48 ...
+Validation Accuracy = 0.954
+
+
 EPOCH 49 ...
-Validation Accuracy = 0.935
+Validation Accuracy = 0.967
+Model saved for accuracy: 0.9673469455874696
 
 
 EPOCH 50 ...
-Validation Accuracy = 0.914
+Validation Accuracy = 0.956
 
 INFO:tensorflow:Restoring parameters from ./lenet
 Test Accuracy = 0.940
@@ -442,10 +444,10 @@ Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Speed limit (50km/h)      		| Speed limit (30km/h)   									| 
+| Speed limit (50km/h)      		| Speed limit (50km/h)   									| 
 | No passing     			| No passing 										|
 | Road work					| Road work											|
-| Road narrows on the right      		| Road narrows on the right					 				|
+| Road narrows on the right      		| General caution					 				|
 | Double curve			| Double curve      							|
 | Speed limit (70km/h)      		| Speed limit (80km/h) | 
 | Yield     			| Yield 										|
@@ -463,11 +465,12 @@ The model was able to correctly guess 6 out of 11 traffic signs, which gives an 
 
 Expected label for a sign #0: Speed limit (50km/h)
 
-Selected label: Speed limit (30km/h) [INCORRECT]
+Selected label: Speed limit (50km/h) [CORRECT]
 
-Predicted labels: ['Speed limit (30km/h)', 'Speed limit (50km/h)', 'Road work', 'Speed limit (60km/h)', 'Speed limit (80km/h)']
+Predicted labels: ['Speed limit (50km/h)', 'Speed limit (30km/h)', 'Speed limit (80km/h)', 'Speed limit (60km/h)', 'Turn right ahead']
 
-SoftMax Probabilities:  0.694460 0.305537 0.000002 0.000000 0.000000
+SoftMax Probabilities:  0.881826 0.118121 0.000053 0.000000 0.000000
+
 
 IMAGE 1: as you can see the model categorized this road sign incorrectly - "Speed limit (30km/h)" instead of "Speed limit (50km/h)". The correct label, though, is pointed by the model as the second highest option.
 
@@ -477,7 +480,7 @@ Expected label for a sign #1: No passing
 
 Selected label: No passing [CORRECT]
 
-Predicted labels: ['No passing', 'No passing for vehicles over 3.5 metric tons', 'No vehicles', 'Dangerous curve to the left', 'Slippery road']
+Predicted labels: ['No passing', 'No passing for vehicles over 3.5 metric tons', 'Slippery road', 'Speed limit (60km/h)', 'Ahead only']
 
 SoftMax Probabilities:  1.000000 0.000000 0.000000 0.000000 0.000000
 
@@ -490,26 +493,24 @@ Expected label for a sign #2: Road work
 
 Selected label: Road work [CORRECT]
 
-Predicted labels: ['Road work', 'Children crossing', 'Beware of ice/snow', 'Priority road', 'Speed limit (60km/h)']
+Predicted labels: ['Road work', 'End of speed limit (80km/h)', 'General caution', 'Speed limit (30km/h)', 'End of no passing']
 
 SoftMax Probabilities:  1.000000 0.000000 0.000000 0.000000 0.000000
 
 IMAGE 3: based on softmax prob, model is pretty sure that it is right in this particular case.
 
 
-
 ![alt text][image7]
 
 Expected label for a sign #3: Road narrows on the right
 
-Selected label: Road narrows on the right [CORRECT]
+Selected label: General caution [INCORRECT]
 
-Predicted labels: ['Road narrows on the right', 'Speed limit (20km/h)', 'General caution', 'Traffic signals', 'Bicycles crossing']
+Predicted labels: ['General caution', 'Speed limit (30km/h)', 'Speed limit (70km/h)', 'No entry', 'Traffic signals']
 
-SoftMax Probabilities:  0.607687 0.392025 0.000237 0.000026 0.000017
+SoftMax Probabilities:  1.000000 0.000000 0.000000 0.000000 0.000000
 
-IMAGE 4: based on softmax prob, model selected the highest probable option but there is also second option (incorrect one) with high probability.
-
+IMAGE 4: based on softmax prob, model incorrect doesn't show a correct label with the 5 highest ones.
 
 
 ![alt text][image8]
@@ -518,9 +519,9 @@ Expected label for a sign #4: Double curve
 
 Selected label: Double curve [CORRECT]
 
-Predicted labels: ['Double curve', 'Right-of-way at the next intersection', 'Beware of ice/snow', 'Slippery road', 'Bicycles crossing']
+Predicted labels: ['Double curve', 'Beware of ice/snow', 'Right-of-way at the next intersection', 'Road work', 'Road narrows on the right']
 
-SoftMax Probabilities:  0.999964 0.000020 0.000016 0.000000 0.000000
+SoftMax Probabilities:  0.999042 0.000787 0.000144 0.000016 0.000007
 
 IMAGE 5: based on softmax prob, model is pretty sure that it is right in this particular case.
 
@@ -529,13 +530,13 @@ IMAGE 5: based on softmax prob, model is pretty sure that it is right in this pa
 
 Expected label for a sign #5: Speed limit (70km/h)
 
-Selected label: Speed limit (80km/h) [INCORRECT]
+Selected label: Dangerous curve to the left [INCORRECT]
 
-Predicted labels: ['Speed limit (80km/h)', 'Right-of-way at the next intersection', 'Go straight or right', 'Ahead only', 'Speed limit (60km/h)']
+Predicted labels: ['Dangerous curve to the left', 'Speed limit (70km/h)', 'No passing', 'Traffic signals', 'Turn right ahead']
 
-SoftMax Probabilities:  0.991463 0.003396 0.003385 0.000765 0.000595
+SoftMax Probabilities:  0.772409 0.156971 0.070562 0.000058 0.000000
 
-IMAGE 6: based on softmax prob, model is pretty sure that this label is a correct one for this image.
+IMAGE 6: based on softmax prob, model is pretty sure about "Dangerous curve to the left" label. The correct label is on the second position.
 
 
 ![alt text][image10]
@@ -550,6 +551,7 @@ SoftMax Probabilities:  1.000000 0.000000 0.000000 0.000000 0.000000
 
 IMAGE 7: based on softmax prob, model is pretty sure that it is right in this particular case.
 
+
 ![alt text][image11]
 
 Expected label for a sign #7: No entry
@@ -559,7 +561,6 @@ Selected label: Priority road [INCORRECT]
 Predicted labels: ['Priority road', 'No passing for vehicles over 3.5 metric tons', 'Road work', 'No vehicles', 'End of no passing by vehicles over 3.5 metric tons']
 
 SoftMax Probabilities:  1.000000 0.000000 0.000000 0.000000 0.000000
-
 
 
 ![alt text][image12]
