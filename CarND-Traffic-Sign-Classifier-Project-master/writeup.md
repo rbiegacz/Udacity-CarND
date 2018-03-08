@@ -214,7 +214,7 @@ Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Speed limit (50km/h)      		| Slippery road   									| 
+| Speed limit (50km/h)      		| Speed limit (30km/h)   									| 
 | No passing     			| No passing 										|
 | Road work					| Road work											|
 | Road narrows on the right      		| Speed limit (20km/h)					 				|
@@ -231,68 +231,107 @@ The model was able to correctly guess 4 of the 5 traffic signs, which gives an a
 
 #### 3. Below you can find 5 highest probable lables predicted by the model for test images.
 
+![alt text][image4]
+
 Expected label for a sign #0: Speed limit (50km/h)
-Predicted labels:
-['Speed limit (30km/h)', 'Speed limit (50km/h)', 'Road work', 'Speed limit (60km/h)', 'Speed limit (80km/h)']
-0.694460 0.305537 0.000002 0.000000 0.000000
-Selected label: Speed limit (30km/h)
+
+Selected label: Speed limit (30km/h) [INCORRECT]
+
+Predicted labels: ['Speed limit (30km/h)', 'Speed limit (50km/h)', 'Road work', 'Speed limit (60km/h)', 'Speed limit (80km/h)']
+
+SoftMax Probabilities:  0.694460 0.305537 0.000002 0.000000 0.000000
 
 IMAGE 1: as you can see the model categorized this road sign incorrectly - "Speed limit (30km/h)" instead of "Speed limit (50km/h)". The correct label, though, is pointed by the model as the second highest option.
 
+![alt text][image5]
 
 Expected label for a sign #1: No passing
-Predicted labels:
-['No passing', 'No passing for vehicles over 3.5 metric tons', 'No vehicles', 'Dangerous curve to the left', 'Slippery road']
-1.000000 0.000000 0.000000 0.000000 0.000000
-Selected label: No passing
+
+Selected label: No passing [CORRECT]
+
+Predicted labels: ['No passing', 'No passing for vehicles over 3.5 metric tons', 'No vehicles', 'Dangerous curve to the left', 'Slippery road']
+
+SoftMax Probabilities:  1.000000 0.000000 0.000000 0.000000 0.000000
+
+IMAGE 2: based on softmax prob, model is pretty sure that it is right in this particular case.
 
 
+![alt text][image6]
 
 Expected label for a sign #2: Road work
-Predicted labels:
-['Road work', 'Children crossing', 'Beware of ice/snow', 'Priority road', 'Speed limit (60km/h)']
-1.000000 0.000000 0.000000 0.000000 0.000000
-Selected label: Road work
+
+Selected label: Road work [CORRECT]
+
+Predicted labels: ['Road work', 'Children crossing', 'Beware of ice/snow', 'Priority road', 'Speed limit (60km/h)']
+
+SoftMax Probabilities:  1.000000 0.000000 0.000000 0.000000 0.000000
+
+IMAGE 3: based on softmax prob, model is pretty sure that it is right in this particular case.
 
 
+
+![alt text][image7]
 
 Expected label for a sign #3: Road narrows on the right
-Predicted labels:
-['Road narrows on the right', 'Speed limit (20km/h)', 'General caution', 'Traffic signals', 'Bicycles crossing']
-0.607687 0.392025 0.000237 0.000026 0.000017
-Selected label: Road narrows on the right
+
+Selected label: Road narrows on the right [CORRECT]
+
+Predicted labels: ['Road narrows on the right', 'Speed limit (20km/h)', 'General caution', 'Traffic signals', 'Bicycles crossing']
+
+SoftMax Probabilities:  0.607687 0.392025 0.000237 0.000026 0.000017
+
+IMAGE 4: based on softmax prob, model selected the highest probable option but there is also second option (incorrect one) with high probability.
 
 
+
+![alt text][image8]
 
 Expected label for a sign #4: Double curve
-Predicted labels:
-['Double curve', 'Right-of-way at the next intersection', 'Beware of ice/snow', 'Slippery road', 'Bicycles crossing']
-0.999964 0.000020 0.000016 0.000000 0.000000
-Selected label: Double curve
+
+Selected label: Double curve [CORRECT]
+
+Predicted labels: ['Double curve', 'Right-of-way at the next intersection', 'Beware of ice/snow', 'Slippery road', 'Bicycles crossing']
+
+SoftMax Probabilities:  0.999964 0.000020 0.000016 0.000000 0.000000
+
+IMAGE 5: based on softmax prob, model is pretty sure that it is right in this particular case.
 
 
+![alt text][image9]
 
 Expected label for a sign #5: Speed limit (70km/h)
-Predicted labels:
-['Speed limit (80km/h)', 'Right-of-way at the next intersection', 'Go straight or right', 'Ahead only', 'Speed limit (60km/h)']
-0.991463 0.003396 0.003385 0.000765 0.000595
-Selected label: Speed limit (80km/h)
+
+Selected label: Speed limit (80km/h) [INCORRECT]
+
+Predicted labels: ['Speed limit (80km/h)', 'Right-of-way at the next intersection', 'Go straight or right', 'Ahead only', 'Speed limit (60km/h)']
+
+SoftMax Probabilities:  0.991463 0.003396 0.003385 0.000765 0.000595
+
+IMAGE 6: based on softmax prob, model is pretty sure that this label is a correct one for this image.
 
 
+![alt text][image10]
 
 Expected label for a sign #6: Yield
-Predicted labels:
-['Yield', 'No vehicles', 'No passing', 'Speed limit (30km/h)', 'Speed limit (60km/h)']
-1.000000 0.000000 0.000000 0.000000 0.000000
-Selected label: Yield
 
+Selected label: Yield [CORRECT]
 
+Predicted labels: ['Yield', 'No vehicles', 'No passing', 'Speed limit (30km/h)', 'Speed limit (60km/h)']
+
+SoftMax Probabilities:  1.000000 0.000000 0.000000 0.000000 0.000000
+
+IMAGE 7: based on softmax prob, model is pretty sure that it is right in this particular case.
+
+![alt text][image11]
 
 Expected label for a sign #7: No entry
-Predicted labels:
-['Priority road', 'No passing for vehicles over 3.5 metric tons', 'Road work', 'No vehicles', 'End of no passing by vehicles over 3.5 metric tons']
-1.000000 0.000000 0.000000 0.000000 0.000000
-Selected label: Priority road
+
+Selected label: Priority road [INCORRECT]
+
+Predicted labels: ['Priority road', 'No passing for vehicles over 3.5 metric tons', 'Road work', 'No vehicles', 'End of no passing by vehicles over 3.5 metric tons']
+
+SoftMax Probabilities:  1.000000 0.000000 0.000000 0.000000 0.000000
+
 
 
 ![alt text][image12]
@@ -318,6 +357,7 @@ Predicted labels: ['Roundabout mandatory', 'Beware of ice/snow', 'Right-of-way a
 
 SoftMax Probabilities: 1.000000 0.000000 0.000000 0.000000 0.000000
 
+IMAGE 10: based on softmax prob, model is pretty sure that it is right in this particular case.
 
 ![alt text][image14]
 
@@ -328,5 +368,6 @@ Selected label: Speed limit (30km/h) [INCORRECT]
 Predicted labels: ['Speed limit (30km/h)', 'Speed limit (20km/h)', 'Yield', 'Speed limit (50km/h)', 'End of all speed and passing limits']
 
 SoftMax Probabilities: 1.000000 0.000000 0.000000 0.000000 0.000000
+
 
 
