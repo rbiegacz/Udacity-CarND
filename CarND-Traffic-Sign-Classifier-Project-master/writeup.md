@@ -304,20 +304,24 @@ Selected label: No entry
 
 
 
+![alt text][image13]
+
 Expected label for a sign #9: Roundabout mandatory
-Predicted labels:
-['Roundabout mandatory', 'Beware of ice/snow', 'Right-of-way at the next intersection', 'Speed limit (100km/h)', 'Speed limit (30km/h)']
-1.000000 0.000000 0.000000 0.000000 0.000000
+
 Selected label: Roundabout mandatory
 
+Predicted labels: ['Roundabout mandatory', 'Beware of ice/snow', 'Right-of-way at the next intersection', 'Speed limit (100km/h)', 'Speed limit (30km/h)']
+SoftMax Probabilities: 1.000000 0.000000 0.000000 0.000000 0.000000
 
+
+![alt text][image14]
 
 Expected label for a sign #10: Speed limit (70km/h)
 
-Predicted labels:
-
-['Speed limit (30km/h)', 'Speed limit (20km/h)', 'Yield', 'Speed limit (50km/h)', 'End of all speed and passing limits']
-
-1.000000 0.000000 0.000000 0.000000 0.000000
-
 Selected label: Speed limit (30km/h)
+
+Predicted labels: ['Speed limit (30km/h)', 'Speed limit (20km/h)', 'Yield', 'Speed limit (50km/h)', 'End of all speed and passing limits']
+
+SoftMax Probabilities: 1.000000 0.000000 0.000000 0.000000 0.000000
+
+
