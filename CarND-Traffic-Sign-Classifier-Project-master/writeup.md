@@ -152,9 +152,9 @@ I decided to use normalized color pictures of road signs so all pixel values for
 I decided not to convert to gray scale. Reduction to gray scale would allow to build smaller (from weights perspective) network that could be tought faster. The speed of learning wasn't an issue, though, in this particular case.
 
 #### My final model consisted of the following layers:
-| Layer         		|     Description	        					| 
+| Layer         		|     Details	        					| Output |
 |:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
+| Input         		| n/a | 32x32x3 RGB image |
 | Convolutional | filter 6 with 1x1 stride | outputs (?, 27, 27, 64) |
 | Max Pooling | with stride 2x2 | outputs (?, 13, 13, 64) |
 | Convolutional | filter 4 with 1x1 stride | outputs (?, 10, 10, 32) |
