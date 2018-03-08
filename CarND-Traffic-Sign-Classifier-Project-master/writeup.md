@@ -313,7 +313,11 @@ Selected label: Roundabout mandatory
 
 
 Expected label for a sign #10: Speed limit (70km/h)
+
 Predicted labels:
+
 ['Speed limit (30km/h)', 'Speed limit (20km/h)', 'Yield', 'Speed limit (50km/h)', 'End of all speed and passing limits']
+
 1.000000 0.000000 0.000000 0.000000 0.000000
+
 Selected label: Speed limit (30km/h)
