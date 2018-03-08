@@ -178,12 +178,17 @@ I decided not to convert to gray scale. Reduction to gray scale would allow to b
 
 4. Optimizer: [Adaptive Moment Estimation](http://ruder.io/optimizing-gradient-descent/index.html#adam) was used while training the network
 
-####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+#### 4. Final model and steps that led to it
 
-My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+To find the best model I did experimentation around:
+
+1. Different sizes of filters used by convolutional networks. The best results were achieved when filter size was 5 or 6.
+
+2. Different values of learning rate was tested from the range 0.001 to 0.0001. The value 0.005 seem to give the best results.
+
+4. When it comes to number of epochs - in all cases, running more than 50 epochs didn't give better results then results achieved within first 50 epochs - that's why finally the maximum number of epochs used while learning was set to 50.
+
+5. During the training, the algorithm saves the model paramters that give the best accuracy for validation set. It can happen in an epoch between epoch #1 and epoc #50. An example of training session could be seen below. 
 
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
@@ -197,6 +202,229 @@ If a well known architecture was chosen:
 * Why did you believe it would be relevant to the traffic sign application?
 * How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
  
+
+#### 5. Final Model Result
+
+My final model results were:
+* validation set accuracy of 95.7%
+* test set accuracy of 94%
+
+Training...
+
+EPOCH 1 ...
+Validation Accuracy = 0.801
+Model saved for accuracy: 0.8006802718925908
+
+
+EPOCH 2 ...
+Validation Accuracy = 0.871
+Model saved for accuracy: 0.8712018136264515
+
+
+EPOCH 3 ...
+Validation Accuracy = 0.889
+Model saved for accuracy: 0.8891156517188835
+
+
+EPOCH 4 ...
+Validation Accuracy = 0.896
+Model saved for accuracy: 0.8961451264465747
+
+
+EPOCH 5 ...
+Validation Accuracy = 0.896
+
+
+EPOCH 6 ...
+Validation Accuracy = 0.914
+Model saved for accuracy: 0.9136054475291245
+
+
+EPOCH 7 ...
+Validation Accuracy = 0.898
+
+
+EPOCH 8 ...
+Validation Accuracy = 0.926
+Model saved for accuracy: 0.9258503446232975
+
+
+EPOCH 9 ...
+Validation Accuracy = 0.927
+Model saved for accuracy: 0.9274376460484096
+
+
+EPOCH 10 ...
+Validation Accuracy = 0.924
+
+
+EPOCH 11 ...
+Validation Accuracy = 0.928
+Model saved for accuracy: 0.9283446760134362
+
+
+EPOCH 12 ...
+Validation Accuracy = 0.926
+
+
+EPOCH 13 ...
+Validation Accuracy = 0.932
+Model saved for accuracy: 0.9315192761605018
+
+
+EPOCH 14 ...
+Validation Accuracy = 0.935
+Model saved for accuracy: 0.9353741518223907
+
+
+EPOCH 15 ...
+Validation Accuracy = 0.902
+
+
+EPOCH 16 ...
+Validation Accuracy = 0.926
+
+
+EPOCH 17 ...
+Validation Accuracy = 0.926
+
+
+EPOCH 18 ...
+Validation Accuracy = 0.930
+
+
+EPOCH 19 ...
+Validation Accuracy = 0.920
+
+
+EPOCH 20 ...
+Validation Accuracy = 0.946
+Model saved for accuracy: 0.9462585046448134
+
+
+EPOCH 21 ...
+Validation Accuracy = 0.943
+
+
+EPOCH 22 ...
+Validation Accuracy = 0.941
+
+
+EPOCH 23 ...
+Validation Accuracy = 0.936
+
+
+EPOCH 24 ...
+Validation Accuracy = 0.937
+
+
+EPOCH 25 ...
+Validation Accuracy = 0.944
+
+
+EPOCH 26 ...
+Validation Accuracy = 0.953
+Model saved for accuracy: 0.9526077143999995
+
+
+EPOCH 27 ...
+Validation Accuracy = 0.942
+
+
+EPOCH 28 ...
+Validation Accuracy = 0.936
+
+
+EPOCH 29 ...
+Validation Accuracy = 0.936
+
+
+EPOCH 30 ...
+Validation Accuracy = 0.925
+
+
+EPOCH 31 ...
+Validation Accuracy = 0.924
+
+
+EPOCH 32 ...
+Validation Accuracy = 0.938
+
+
+EPOCH 33 ...
+Validation Accuracy = 0.934
+
+
+EPOCH 34 ...
+Validation Accuracy = 0.937
+
+
+EPOCH 35 ...
+Validation Accuracy = 0.933
+
+
+EPOCH 36 ...
+Validation Accuracy = 0.942
+
+
+EPOCH 37 ...
+Validation Accuracy = 0.952
+
+
+EPOCH 38 ...
+Validation Accuracy = 0.936
+
+
+EPOCH 39 ...
+Validation Accuracy = 0.933
+
+
+EPOCH 40 ...
+Validation Accuracy = 0.939
+
+
+EPOCH 41 ...
+Validation Accuracy = 0.937
+
+
+EPOCH 42 ...
+Validation Accuracy = 0.932
+
+
+EPOCH 43 ...
+Validation Accuracy = 0.938
+
+
+EPOCH 44 ...
+Validation Accuracy = 0.942
+
+
+EPOCH 45 ...
+Validation Accuracy = 0.957
+Model saved for accuracy: 0.9573696159721773
+
+
+EPOCH 46 ...
+Validation Accuracy = 0.936
+
+
+EPOCH 47 ...
+Validation Accuracy = 0.937
+
+
+EPOCH 48 ...
+Validation Accuracy = 0.952
+
+
+EPOCH 49 ...
+Validation Accuracy = 0.935
+
+
+EPOCH 50 ...
+Validation Accuracy = 0.914
+
+INFO:tensorflow:Restoring parameters from ./lenet
+Test Accuracy = 0.940
 
 ### Testing Model on New Images
 
@@ -217,17 +445,17 @@ Here are the results of the prediction:
 | Speed limit (50km/h)      		| Speed limit (30km/h)   									| 
 | No passing     			| No passing 										|
 | Road work					| Road work											|
-| Road narrows on the right      		| Speed limit (20km/h)					 				|
+| Road narrows on the right      		| Road narrows on the right					 				|
 | Double curve			| Double curve      							|
-| Speed limit (70km/h)      		| Speed limit (70km/h) | 
+| Speed limit (70km/h)      		| Speed limit (80km/h) | 
 | Yield     			| Yield 										|
 | No Entry				| Priority road |
 | Stop      		| No entry					 				|
 | Roundabout mandatory			| Roundabout mandatory							|
-| Speed limit (70km/h)      		| Yield   									| 
+| Speed limit (70km/h)      		| Speed limit (30km/h)   									| 
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 6 out of 11 traffic signs, which gives an accuracy of 63.6%. This is worse compared to accuracy achieved for test test. 
 
 #### 3. Below you can find 5 highest probable lables predicted by the model for test images.
 
@@ -345,8 +573,6 @@ Predicted labels: ['No entry', 'Stop', 'Dangerous curve to the right', 'Slippery
 SoftMax Probabilities: 1.000000 0.000000 0.000000 0.000000 0.000000
 
 
-
-
 ![alt text][image13]
 
 Expected label for a sign #9: Roundabout mandatory
@@ -359,6 +585,7 @@ SoftMax Probabilities: 1.000000 0.000000 0.000000 0.000000 0.000000
 
 IMAGE 10: based on softmax prob, model is pretty sure that it is right in this particular case.
 
+
 ![alt text][image14]
 
 Expected label for a sign #10: Speed limit (70km/h)
@@ -368,6 +595,18 @@ Selected label: Speed limit (30km/h) [INCORRECT]
 Predicted labels: ['Speed limit (30km/h)', 'Speed limit (20km/h)', 'Yield', 'Speed limit (50km/h)', 'End of all speed and passing limits']
 
 SoftMax Probabilities: 1.000000 0.000000 0.000000 0.000000 0.000000
+
+IMAGE 11: in this particular case, based on softmax probabilities, the model is pretty sure about selected label.
+
+
+
+#### 4. Summary
+
+The designed model works OK for the training dataset. Its accuracy is higher than 93%.
+
+For randomly selected road sign pictures its accuracy is around 63%.
+
+The reason for that is that the data used to train the model doesn't include all the possible pictures. As the next step I would augment the training data with the pictures for which model doesn't perform as expected.
 
 
 
