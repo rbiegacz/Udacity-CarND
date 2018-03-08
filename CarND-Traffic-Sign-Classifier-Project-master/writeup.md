@@ -152,20 +152,20 @@ I decided to use normalized color pictures of road signs so all pixel values for
 I decided not to convert to gray scale. Reduction to gray scale would allow to build smaller (from weights perspective) network that could be tought faster. The speed of learning wasn't an issue, though, in this particular case.
 
 #### My final model consisted of the following layers:
-
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 32x32x3 RGB image   							| 
-| Convolution 5x5     	| 1x1 stride, same padding, outputs 32x32x64 	|
-| RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 5x5     	| 1x1 stride, same padding, outputs 32x32x64 	|
-| RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Fully Connected Layer | | 
-| Fully Connected Layer | | 
-| Fully Connected Layer | | 
- 
+| Convolutional | filter 6 with 1x1 stride | outputs (?, 27, 27, 64) |
+| Max Pooling | with stride 2x2 | outputs (?, 13, 13, 64) |
+| Convolutional | filter 4 with 1x1 stride | outputs (?, 10, 10, 32) |
+| Max Pooling | with 2x2 stride | outputs (?, 5, 5, 32) |
+| Flattening | n/a | outputs (?, 800) |
+| Fully Connected (Dense) | n/a | outputs (?, 688) |
+| Fully Connected (Dense) | n/a | outputs (?, 344) |
+| Dropout | dropout rate 0.8 | outputs (?, 344) |
+| Fully Connected (Dense)| n/a | outputs (?, 86) |
+| Dropout | dropout rate 0.8 | outputs (?, 86) |
+| Logits | n/a | outputs (?, 43) |
 
 
 #### 3. Hyperparameters used to achieve a model with accuracy higher than 95#
