@@ -459,6 +459,8 @@ Here are the results of the prediction:
 
 The model was able to correctly guess 6 out of 11 traffic signs, which gives an accuracy of 63.6%. This is worse compared to accuracy achieved for test test. 
 
+What's interesting - if we take into account Top#5 labels for each sign then 9 answers out of 11 would be correct. Which is a little bit closer to accuracy for test set.
+
 #### 3. Below you can find 5 highest probable lables predicted by the model for test images.
 
 ![alt text][image4]
