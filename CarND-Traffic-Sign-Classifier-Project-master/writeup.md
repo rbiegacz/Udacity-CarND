@@ -442,19 +442,19 @@ The road signs presented on real pictures were much simpler to recognize by the 
 
 Here are the results of the prediction:
 
-| Image			        |     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Speed limit (50km/h)      		| Speed limit (50km/h)   									| 
-| No passing     			| No passing 										|
-| Road work					| Road work											|
-| Road narrows on the right      		| General caution					 				|
-| Double curve			| Double curve      							|
-| Speed limit (70km/h)      		| Speed limit (80km/h) | 
-| Yield     			| Yield 										|
-| No Entry				| Priority road |
-| Stop      		| No entry					 				|
-| Roundabout mandatory			| Roundabout mandatory							|
-| Speed limit (70km/h)      		| Speed limit (30km/h)   									| 
+| Image			        |     Prediction	        					|  Correct in Top#5 |
+|:---------------------:|:---------------------------------------:|:------:| 
+| Speed limit (50km/h)      		| Speed limit (50km/h)   									|  #1 |
+| No passing     			| No passing 										| #1 |
+| Road work					| Road work											| #1 |
+| Road narrows on the right      		| General caution					 				| no |
+| Double curve			| Double curve      							| #1 |
+| Speed limit (70km/h)      		| Dangerous curve to the left | #2 | 
+| Yield     			| Yield 										| #1 |
+| No Entry				| Priority road | #5 |
+| Stop      		| No entry					 				| #2 |
+| Roundabout mandatory			| Roundabout mandatory | #1 |
+| Speed limit (70km/h)      		| Speed limit (30km/h) | no |
 
 
 The model was able to correctly guess 6 out of 11 traffic signs, which gives an accuracy of 63.6%. This is worse compared to accuracy achieved for test test. 
@@ -545,7 +545,7 @@ Expected label for a sign #6: Yield
 
 Selected label: Yield [CORRECT]
 
-Predicted labels: ['Yield', 'No vehicles', 'No passing', 'Speed limit (30km/h)', 'Speed limit (60km/h)']
+Predicted labels: ['Yield', 'No vehicles', 'Bumpy road', 'Stop', 'Keep left']
 
 SoftMax Probabilities:  1.000000 0.000000 0.000000 0.000000 0.000000
 
@@ -558,10 +558,11 @@ Expected label for a sign #7: No entry
 
 Selected label: Priority road [INCORRECT]
 
-Predicted labels: ['Priority road', 'No passing for vehicles over 3.5 metric tons', 'Road work', 'No vehicles', 'End of no passing by vehicles over 3.5 metric tons']
+Predicted labels: ['Priority road', 'Yield', 'Stop', 'No vehicles', 'No entry']
 
 SoftMax Probabilities:  1.000000 0.000000 0.000000 0.000000 0.000000
 
+Image 8: Model incorrectly classified this road sign. The correct answer in on the list of top #5 labels.
 
 ![alt text][image12]
 
@@ -569,10 +570,11 @@ Expected label for a sign #8: Stop
 
 Selected label: No entry [INCORRECT]
 
-Predicted labels: ['No entry', 'Stop', 'Dangerous curve to the right', 'Slippery road', 'Speed limit (60km/h)']
+Predicted labels: ['No entry', 'Stop', 'End of speed limit (80km/h)', 'Priority road', 'Keep right']
 
 SoftMax Probabilities: 1.000000 0.000000 0.000000 0.000000 0.000000
 
+Image 9: Model incorrectly classified this road sign. The correct answer in mentioned as 2nd option on the top #5 labels.
 
 ![alt text][image13]
 
@@ -580,7 +582,7 @@ Expected label for a sign #9: Roundabout mandatory
 
 Selected label: Roundabout mandatory [CORRECT]
 
-Predicted labels: ['Roundabout mandatory', 'Beware of ice/snow', 'Right-of-way at the next intersection', 'Speed limit (100km/h)', 'Speed limit (30km/h)']
+Predicted labels: ['Roundabout mandatory', 'Beware of ice/snow', 'Keep left', 'Go straight or left', 'General caution']
 
 SoftMax Probabilities: 1.000000 0.000000 0.000000 0.000000 0.000000
 
@@ -593,11 +595,12 @@ Expected label for a sign #10: Speed limit (70km/h)
 
 Selected label: Speed limit (30km/h) [INCORRECT]
 
-Predicted labels: ['Speed limit (30km/h)', 'Speed limit (20km/h)', 'Yield', 'Speed limit (50km/h)', 'End of all speed and passing limits']
+Predicted labels: ['Speed limit (30km/h)', 'Speed limit (50km/h)', 'Speed limit (60km/h)', 'Keep right', 'Yield']
 
-SoftMax Probabilities: 1.000000 0.000000 0.000000 0.000000 0.000000
+SoftMax Probabilities: 0.976876 0.023124 0.000000 0.000000 0.000000
 
-IMAGE 11: in this particular case, based on softmax probabilities, the model is pretty sure about selected label.
+
+IMAGE 11: in this particular case, based on softmax probabilities, the model is pretty sure about selected label. The correct label is not within Top#5
 
 
 
