@@ -56,3 +56,5 @@ windows-sim.zip
 CarND-Advanced-Lane-Lines-master/examples/example.ipynb
 CarND-Advanced-Lane-Lines-master/.ipynb_checkpoints/adv_lane_lines-checkpoint.ipynb
 CarND-Advanced-Lane-Lines-master/__pycache__/adv_lane_lines.cpython-36.pyc
+CarND-Advanced-Lane-Lines-master/__pycache__/searchlines.cpython-36.pyc
+*.pyc
