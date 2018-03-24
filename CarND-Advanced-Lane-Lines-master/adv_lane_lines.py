@@ -50,13 +50,10 @@ class Line():
 
 def camera_calibration(image_folder):
     """
-    This function calibrates camera
-    - image_folder - directory where to find images for calibration
-    return: calibration data: mtx, dist
-
-    Compute the camera calibration matrix and distortion coefficients
+    This function calibrates camera. It computes the camera calibration matrix and distortion coefficients
     given a set of chessboard images.
-
+    :param image_folder: directory where to find images for calibration
+    :return: calibration data: mtx, dist
     """
     object_points = np.zeros((6 * 9, 3), np.float32)
     object_points[:, :2] = np.mgrid[0:9, 0:6].T.reshape(-1, 2)
