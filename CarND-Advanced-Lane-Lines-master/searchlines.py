@@ -30,7 +30,7 @@ class Line:
         # y values for detected line pixels
         self.ally = None
 
-# Edit this function to create your own pipeline.
+
 def thresholds_pipeline(source_dir, target_dir, s_thresh=(170, 255), sx_thresh=(20, 100)):
     """
     This function uses gradients and color maps to extract line features
@@ -65,7 +65,7 @@ def thresholds_pipeline(source_dir, target_dir, s_thresh=(170, 255), sx_thresh=(
         # Note color_binary[:, :, 0] is all 0s, effectively an all black image. It might
         # be beneficial to replace this channel with something else.
         combined_binary = np.zeros_like(sxbinary)
-        combined_binary[(s_binary == 1) & (sxbinary == 1)] = 1
+        combined_binary[(s_binary == 1) | (sxbinary == 1)] = 1
         gray_binary = np.dstack((combined_binary, combined_binary, combined_binary)) * 255
         file_to_write = target_dir+'/lines_'+file.split('\\')[-1]
         cv2.imwrite(file_to_write, gray_binary)
@@ -80,8 +80,8 @@ def detect_lane_lines():
     """
     files_to_transform = glob("output_images/warped_lines_*.jpg")
     for file in files_to_transform:
-        result = search_for_lines(file)
-        file_to_write = 'output_images/per_warped_lines_'+file.split('\\')[-1]
+        result, output = search_for_lines(file)
+        file_to_write = 'output_images/per_'+file.split('\\')[-1]
         cv2.imwrite(file_to_write, result)
 
 
@@ -93,9 +93,10 @@ def search_for_lines(file_image):
     """
     # Assuming you have created a warped binary image called "binary_warped"
     binary_warped = cv2.imread(file_image)
+    binary_warped = cv2.cvtColor(binary_warped, cv2.COLOR_BGR2GRAY)
 
     # Take a histogram of the bottom half of the image
-    histogram = np.sum(binary_warped[binary_warped.shape[0]/2:, :], axis=0)
+    histogram = np.sum(binary_warped[int(binary_warped.shape[0]/2):, :], axis=0)
     # Create an output image to draw on and  visualize the result
     out_img = np.dstack((binary_warped, binary_warped, binary_warped))*255
     # Find the peak of the left and right halves of the histogram
@@ -126,17 +127,16 @@ def search_for_lines(file_image):
     # Step through the windows one by one
     for window in range(nwindows):
         # Identify window boundaries in x and y (and right and left)
-        win_y_low = binary_warped.shape[0] - (window+1)*window_height
-        win_y_high = binary_warped.shape[0] - window*window_height
-        win_xleft_low = leftx_current - margin
-        win_xleft_high = leftx_current + margin
-        win_xright_low = rightx_current - margin
-        win_xright_high = rightx_current + margin
+        win_y_low = int(binary_warped.shape[0] - (window+1)*window_height)
+        win_y_high = int(binary_warped.shape[0] - window*window_height)
+        win_xleft_low = int(leftx_current - margin)
+        win_xleft_high = int(leftx_current + margin)
+        win_xright_low = int(rightx_current - margin)
+        win_xright_high = int(rightx_current + margin)
         # Draw the windows on the visualization image
-        cv2.rectangle(out_img, (win_xleft_low, win_y_low),
-                      (win_xleft_high, win_y_high), (0, 255, 0), 2)
-        cv2.rectangle(out_img, (win_xright_low, win_y_low),
-                      (win_xright_high, win_y_high), (0, 255, 0), 2)
+        line_color = (0, 255, 0)
+        cv2.rectangle(out_img, (win_xleft_low, win_y_low), (win_xleft_high, win_y_high), line_color, 2)
+        cv2.rectangle(out_img, (win_xright_low, win_y_low), (win_xright_high, win_y_high), line_color, 2)
         # Identify the nonzero pixels in x and y within the window
         good_left_inds = ((nonzeroy >= win_y_low) & (nonzeroy < win_y_high) &
                           (nonzerox >= win_xleft_low) & (nonzerox < win_xleft_high)).nonzero()[0]
@@ -235,4 +235,13 @@ def search_for_lines(file_image):
     #plt.plot(right_fitx, ploty, color='yellow')
     #plt.xlim(0, 1280)
     #plt.ylim(720, 0)
-    return result
+    output = {}
+    output['left_fit'] = left_fit
+    output['right_fit'] = right_fit
+    output['nonzerox'] = nonzerox
+    output['nonzeroy'] = nonzeroy
+    output['out_img'] = result
+    output['left_lane_inds'] = left_lane_inds
+    output['right_lane_inds'] = right_lane_inds
+
+    return result, output
