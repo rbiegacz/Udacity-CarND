@@ -1,6 +1,8 @@
 """ This progam implements Udacity Advanced Lane Lines project """
 # imports
 
+# pylint: disable = C0321
+
 from glob import glob
 import numpy as np
 
@@ -10,18 +12,16 @@ import cv2
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
-#from keras.layers.convolutional import Convolution2D
-#from keras.layers.core import Activation, Dropout
-#from keras.layers.normalization import BatchNormalization
-#from keras.models import Sequential, model_from_json
-#from keras.regularizers import l2
-
-#from moviepy.editor import VideoFileClip
-
-#import tensorflow as tf
+# from keras.layers.convolutional import Convolution2D
+# from keras.layers.core import Activation, Dropout
+# from keras.layers.normalization import BatchNormalization
+# from keras.models import Sequential, model_from_json
+# from keras.regularizers import l2
+# from moviepy.editor import VideoFileClip
+# import tensorflow as tf
 
 
-class Line():
+class Line:
     """
     this class stores information about a line
     """
@@ -30,21 +30,21 @@ class Line():
         self.detected = False
         # x values of the last n fits of the line
         self.recent_xfitted = []
-        #average x values of the fitted line over the last n iterations
+        # average x values of the fitted line over the last n iterations
         self.bestx = None
-        #polynomial coefficients averaged over the last n iterations
+        # polynomial coefficients averaged over the last n iterations
         self.best_fit = None
-        #polynomial coefficients for the most recent fit
+        # polynomial coefficients for the most recent fit
         self.current_fit = [np.array([False])]
-        #radius of curvature of the line in some units
+        # radius of curvature of the line in some units
         self.radius_of_curvature = None
-        #distance in meters of vehicle center from the line
+        # distance in meters of vehicle center from the line
         self.line_base_pos = None
-        #difference in fit coefficients between last and new fits
+        # difference in fit coefficients between last and new fits
         self.diffs = np.array([0, 0, 0], dtype='float')
-        #x values for detected line pixels
+        # x values for detected line pixels
         self.allx = None
-        #y values for detected line pixels
+        # y values for detected line pixels
         self.ally = None
 
 
@@ -96,7 +96,6 @@ def distortion_correction(calibration, dir_distorted_images, dir_output_images):
         dst_img = cv2.undistort(img, calibration[0], calibration[1], None, calibration[0])
         file_to_write = dir_output_images+'/'+file.split('\\')[-1]
         cv2.imwrite(file_to_write, dst_img)
-
     return
 
 
@@ -116,7 +115,7 @@ def determine_lane_curvature():
 
 
 # Edit this function to create your own pipeline.
-def color_gradient_thresholds_pipeline(img, s_thresh=(170, 255), sx_thresh=(20, 100)):
+def color_gradient_thresholds_pipeline(source_dir, target_dir, s_thresh=(170, 255), sx_thresh=(20, 100)):
     """
     This function this TBD
     :param img: image to process
@@ -124,34 +123,36 @@ def color_gradient_thresholds_pipeline(img, s_thresh=(170, 255), sx_thresh=(20, 
     :param sx_thresh: Sobel X transformation
     :return: processed image
     """
-    img = np.copy(img)
-    # Convert to HLS color space and separate the V channel
-    hls = cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
-    hls = hls.astype(np.float)
-    l_channel = hls[:, :, 1]
-    s_channel = hls[:, :, 2]
-    # Threshold color channel
-    s_binary = np.zeros_like(s_channel)
-    s_binary[(s_channel >= s_thresh[0]) & (s_channel <= s_thresh[1])] = 1
+    files_to_transform = glob("{}/*.jpg".format(source_dir))
+    for file in files_to_transform:
+        img = cv2.imread(file)
+        # Convert to HLS color space and separate the V channel
+        hls = cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
+        hls = hls.astype(np.float)
+        s_channel = hls[:, :, 2]
+        # Threshold color channel
+        s_binary = np.zeros_like(s_channel)
+        s_binary[(s_channel >= s_thresh[0]) & (s_channel <= s_thresh[1])] = 1
 
-    # Sobel x for a grayed image
-    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-    # sobelx = cv2.Sobel(l_channel, cv2.CV_64F, 1, 0)  # Take the derivative in x
-    sobelx = cv2.Sobel(gray, cv2.CV_64F, 1, 0)  # Take the derivative in x
-    abs_sobelx = np.absolute(sobelx)  # Absolute x derivative to accentuate lines away from horizontal
-    scaled_sobel = np.uint8(255 * abs_sobelx / np.max(abs_sobelx))
-    # Threshold x gradient
-    sxbinary = np.zeros_like(scaled_sobel)
-    sxbinary[(scaled_sobel >= sx_thresh[0]) & (scaled_sobel <= sx_thresh[1])] = 1
+        # Sobel x for a grayed image
+        gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+        # sobelx = cv2.Sobel(l_channel, cv2.CV_64F, 1, 0)  # Take the derivative in x
+        sobelx = cv2.Sobel(gray, cv2.CV_64F, 1, 0)  # Take the derivative in x
+        abs_sobelx = np.absolute(sobelx)  # Absolute x derivative to accentuate lines away from horizontal
+        scaled_sobel = np.uint8(255 * abs_sobelx / np.max(abs_sobelx))
+        # Threshold x gradient
+        sxbinary = np.zeros_like(scaled_sobel)
+        sxbinary[(scaled_sobel >= sx_thresh[0]) & (scaled_sobel <= sx_thresh[1])] = 1
 
-    # Stack each channel
-    # Note color_binary[:, :, 0] is all 0s, effectively an all black image. It might
-    # be beneficial to replace this channel with something else.
-    combined_binary = np.zeros_like(sxbinary)
-    gray_binary = combined_binary[(s_binary == 1) & (sxbinary == 1)] = 1
-    gray_binary = np.dstack((sxbinary, sxbinary, sxbinary)) * 255
-    color_binary = np.dstack(( combined_binary, sxbinary, s_binary)) * 255
-    return gray_binary
+        # Stack each channel
+        # Note color_binary[:, :, 0] is all 0s, effectively an all black image. It might
+        # be beneficial to replace this channel with something else.
+        combined_binary = np.zeros_like(sxbinary)
+        combined_binary[(s_binary == 1) & (sxbinary == 1)] = 1
+        gray_binary = np.dstack((combined_binary, sxbinary, sxbinary)) * 255
+        file_to_write = target_dir+'/lines_'+file.split('\\')[-1]
+        cv2.imwrite(file_to_write, gray_binary)
+    return
 
 
 def search_for_lines(img):
@@ -203,15 +204,16 @@ def search_for_lines(img):
         win_xright_low = rightx_current - margin
         win_xright_high = rightx_current + margin
         # Draw the windows on the visualization image
-        cv2.rectangle(out_img, (win_xleft_low, win_y_low), \
+        cv2.rectangle(out_img, (win_xleft_low, win_y_low),
                       (win_xleft_high, win_y_high), (0, 255, 0), 2)
-        cv2.rectangle(out_img, (win_xright_low, win_y_low), \
+        cv2.rectangle(out_img, (win_xright_low, win_y_low),
                       (win_xright_high, win_y_high), (0, 255, 0), 2)
         # Identify the nonzero pixels in x and y within the window
-        good_left_inds = ((nonzeroy >= win_y_low) & (nonzeroy < win_y_high) & \
-                          (nonzerox >= win_xleft_low) &  (nonzerox < win_xleft_high)).nonzero()[0]
-        good_right_inds = ((nonzeroy >= win_y_low) & (nonzeroy < win_y_high) & \
-            (nonzerox >= win_xright_low) &  (nonzerox < win_xright_high)).nonzero()[0]
+        good_left_inds = ((nonzeroy >= win_y_low) & (nonzeroy < win_y_high) &
+                          (nonzerox >= win_xleft_low) & (nonzerox < win_xleft_high)).nonzero()[0]
+        good_right_inds =\
+            ((nonzeroy >= win_y_low) & (nonzeroy < win_y_high) &
+             (nonzerox >= win_xright_low) & (nonzerox < win_xright_high)).nonzero()[0]
         # Append these indices to the lists
         left_lane_inds.append(good_left_inds)
         right_lane_inds.append(good_right_inds)
@@ -256,15 +258,15 @@ def search_for_lines(img):
     nonzerox = np.array(nonzero[1])
     margin = 100
     left_lane_inds = \
-        ((nonzerox > (left_fit[0]*(nonzeroy**2) + left_fit[1]*nonzeroy + \
-                      left_fit[2] - margin)) & (nonzerox < (left_fit[0]*(nonzeroy**2) + \
-                      left_fit[1]*nonzeroy + left_fit[2] + margin)))
+        ((nonzerox > (left_fit[0]*(nonzeroy**2) + left_fit[1]*nonzeroy +
+                      left_fit[2] - margin)) & (nonzerox < (left_fit[0]*(nonzeroy**2) +
+                                                            left_fit[1]*nonzeroy + left_fit[2] + margin)))
 
     right_lane_inds = \
-        ((nonzerox > (right_fit[0]*(nonzeroy**2) + \
-                      right_fit[1]*nonzeroy + \
-                      right_fit[2] - margin)) & (nonzerox < (right_fit[0]*(nonzeroy**2) + \
-                      right_fit[1]*nonzeroy + right_fit[2] + margin)))
+        ((nonzerox > (right_fit[0]*(nonzeroy**2) +
+                      right_fit[1]*nonzeroy +
+                      right_fit[2] - margin)) & (nonzerox < (right_fit[0]*(nonzeroy**2) +
+                                                             right_fit[1]*nonzeroy + right_fit[2] + margin)))
 
     # Again, extract left and right line pixel positions
     leftx = nonzerox[left_lane_inds]
@@ -383,9 +385,9 @@ def convolutions():
         # Go through each level and draw the windows
         for level in range(0, len(window_centroids)):
             # Window_mask is a function to draw window areas
-            l_mask = window_mask(window_width, window_height, \
+            l_mask = window_mask(window_width, window_height,
                                  warped, window_centroids[level][0], level)
-            r_mask = window_mask(window_width, window_height, \
+            r_mask = window_mask(window_width, window_height,
                                  warped, window_centroids[level][1], level)
             # Add graphic points from window mask here to total pixels found
             l_points[(l_points == 255) | (l_mask == 1)] = 255
@@ -459,9 +461,9 @@ def curvature():
     left_fit_cr = np.polyfit(ploty * ym_per_pix, leftx * xm_per_pix, 2)
     right_fit_cr = np.polyfit(ploty * ym_per_pix, rightx * xm_per_pix, 2)
     # Calculate the new radii of curvature
-    left_curverad = ((1 + (2 * left_fit_cr[0] * y_eval * ym_per_pix + \
+    left_curverad = ((1 + (2 * left_fit_cr[0] * y_eval * ym_per_pix +
                            left_fit_cr[1]) ** 2) ** 1.5) / np.absolute(2 * left_fit_cr[0])
-    right_curverad = ((1 + (2 * right_fit_cr[0] * y_eval * ym_per_pix + \
+    right_curverad = ((1 + (2 * right_fit_cr[0] * y_eval * ym_per_pix +
                             right_fit_cr[1]) ** 2) ** 1.5) / \
                      np.absolute(2 * right_fit_cr[0])
     # Now our radius of curvature is in meters
@@ -499,9 +501,7 @@ def main():
     # discovering lines
     # applying Sobel gradient and using HLS color map
     # stacking two methods over each other
-    img = cv2.imread("test_images\\test3.jpg")
-    result = color_gradient_thresholds_pipeline(img)
-    cv2.imwrite('aj.png', result)
+    color_gradient_thresholds_pipeline("test_images", "output_images")
 
     # storing the results
     # TBD
@@ -518,6 +518,7 @@ def main():
     # car_model=car_model, calibration=calibration)
     # clip_out = clip_in.fl_image(processor.process_image)
     # clip_out.write_videofile(video_path_out, audio=False)
+
 
 if __name__ == '__main__':
     main()
