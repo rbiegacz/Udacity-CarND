@@ -13,11 +13,8 @@ def perspective_pipeline():
     for file in files_to_transform:
         warped, unwarped, _, _ = \
             perspective_transform(file)
-        #print(warped.shape)
-        #warped = warped[0:warped.shape[0]//3,:,:]
-        #print(warped.shape)
         warped = warped[2*warped.shape[0]//3:warped.shape[0],100:warped.shape[0]-100,:]
-        #warped = cv2.resize(warped, (0, 0), fx=0.5, fy=0.5)
+        # warped = cv2.resize(warped, (0, 0), fx=0.5, fy=0.5)
         cv2.imwrite('output_images\\warped_'+file.split('\\')[-1], warped)
         cv2.imwrite('output_images\\unwarped_'+file.split('\\')[-1], unwarped)
     return
