@@ -13,6 +13,11 @@ def perspective_pipeline():
     for file in files_to_transform:
         warped, unwarped, _, _ = \
             perspective_transform(file)
+        #print(warped.shape)
+        #warped = warped[0:warped.shape[0]//3,:,:]
+        #print(warped.shape)
+        warped = warped[2*warped.shape[0]//3:warped.shape[0],100:warped.shape[0]-100,:]
+        #warped = cv2.resize(warped, (0, 0), fx=0.5, fy=0.5)
         cv2.imwrite('output_images\\warped_'+file.split('\\')[-1], warped)
         cv2.imwrite('output_images\\unwarped_'+file.split('\\')[-1], unwarped)
     return
@@ -27,11 +32,17 @@ def perspective_transform(src_file):
 
     img = cv2.imread(src_file)  # Read the test img
 
-    perspective_delta_x = img.shape[0]
+    img_height = img.shape[0]
+    img_width = img.shape[1]
+
+    perspective_delta_x = 744
     perspective_delta_y = int(perspective_delta_x * 30 / 3.7)
     perspective_border_x = int(perspective_delta_x * 0.7)
     perspective_max_y = perspective_delta_y
     perspective_max_x = int(perspective_delta_x + 2 * perspective_border_x)
+    perspective_pixels_per_meter = perspective_delta_x / 3.7
+    # print("X: {}".format(perspective_max_x))
+    # print("Y: {}".format(perspective_max_y))
 
     perspective_origin_y_top = 440
     perspective_origin_y_bottom = 670
