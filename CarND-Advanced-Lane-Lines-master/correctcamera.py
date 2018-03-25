@@ -48,9 +48,10 @@ def camera_calibration(image_folder):
 def distortion_correction(calibration, dir_distorted_images, dir_output_images):
     """ this function remove image distortion """
     distorted_files = glob("{}/*.jpg".format(dir_distorted_images))
+    distorted_files += glob("test_images/*.jpg")
     for file in distorted_files:
         img = cv2.imread(file)
         dst_img = cv2.undistort(img, calibration[0], calibration[1], None, calibration[0])
-        file_to_write = dir_output_images+'/'+file.split('\\')[-1]
+        file_to_write = dir_output_images+'/undist_'+file.split('\\')[-1]
         cv2.imwrite(file_to_write, dst_img)
     return
