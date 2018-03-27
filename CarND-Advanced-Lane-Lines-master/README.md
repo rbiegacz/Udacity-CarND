@@ -21,8 +21,8 @@ The goals / steps of this project are the following:
 [image2]: ./test_images/test3.jpg "Original image"
 [image10]: ./output_images/undist_test3.jpg "Undistorted Image"
 [image3]: ./output_images/lines_undist_test3.jpg "Binary Example"
-[image4]: ./output_images/warped_lines_undist_test3.jpg "Warp Example"
-[image5]: ./output_images/per_warped_lines_test3.jpg "Fit Visual"
+[image4]: ./output_images/warped_lines_undist_test3_10perecent.jpg "Warp Example"
+[image5]: ./output_images/per_warped_lines_test3_10pecent.jpg "Fit Visual"
 [image6]: ./output_images/annotated_test3.jpg "Output"
 [video1]: ./annotated_project_video.mp4 "Video"
 
@@ -100,13 +100,13 @@ An example of an image with line detected is presented below.
 
 ![alt text][image5]
 
-#### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+#### 5. Calculation the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+Calculation of the radius of the curvature is implemented in determine_lane_curvature function (lines 150 thru 182) in roadlanes.py file.
 
-#### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
+#### 6. Plotting Lane Road
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+Processing single static images: in case of static image I use draw_lane(...) function (lines 21 thru 49) from roadlane.py file - this function draws a lane. Further I add information about radius of curvature of the lane - I retrieve this information from determine_lane_curvature(...) function. 
 
 ![alt text][image6]
 
@@ -114,7 +114,7 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 
 ### Pipeline (video)
 
-#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+#### 1. Annotated project video  
 
 Here's a [link to my video result](./project_video.mp4)
 
@@ -122,6 +122,10 @@ Here's a [link to my video result](./project_video.mp4)
 
 ### Discussion
 
-#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+The current state of the project is a good start for more fune tunning.
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+For example, I used only 
+
+Performance improvements: right now, processing a single image/frame from the first step until annotation takes ~1s. This performance should be improved.
+
+
