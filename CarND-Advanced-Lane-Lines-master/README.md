@@ -70,9 +70,9 @@ Here's an example of my output from this step.
 
 ![alt text][image3]
 
-#### 3. Perspective Transformation to bird's eye view.
+#### 3. Perspective Transformation to birds-eye view.
 
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+The code responsible for transformation of binary images into bird's eye view images is situated in perspective_transform(...) function (lines 23 thru 69 in perspectivetransform.py).
 
 ```python
 src = TO BE DETERMINED
@@ -116,7 +116,9 @@ Processing single static images: in case of static image I use draw_lane(...) fu
 
 #### 1. Annotated project video  
 
-Here's a [link to my video result](./project_video.mp4)
+The pipeline for annotating the video was implemented in annotate_movie(...) function which is in lines 184 thru 245 in roadlanes.py.
+
+Here's a [link to my video result](./annoated_project_video.mp4)
 
 ---
 
@@ -124,8 +126,8 @@ Here's a [link to my video result](./project_video.mp4)
 
 The current state of the project is a good start for more fune tunning.
 
-For example, I used only 
+For example, to generate binary images in apply_gradients_thresholds function  I used only SobelX operator and used S channel from HLS color space. One can definitely, improve the function using magnitude of the gradient, direction of the gradient.
 
-Performance improvements: right now, processing a single image/frame from the first step until annotation takes ~1s. This performance should be improved.
+Performance improvements: right now, processing a single image/frame from the first step until annotation takes ~1s. This performance should be improved. For example, using convolution in sliding window search would accelerate processing.
 
 
