@@ -21,8 +21,8 @@ The goals / steps of this project are the following:
 [image2]: ./test_images/test3.jpg "Original image"
 [image10]: ./output_images/undist_test3.jpg "Undistorted Image"
 [image3]: ./output_images/lines_undist_test3.jpg "Binary Example"
-[image4]: ./output_images/warped_lines_undist_test3_10perecent.jpg "Warp Example"
-[image5]: ./output_images/per_warped_lines_test3_10pecent.jpg "Fit Visual"
+[image4]: ./output_images/warped_lines_undist_test3_10percent.jpg "Warp Example"
+[image5]: ./output_images/per_warped_lines_undist_test3_10percent.jpg "Fit Visual"
 [image6]: ./output_images/annotated_test3.jpg "Output"
 [video1]: ./annotated_project_video.mp4 "Video"
 
