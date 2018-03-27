@@ -187,7 +187,8 @@ def search_for_lines(file_image, img=None):
     right_fit = np.polyfit(righty, rightx, 2)
 
     # Generate x and y values for plotting
-    ploty = np.linspace(0, binary_warped.shape[0]-1, binary_warped.shape[0])
+    how_long_lane = 2
+    ploty = np.linspace(0, (binary_warped.shape[0]-1)//how_long_lane, binary_warped.shape[0]//how_long_lane)
     left_fitx = left_fit[0]*ploty**2 + left_fit[1]*ploty + left_fit[2]
     right_fitx = right_fit[0]*ploty**2 + right_fit[1]*ploty + right_fit[2]
 
@@ -245,7 +246,7 @@ def search_for_lines(file_image, img=None):
     cv2.fillPoly(window_img, np.int_([left_line_pts]), (0, 255, 0))
     cv2.fillPoly(window_img, np.int_([right_line_pts]), (0, 255, 0))
     result = cv2.addWeighted(out_img, 1, window_img, 0.3, 0)
-    output = {}
+    output = dict()
     output['left_fit'] = left_fit
     output['right_fit'] = right_fit
     output['left_fitx'] = left_fitx

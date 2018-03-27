@@ -1,16 +1,12 @@
 """ This progam implements Udacity Advanced Lane Lines project """
 
 from glob import glob
-import numpy as np
-import cv2
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-
 from perspectivetransform import perspective_pipeline
 from searchlines import detect_lane_lines
 from searchlines import thresholds_pipeline
 from correctcamera import camera_calibration
 from correctcamera import distortion_correction
+import roadlanes
 
 def main():
     """
@@ -36,14 +32,16 @@ def main():
     # calibrating camera based on images from camera_cal
     calibration = camera_calibration("camera_cal")
 
-    # remove distortion from camera images, store artifacts
-    distortion_correction(calibration, "camera_cal", "output_images")
+    # remove distortion from test images and store the resulting images in output_images folder
+    files_to_correct = glob("test_images/*.jpg")
+    distortion_correction(calibration, files_to_correct, "output_images")
 
     # discovering lines
     # applying Sobel gradient and using HLS color map
     # stacking two methods over each other
     # storing the results of this transformation in "output_images" folder
-    thresholds_pipeline("test_images", "output_images")
+    files_to_transform = glob("output_images/undist*.jpg")
+    thresholds_pipeline(files_to_transform, "output_images")
 
     # change of perspective to birds' view
     perspective_pipeline()
@@ -52,18 +50,11 @@ def main():
     detect_lane_lines()
 
     # draw a lane between lane lines
-    # draw_lane()
-
-    # calculate curvatures of lines
-    # determine_lane_curvature()
+    roadlanes.draw_lane_pipeline()
 
     # processing the video
-    # clip_in = VideoFileClip(video_path_in)
-    # processor = video_processor(lane_model=lane_model,
-    # car_model=car_model, calibration=calibration)
-    # clip_out = clip_in.fl_image(processor.process_image)
-    # clip_out.write_videofile(video_path_out, audio=False)
-
+    # uncomment the line below if you want to run video processing
+    # roadlanes.main_video()
 
 if __name__ == '__main__':
     main()
