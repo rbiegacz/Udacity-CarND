@@ -74,21 +74,7 @@ Here's an example of my output from this step.
 
 The code responsible for transformation of binary images into bird's eye view images is situated in perspective_transform(...) function (lines 23 thru 69 in perspectivetransform.py).
 
-```python
-src = TO BE DETERMINED
-dst = TO BE DETERMINED
-```
-
-This resulted in the following source and destination points:
-
-| Source        | Destination   | 
-|:-------------:|:-------------:| 
-| 585, 460      | 320, 0        | 
-| 203, 720      | 320, 720      |
-| 1127, 720     | 960, 720      |
-| 695, 460      | 960, 0        |
-
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
+The warped image for the example used in this write-up is presented below.
 
 ![alt text][image4]
 
