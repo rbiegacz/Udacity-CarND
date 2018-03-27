@@ -3,35 +3,76 @@
 from glob import glob
 import numpy as np
 import cv2
+from utils import display_two_images
 
-class Line:
+#class Line:
+#    """
+#    this class stores information about a line
+#    """
+#    def __init__(self):
+#        # was the line detected in the last iteration?
+#        self.detected = False
+#        # x values of the last n fits of the line
+#        self.recent_xfitted = []
+#        # average x values of the fitted line over the last n iterations
+#        self.bestx = None
+#        # polynomial coefficients averaged over the last n iterations
+#        self.best_fit = None
+#        # polynomial coefficients for the most recent fit
+#        self.current_fit = [np.array([False])]
+#        # radius of curvature of the line in some units
+#        self.radius_of_curvature = None
+#        # distance in meters of vehicle center from the line
+#        self.line_base_pos = None
+#        # difference in fit coefficients between last and new fits
+#        self.diffs = np.array([0, 0, 0], dtype='float')
+#       # x values for detected line pixels
+#        self.allx = None
+#        # y values for detected line pixels
+#        self.ally = None
+
+
+def apply_gradients_thresholds(image_file=None, s_thresh=(170, 255), sx_thresh=(20, 100), image=None):
     """
-    this class stores information about a line
+    this function generates image with lines by application of Sobel operator and using HSL color map
+    :param image_file:
+    :param s_thresh:
+    :param sx_thresh:
+    :param image:
+    :return:
     """
-    def __init__(self):
-        # was the line detected in the last iteration?
-        self.detected = False
-        # x values of the last n fits of the line
-        self.recent_xfitted = []
-        # average x values of the fitted line over the last n iterations
-        self.bestx = None
-        # polynomial coefficients averaged over the last n iterations
-        self.best_fit = None
-        # polynomial coefficients for the most recent fit
-        self.current_fit = [np.array([False])]
-        # radius of curvature of the line in some units
-        self.radius_of_curvature = None
-        # distance in meters of vehicle center from the line
-        self.line_base_pos = None
-        # difference in fit coefficients between last and new fits
-        self.diffs = np.array([0, 0, 0], dtype='float')
-        # x values for detected line pixels
-        self.allx = None
-        # y values for detected line pixels
-        self.ally = None
+    if image_file:
+        img = cv2.imread(image_file)
+    else:
+        img = image
+    # Convert to HLS color space and separate the V channel
+    hls = cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
+    hls = hls.astype(np.float)
+    s_channel = hls[:, :, 2]
+    # Threshold color channel
+    s_binary = np.zeros_like(s_channel)
+    s_binary[(s_channel >= s_thresh[0]) & (s_channel <= s_thresh[1])] = 1
+
+    # Sobel x for a grayed image
+    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+    # sobelx = cv2.Sobel(l_channel, cv2.CV_64F, 1, 0)  # Take the derivative in x
+    sobelx = cv2.Sobel(gray, cv2.CV_64F, 1, 0)  # Take the derivative in x
+    abs_sobelx = np.absolute(sobelx)  # Absolute x derivative to accentuate lines away from horizontal
+    scaled_sobel = np.uint8(255 * abs_sobelx / np.max(abs_sobelx))
+    # Threshold x gradient
+    sxbinary = np.zeros_like(scaled_sobel)
+    sxbinary[(scaled_sobel >= sx_thresh[0]) & (scaled_sobel <= sx_thresh[1])] = 1
+
+    # Stack each channel
+    # Note color_binary[:, :, 0] is all 0s, effectively an all black image. It might
+    # be beneficial to replace this channel with something else.
+    combined_binary = np.zeros_like(sxbinary)
+    combined_binary[(s_binary == 1) | (sxbinary == 1)] = 1
+    gray_binary = np.dstack((combined_binary, combined_binary, combined_binary)) * 255
+    return gray_binary
 
 
-def thresholds_pipeline(source_dir, target_dir, s_thresh=(170, 255), sx_thresh=(20, 100)):
+def thresholds_pipeline(source_files, target_dir, s_thresh=(170, 255), sx_thresh=(20, 100)):
     """
     This function uses gradients and color maps to extract line features
     :param source_dir: folder with images to process
@@ -40,33 +81,8 @@ def thresholds_pipeline(source_dir, target_dir, s_thresh=(170, 255), sx_thresh=(
     :param sx_thresh: Sobel X transformation
     :return: processed image
     """
-    files_to_transform = glob("{}/*.jpg".format(source_dir))
-    for file in files_to_transform:
-        img = cv2.imread(file)
-        # Convert to HLS color space and separate the V channel
-        hls = cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
-        hls = hls.astype(np.float)
-        s_channel = hls[:, :, 2]
-        # Threshold color channel
-        s_binary = np.zeros_like(s_channel)
-        s_binary[(s_channel >= s_thresh[0]) & (s_channel <= s_thresh[1])] = 1
-
-        # Sobel x for a grayed image
-        gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-        # sobelx = cv2.Sobel(l_channel, cv2.CV_64F, 1, 0)  # Take the derivative in x
-        sobelx = cv2.Sobel(gray, cv2.CV_64F, 1, 0)  # Take the derivative in x
-        abs_sobelx = np.absolute(sobelx)  # Absolute x derivative to accentuate lines away from horizontal
-        scaled_sobel = np.uint8(255 * abs_sobelx / np.max(abs_sobelx))
-        # Threshold x gradient
-        sxbinary = np.zeros_like(scaled_sobel)
-        sxbinary[(scaled_sobel >= sx_thresh[0]) & (scaled_sobel <= sx_thresh[1])] = 1
-
-        # Stack each channel
-        # Note color_binary[:, :, 0] is all 0s, effectively an all black image. It might
-        # be beneficial to replace this channel with something else.
-        combined_binary = np.zeros_like(sxbinary)
-        combined_binary[(s_binary == 1) | (sxbinary == 1)] = 1
-        gray_binary = np.dstack((combined_binary, combined_binary, combined_binary)) * 255
+    for file in source_files:
+        gray_binary = apply_gradients_thresholds(file, s_thresh, sx_thresh)
         file_to_write = target_dir+'/lines_'+file.split('\\')[-1]
         cv2.imwrite(file_to_write, gray_binary)
     return
@@ -80,20 +96,24 @@ def detect_lane_lines():
     """
     files_to_transform = glob("output_images/warped_lines_*.jpg")
     for file in files_to_transform:
-        result, output = search_for_lines(file)
+        result, _ = search_for_lines(file)
         file_to_write = 'output_images/per_'+file.split('\\')[-1]
         cv2.imwrite(file_to_write, result)
 
 
-def search_for_lines(file_image):
+def search_for_lines(file_image, img=None):
     """
     This functions searches for lines in a given picture.
     :return:
     processes image
     """
     # Assuming you have created a warped binary image called "binary_warped"
-    binary_warped = cv2.imread(file_image)
-    binary_warped = cv2.cvtColor(binary_warped, cv2.COLOR_BGR2GRAY)
+    if file_image:
+        binary_warped = cv2.imread(file_image)
+        binary_warped = cv2.cvtColor(binary_warped, cv2.COLOR_BGR2GRAY)
+    else:
+        binary_warped = img
+        binary_warped = cv2.cvtColor(binary_warped, cv2.COLOR_BGR2GRAY)
 
     # Take a histogram of the bottom half of the image
     histogram = np.sum(binary_warped[int(binary_warped.shape[0]/2):, :], axis=0)
@@ -173,11 +193,6 @@ def search_for_lines(file_image):
 
     out_img[nonzeroy[left_lane_inds], nonzerox[left_lane_inds]] = [255, 0, 0]
     out_img[nonzeroy[right_lane_inds], nonzerox[right_lane_inds]] = [0, 0, 255]
-    # plt.imshow(out_img)
-    # plt.plot(left_fitx, ploty, color='yellow')
-    # plt.plot(right_fitx, ploty, color='yellow')
-    # plt.xlim(0, 1280)
-    # plt.ylim(720, 0)
 
     nonzero = binary_warped.nonzero()
     nonzeroy = np.array(nonzero[0])
@@ -230,18 +245,33 @@ def search_for_lines(file_image):
     cv2.fillPoly(window_img, np.int_([left_line_pts]), (0, 255, 0))
     cv2.fillPoly(window_img, np.int_([right_line_pts]), (0, 255, 0))
     result = cv2.addWeighted(out_img, 1, window_img, 0.3, 0)
-    #plt.imshow(result)
-    #plt.plot(left_fitx, ploty, color='yellow')
-    #plt.plot(right_fitx, ploty, color='yellow')
-    #plt.xlim(0, 1280)
-    #plt.ylim(720, 0)
     output = {}
     output['left_fit'] = left_fit
     output['right_fit'] = right_fit
+    output['left_fitx'] = left_fitx
+    output['right_fitx'] = right_fitx
+    output['ploty'] = ploty
     output['nonzerox'] = nonzerox
     output['nonzeroy'] = nonzeroy
     output['out_img'] = result
     output['left_lane_inds'] = left_lane_inds
     output['right_lane_inds'] = right_lane_inds
-
     return result, output
+
+
+def main():
+    """
+    this is main function that shows how to use functions from this python module/file
+    :return:
+    """
+    files_to_transform = "output_images/undist_straight_lines1.jpg"
+    transformed_image = apply_gradients_thresholds(files_to_transform)
+    transformed_image = cv2.cvtColor(transformed_image, cv2.COLOR_BGR2RGB)
+
+    original_img = cv2.imread(files_to_transform)
+    original_img = cv2.cvtColor(original_img, cv2.COLOR_BGR2RGB)
+
+    display_two_images(original_img, 'Corrected image', transformed_image, 'Binary image')
+
+if __name__ == '__main__':
+    main()
