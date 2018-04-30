@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9aed1bd9-b3ea-4939-bc72-84cb3c983cd6" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Udacity-CarND.iml" afterPath="$PROJECT_DIR$/.idea/Udacity-CarND.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.ipynb" afterPath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.ipynb" />
       <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.py" afterPath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.py" />
       <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/perspectivetransform.py" afterPath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/perspectivetransform.py" />
       <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/roadlanes.py" afterPath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/roadlanes.py" />
       <change beforePath="$PROJECT_DIR$/CarND-Vehicle-Detection-master/README.md" afterPath="$PROJECT_DIR$/CarND-Vehicle-Detection-master/README.md" />
+      <change beforePath="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_hog_features.py" afterPath="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_hog_features.py" />
+      <change beforePath="$PROJECT_DIR$/CarND-Vehicle-Detection-master/vehicle_detection.ipynb" afterPath="$PROJECT_DIR$/CarND-Vehicle-Detection-master/vehicle_detection.ipynb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,11 +22,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="object_detection_hog_features.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="object_detection_hog_features.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_hog_features.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4175">
-              <caret line="169" column="69" lean-forward="false" selection-start-line="169" selection-start-column="69" selection-end-line="169" selection-end-column="69" />
+            <state relative-caret-position="554">
+              <caret line="214" column="20" lean-forward="false" selection-start-line="214" selection-start-column="20" selection-end-line="214" selection-end-column="20" />
               <folding>
                 <element signature="e#0#65#1" expanded="false" />
                 <element signature="e#66#77#0" expanded="true" />
@@ -35,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="object_detection_findmatches.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="object_detection_findmatches.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_findmatches.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1079">
-              <caret line="556" column="29" lean-forward="false" selection-start-line="556" selection-start-column="24" selection-end-line="556" selection-end-column="29" />
+            <state relative-caret-position="1425">
+              <caret line="556" column="29" lean-forward="false" selection-start-line="556" selection-start-column="29" selection-end-line="556" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -134,9 +134,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>annotate_video</find>
-      <find>annotate_image</find>
-      <find>distortion_removal</find>
       <find>original</find>
       <find>perspective_transform</find>
       <find>cv2.fill</find>
@@ -162,8 +159,11 @@
       <find>get_hog_features</find>
       <find>predict</find>
       <find>find</find>
-      <find>find_cars</find>
       <find>block_normblock_norm</find>
+      <find>find_cars</find>
+      <find>print</find>
+      <find>experiments_dict</find>
+      <find>experiments</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -193,9 +193,9 @@
         <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/README.md" />
         <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_car_notcar.py" />
         <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_findmatches.py" />
-        <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_hog_features.py" />
         <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_hog_subsumpling.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_hog_features.py" />
       </list>
     </option>
   </component>
@@ -229,6 +229,11 @@
             <path>
               <item name="Udacity-CarND" type="b2602c69:ProjectViewProjectNode" />
               <item name="Udacity-CarND" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Udacity-CarND" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Udacity-CarND" type="462c0819:PsiDirectoryNode" />
+              <item name="CarND-Vehicle-Detection-master" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -662,22 +667,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_findmatches.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1425">
+          <caret line="556" column="29" lean-forward="false" selection-start-line="556" selection-start-column="29" selection-end-line="556" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_hog_features.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4175">
-          <caret line="169" column="69" lean-forward="false" selection-start-line="169" selection-start-column="69" selection-end-line="169" selection-end-column="69" />
+        <state relative-caret-position="554">
+          <caret line="214" column="20" lean-forward="false" selection-start-line="214" selection-start-column="20" selection-end-line="214" selection-end-column="20" />
           <folding>
             <element signature="e#0#65#1" expanded="false" />
             <element signature="e#66#77#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_findmatches.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1079">
-          <caret line="556" column="29" lean-forward="false" selection-start-line="556" selection-start-column="24" selection-end-line="556" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
