@@ -2,27 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9aed1bd9-b3ea-4939-bc72-84cb3c983cd6" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Udacity-CarND.iml" afterPath="$PROJECT_DIR$/.idea/Udacity-CarND.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.ipynb" afterPath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.ipynb" />
       <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.py" afterPath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.py" />
-      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/lines_straight_lines1.jpg" afterPath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/lines_straight_lines1.jpg" />
-      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/lines_straight_lines2.jpg" afterPath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/lines_straight_lines2.jpg" />
-      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/lines_test1.jpg" afterPath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/lines_test1.jpg" />
-      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/lines_test2.jpg" afterPath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/lines_test2.jpg" />
-      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/lines_test3.jpg" afterPath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/lines_test3.jpg" />
-      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/lines_test4.jpg" afterPath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/lines_test4.jpg" />
-      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/lines_test5.jpg" afterPath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/lines_test5.jpg" />
-      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/lines_test6.jpg" afterPath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/lines_test6.jpg" />
-      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/warped_lines_lines_straight_lines1.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/warped_lines_lines_straight_lines2.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/warped_lines_lines_test1.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/warped_lines_lines_test2.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/warped_lines_lines_test3.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/warped_lines_lines_test4.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/warped_lines_lines_test5.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/output_images/warped_lines_lines_test6.jpg" afterPath="" />
       <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/perspectivetransform.py" afterPath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/perspectivetransform.py" />
-      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/searchlines.py" afterPath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/searchlines.py" />
+      <change beforePath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/roadlanes.py" afterPath="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/roadlanes.py" />
+      <change beforePath="$PROJECT_DIR$/CarND-Vehicle-Detection-master/README.md" afterPath="$PROJECT_DIR$/CarND-Vehicle-Detection-master/README.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,57 +22,102 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="adv_lane_lines.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.py">
+      <file leaf-file-name="object_detection_hog_features.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_hog_features.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="193" column="0" lean-forward="false" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
+            <state relative-caret-position="4175">
+              <caret line="169" column="69" lean-forward="false" selection-start-line="169" selection-start-column="69" selection-end-line="169" selection-end-column="69" />
               <folding>
-                <element signature="e#5398#8337#0" expanded="false" />
-                <element signature="e#8361#9198#0" expanded="false" />
+                <element signature="e#0#65#1" expanded="false" />
+                <element signature="e#66#77#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="correctcamera.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/correctcamera.py">
+      <file leaf-file-name="object_detection_findmatches.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_findmatches.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="4" column="10" lean-forward="false" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
+            <state relative-caret-position="1079">
+              <caret line="556" column="29" lean-forward="false" selection-start-line="556" selection-start-column="24" selection-end-line="556" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="object_detection_car_notcar.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_car_notcar.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="175">
+              <caret line="10" column="7" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
               <folding>
-                <element signature="e#58#79#0" expanded="true" />
-                <element signature="e#154#1630#0" expanded="false" />
-                <element signature="e#1718#2108#0" expanded="false" />
+                <element signature="e#268#1033#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="perspectivetransform.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/perspectivetransform.py">
+      <file leaf-file-name="object_detection_heatmap.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_heatmap.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+            <state relative-caret-position="243">
+              <caret line="38" column="14" lean-forward="false" selection-start-line="38" selection-start-column="14" selection-end-line="38" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="object_detection_sliding_window.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_sliding_window.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="243">
+              <caret line="48" column="23" lean-forward="false" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
               <folding>
-                <element signature="e#65#86#0" expanded="true" />
-                <element signature="e#151#646#0" expanded="false" />
-                <element signature="e#690#2410#0" expanded="false" />
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="searchlines.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/searchlines.py">
+      <file leaf-file-name="object_detection_utils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="87" column="33" lean-forward="false" selection-start-line="87" selection-start-column="33" selection-end-line="87" selection-end-column="33" />
+            <state relative-caret-position="200">
+              <caret line="10" column="9" lean-forward="false" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="object_detection_search_and_classify.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_search_and_classify.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="243">
+              <caret line="147" column="23" lean-forward="false" selection-start-line="147" selection-start-column="23" selection-end-line="147" selection-end-column="23" />
               <folding>
-                <element signature="e#56#77#0" expanded="true" />
-                <element signature="e#125#1130#0" expanded="false" />
-                <element signature="e#1228#3143#0" expanded="false" />
-                <element signature="e#3686#11206#0" expanded="false" />
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="object_detection_fecvector.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_fecvector.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="12" column="11" lean-forward="false" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="object_detection_hog_subsumpling.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_hog_subsumpling.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="129">
+              <caret line="170" column="7" lean-forward="false" selection-start-line="170" selection-start-column="7" selection-end-line="170" selection-end-column="7" />
+              <folding>
+                <element signature="e#93#111#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -103,20 +134,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>color_gradient_thresholds_pipeline</find>
-      <find>split</find>
-      <find>threshold</find>
+      <find>annotate_video</find>
+      <find>annotate_image</find>
+      <find>distortion_removal</find>
+      <find>original</find>
       <find>perspective_transform</find>
-      <find>perspective_max_x</find>
-      <find>warp</find>
-      <find>perspective_t</find>
-      <find>detect_lane_lines</find>
-      <find>curvature</find>
-      <find>pipeline</find>
-      <find>left_lane_inds</find>
-      <find>right_lane_inds</find>
-      <find>rectangle</find>
-      <find>print</find>
+      <find>cv2.fill</find>
+      <find>VideoFileClip</find>
+      <find>final_viz</find>
+      <find>find_window_centroids</find>
+      <find>ploty</find>
+      <find>determine_lane_curvat</find>
+      <find>draw_lane</find>
+      <find>cv2.imwrite</find>
+      <find>perspective_pipeline</find>
+      <find>247</find>
+      <find>notcar_features</find>
+      <find>feature_</find>
+      <find>cv2</find>
+      <find>extract_features</find>
+      <find>sample_size</find>
+      <find>hog_channels</find>
+      <find>convert_color</find>
+      <find>color_hist</find>
+      <find>bin_spatial</find>
+      <find>get_hog_featuresget_hog_features</find>
+      <find>get_hog_features</find>
+      <find>predict</find>
+      <find>find</find>
+      <find>find_cars</find>
+      <find>block_normblock_norm</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -127,18 +174,35 @@
       <list>
         <option value="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.ipynb" />
         <option value="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/example.py" />
+        <option value="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/utils.py" />
         <option value="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/correctcamera.py" />
-        <option value="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.py" />
         <option value="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/searchlines.py" />
+        <option value="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.py" />
+        <option value="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/roadlanes.py" />
         <option value="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/perspectivetransform.py" />
+        <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection.py" />
+        <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_utils1.py" />
+        <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_utils.py" />
+        <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_colorspaces.py" />
+        <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_fecvector.py" />
+        <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_hog.py" />
+        <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_sliding_window.py" />
+        <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_heatmap.py" />
+        <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_search_and_classify.py" />
+        <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_color_classify.py" />
+        <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/README.md" />
+        <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_car_notcar.py" />
+        <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_findmatches.py" />
+        <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_hog_features.py" />
+        <option value="$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_hog_subsumpling.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-11" />
-    <option name="y" value="-11" />
+    <option name="y" value="341" />
     <option name="width" value="980" />
-    <option name="height" value="520" />
+    <option name="height" value="1030" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -166,11 +230,6 @@
               <item name="Udacity-CarND" type="b2602c69:ProjectViewProjectNode" />
               <item name="Udacity-CarND" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Udacity-CarND" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Udacity-CarND" type="462c0819:PsiDirectoryNode" />
-              <item name="CarND-Advanced-Lane-Lines-master" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -196,6 +255,7 @@
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.py" />
+    <property name="SearchEverywhereHistoryKey" value="find_cars&#9;null&#9;null" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -238,7 +298,7 @@
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19204244" sideWeight="0.49293286" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28275862" sideWeight="0.49293286" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938388" sideWeight="0.48965517" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938388" sideWeight="0.5066313" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938388" sideWeight="0.49814323" order="8" side_tool="false" content_ui="tabs" />
@@ -260,29 +320,6 @@
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Salesforce" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938388" sideWeight="0.48965517" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32938388" sideWeight="0.5066313" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938388" sideWeight="0.49814323" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33056873" sideWeight="0.49814323" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32992035" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938388" sideWeight="0.49814323" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19204244" sideWeight="0.49293286" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32938388" sideWeight="0.49336872" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24986738" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19204244" sideWeight="0.50706714" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39905548" sideWeight="0.9050398" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Salesforce" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -296,12 +333,54 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="950">
+          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/roadlanes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="7" column="4" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/correctcamera.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/perspectivetransform.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1500">
+          <caret line="62" column="53" lean-forward="false" selection-start-line="62" selection-start-column="53" selection-end-line="62" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../example.py" />
+    <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/searchlines.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2000">
+          <caret line="80" column="52" lean-forward="false" selection-start-line="80" selection-start-column="52" selection-end-line="80" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1175">
           <caret line="201" column="23" lean-forward="false" selection-start-line="201" selection-start-column="23" selection-end-line="201" selection-end-column="23" />
-          <folding>
-            <element signature="e#5398#8337#0" expanded="false" />
-            <element signature="e#8361#9198#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -309,11 +388,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
           <caret line="4" column="10" lean-forward="false" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
-          <folding>
-            <element signature="e#58#79#0" expanded="true" />
-            <element signature="e#154#1630#0" expanded="false" />
-            <element signature="e#1718#2108#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -328,32 +402,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
           <caret line="4" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding>
-            <element signature="e#65#86#0" expanded="true" />
-            <element signature="e#151#646#0" expanded="false" />
-            <element signature="e#690#2410#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/example.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6350">
-          <caret line="266" column="25" lean-forward="false" selection-start-line="266" selection-start-column="25" selection-end-line="266" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/example.py" />
     <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/searchlines.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2350">
           <caret line="94" column="20" lean-forward="true" selection-start-line="94" selection-start-column="20" selection-end-line="94" selection-end-column="41" />
-          <folding>
-            <element signature="e#56#77#0" expanded="true" />
-            <element signature="e#125#1130#0" expanded="false" />
-            <element signature="e#1228#3143#0" expanded="false" />
-            <element signature="e#3686#11206#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -361,10 +417,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#5398#8337#0" expanded="false" />
-            <element signature="e#8361#9198#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -372,30 +424,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
           <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
-          <folding>
-            <element signature="e#65#86#0" expanded="true" />
-            <element signature="e#151#646#0" expanded="false" />
-            <element signature="e#690#2410#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/example.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6350">
-          <caret line="266" column="25" lean-forward="true" selection-start-line="266" selection-start-column="25" selection-end-line="266" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/example.py" />
     <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#5398#8337#0" expanded="false" />
-            <element signature="e#8361#9198#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -410,10 +446,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3000">
           <caret line="127" column="24" lean-forward="false" selection-start-line="127" selection-start-column="24" selection-end-line="127" selection-end-column="24" />
-          <folding>
-            <element signature="e#5398#8337#0" expanded="false" />
-            <element signature="e#8361#9198#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -435,10 +467,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#5398#8337#0" expanded="false" />
-            <element signature="e#8361#9198#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -446,10 +474,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#5398#8337#0" expanded="false" />
-            <element signature="e#8361#9198#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -460,6 +484,7 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/example.py" />
     <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
@@ -467,59 +492,192 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../example.py" />
+    <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/adv_lane_lines.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="193" column="0" lean-forward="false" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
-          <folding>
-            <element signature="e#5398#8337#0" expanded="false" />
-            <element signature="e#8361#9198#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="58" column="4" lean-forward="false" selection-start-line="58" selection-start-column="4" selection-end-line="58" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/correctcamera.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="4" column="10" lean-forward="false" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
-          <folding>
-            <element signature="e#58#79#0" expanded="true" />
-            <element signature="e#154#1630#0" expanded="false" />
-            <element signature="e#1718#2108#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="875">
+          <caret line="38" column="58" lean-forward="false" selection-start-line="38" selection-start-column="58" selection-end-line="38" selection-end-column="58" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/example.py">
+    <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/roadlanes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="457" column="18" lean-forward="false" selection-start-line="457" selection-start-column="18" selection-end-line="457" selection-end-column="18" />
+        <state relative-caret-position="975">
+          <caret line="253" column="34" lean-forward="false" selection-start-line="253" selection-start-column="34" selection-end-line="253" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/correctcamera.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2250">
+          <caret line="93" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="95" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/perspectivetransform.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
-          <folding>
-            <element signature="e#65#86#0" expanded="true" />
-            <element signature="e#151#646#0" expanded="false" />
-            <element signature="e#690#2410#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="1475">
+          <caret line="62" column="13" lean-forward="false" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CarND-Advanced-Lane-Lines-master/searchlines.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="87" column="33" lean-forward="false" selection-start-line="87" selection-start-column="33" selection-end-line="87" selection-end-column="33" />
+        <state relative-caret-position="775">
+          <caret line="34" column="30" lean-forward="false" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_utils1.py" />
+    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/perspectivetransform.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="425">
+            <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_hog.py" />
+    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_color_classify.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1679">
+          <caret line="108" column="17" lean-forward="false" selection-start-line="108" selection-start-column="17" selection-end-line="108" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_colorspaces.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="16" column="4" lean-forward="false" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_fecvector.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="12" column="11" lean-forward="false" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_heatmap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="38" column="14" lean-forward="false" selection-start-line="38" selection-start-column="14" selection-end-line="38" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_search_and_classify.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="147" column="23" lean-forward="false" selection-start-line="147" selection-start-column="23" selection-end-line="147" selection-end-column="23" />
           <folding>
-            <element signature="e#56#77#0" expanded="true" />
-            <element signature="e#125#1130#0" expanded="false" />
-            <element signature="e#1228#3143#0" expanded="false" />
-            <element signature="e#3686#11206#0" expanded="false" />
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_sliding_window.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="48" column="23" lean-forward="false" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="10" column="9" lean-forward="false" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_car_notcar.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="10" column="7" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+          <folding>
+            <element signature="e#268#1033#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_hog_subsumpling.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="170" column="7" lean-forward="false" selection-start-line="170" selection-start-column="7" selection-end-line="170" selection-end-column="7" />
+          <folding>
+            <element signature="e#93#111#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="657">
+          <caret line="67" column="3" lean-forward="false" selection-start-line="67" selection-start-column="3" selection-end-line="67" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_hog_features.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4175">
+          <caret line="169" column="69" lean-forward="false" selection-start-line="169" selection-start-column="69" selection-end-line="169" selection-end-column="69" />
+          <folding>
+            <element signature="e#0#65#1" expanded="false" />
+            <element signature="e#66#77#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarND-Vehicle-Detection-master/object_detection_findmatches.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1079">
+          <caret line="556" column="29" lean-forward="false" selection-start-line="556" selection-start-column="24" selection-end-line="556" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
