@@ -53,13 +53,11 @@ CarND-Traffic-Sign-Classifier-Project-master/.ipynb_checkpoints/*
 windows_sim/*
 CarND-Alexnet-Feature-Extraction-master/*
 windows-sim.zip
-
 CarND-Advanced-Lane-Lines-master/examples/example.ipynb
-
 CarND-Advanced-Lane-Lines-master/.ipynb_checkpoints/*
-
 CarND-Advanced-Lane-Lines-master/__pycache__/*
-
+CarND-Advanced-Lane-Lines-master/annotated_challenge_video.mp4
+CarND-Advanced-Lane-Lines-master/CarND-Advanced-Lane-Lines-master.zip
 CarND-Vehicle-Detection-master/util_images/vehicles/*
 CarND-Vehicle-Detection-master/util_images/non-vehicles/*
 CarND-Vehicle-Detection-master/util_images/vehicles_smallset/*
