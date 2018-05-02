@@ -1,5 +1,6 @@
 """
-This module contains functions for HOG feature extraction
+    This module contains functions for HOG feature extraction
+    Most of the code included in this file comes from Udacity Self-Driving Car Engineer Nanodegree
 """
 import glob
 import time
@@ -10,97 +11,7 @@ from sklearn.svm import LinearSVC
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from skimage.feature import hog
-
-
-def get_hog_features(img, orient, pix_per_cell, cell_per_block,
-                     vis=False, feature_vec=True):
-    """
-    This function retrieves HOG features for a given image.
-    More on Histogram of Oriented Gradients could be read here:
-    http://scikit-image.org/docs/dev/auto_examples/features_detection/plot_hog.html
-    This function uses hog(...) function described here:
-    http://scikit-image.org/docs/dev/api/skimage.feature.html#skimage.feature.hog
-    :param img: image to analize
-    :param orient: number of orientation bins
-    :param pix_per_cell: size in pixels of a cell
-    :param cell_per_block: number of cells in each block
-    :param vis: if true then return an image of HOG; For each cell and orientation bin, the image contains a line segment
-    (more could be read here: http://scikit-image.org/docs/dev/api/skimage.feature.html#skimage.feature.hog)
-    :return: HOG description of the image; if feature_vec is True then flattened array is returned
-    """
-    # Call with two outputs if vis==True
-    if vis is True:
-        features, hog_image = hog(img, orientations=orient, pixels_per_cell=(pix_per_cell, pix_per_cell),
-                                  cells_per_block=(cell_per_block, cell_per_block), block_norm='L2-Hys',
-                                  transform_sqrt=True,
-                                  visualise=vis, feature_vector=feature_vec)
-        return features, hog_image
-    # Otherwise call with one output
-    else:
-        features = hog(img, orientations=orient, pixels_per_cell=(pix_per_cell, pix_per_cell),
-                       cells_per_block=(cell_per_block, cell_per_block), block_norm='L2-Hys',
-                       transform_sqrt=True,
-                       visualise=vis, feature_vector=feature_vec)
-    return features
-
-
-def extract_features(imgs, cspace='RGB', orient=9,
-                     pix_per_cell=8, cell_per_block=2, hog_channel=0):
-    """
-    This function extracts features from a list of images
-    Have this function call bin_spatial() and color_hist()
-    :param imgs:
-    :param cspace: color space to use
-    :param orient: number of orientation bins
-    :param pix_per_cell: size in pixels of a cell
-    :param cell_per_block: number of cells in each block
-    :param hog_channel: HOG channel to use
-    :return:
-    """
-    # Create a list to append feature vectors to
-    features = []
-    # Iterate through the list of images
-    for file in imgs:
-        # Read in each one by one
-        # if file.find(".jpg"):
-        #    image = mpimg.imread(file)
-        # elif file.find(".png"):
-        #    image=cv2.imread(file)
-        # else:
-        #    return None
-        image = mpimg.imread(file)
-
-        # apply color conversion if other than 'RGB'
-        if cspace != 'RGB':
-            if cspace == 'HSV':
-                feature_image = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
-            elif cspace == 'LUV':
-                feature_image = cv2.cvtColor(image, cv2.COLOR_RGB2LUV)
-            elif cspace == 'HLS':
-                feature_image = cv2.cvtColor(image, cv2.COLOR_RGB2HLS)
-            elif cspace == 'YUV':
-                feature_image = cv2.cvtColor(image, cv2.COLOR_RGB2YUV)
-            elif cspace == 'YCrCb':
-                feature_image = cv2.cvtColor(image, cv2.COLOR_RGB2YCrCb)
-        else:
-            feature_image = np.copy(image)
-
-        # Call get_hog_features() with vis=False, feature_vec=True
-        if hog_channel == 'ALL':
-            hog_features = []
-            for channel in range(feature_image.shape[2]):
-                hog_features.append(get_hog_features(feature_image[:, :, channel],
-                                                     orient, pix_per_cell, cell_per_block,
-                                                     vis=False, feature_vec=True))
-            hog_features = np.ravel(hog_features)
-        else:
-            hog_features = get_hog_features(feature_image[:, :, hog_channel], orient,
-                                            pix_per_cell, cell_per_block, vis=False, feature_vec=True)
-        # Append the new feature vector to the features list
-        features.append(hog_features)
-    # Return list of feature vectors
-    return features
-
+import object_detection_utils
 
 def print_parameters(color_space, orient, pix_per_cell, cell_per_block, hog_channel):
     """
@@ -144,10 +55,10 @@ def main_hog():
                     for hog_channel in hog_channels:
                         print_parameters(color_item, orient, pix_per_cell, cell_per_block, hog_channel)
                         t = time.time()
-                        car_features = extract_features(cars, cspace=color_item, orient=orient,
+                        car_features = object_detection_utils.extract_features(cars, color_space=color_item, orient=orient,
                                                         pix_per_cell=pix_per_cell, cell_per_block=cell_per_block,
                                                         hog_channel=hog_channel)
-                        notcar_features = extract_features(not_cars, cspace=color_item, orient=orient,
+                        notcar_features = object_detection_utils.extract_features(not_cars, color_space=color_item, orient=orient,
                                                            pix_per_cell=pix_per_cell, cell_per_block=cell_per_block,
                                                            hog_channel=hog_channel)
                         t2 = time.time()
@@ -182,7 +93,6 @@ def main_hog():
                             {"color_item": color_item, "hog_channel": hog_channel,
                              "orient": orient, "pix_per_cell":pix_per_cell,
                              "cell_per_block": cell_per_block,
-                             "time_for_prediction": time_for_prediction,
                              "time_extract_hog_features": time_extract_hog_features,
                              "accuracy": accuracy,
                              "feature vector length": len(X_train[0]),
