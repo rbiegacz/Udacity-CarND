@@ -14,7 +14,7 @@ from scipy.ndimage.measurements import label
 box_list = pickle.load(open("bbox_pickle.p", "rb"))
 
 # Read in image similar to one shown above
-image = mpimg.imread('test_image.jpg')
+image = mpimg.imread('util_images/bbox-example-image.png')
 heat = np.zeros_like(image[:, :, 0]).astype(np.float)
 
 
