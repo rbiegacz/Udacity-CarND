@@ -13,8 +13,8 @@ def sliding_window_main():
     This function demonstrates how to calcualte sliding windows for a given image.
     :return: it doesn't return anything if everything works perfectly
     """
-    image = mpimg.imread('util_images/bbox-example-image.jpg')
-    windows = object_detection_utils.slide_window(image, x_start_stop=[None, None], y_start_stop=[None, None],
+    image = mpimg.imread('util_images/bbox-example-image.png')
+    windows = object_detection_utils.slide_window(image, x_start_stop=[None, None], y_start_stop=[400, 750],
                            xy_window=(128, 128), xy_overlap=(0.5, 0.5))
     window_img = object_detection_utils.draw_boxes(image, windows, color=(0, 0, 255), thick=6)
     plt.imshow(window_img)

@@ -59,7 +59,7 @@ def main_color_spaces():
     :return: nothing; if everything is correct than a picture will be drawn
     """
     # Read a color image
-    img = cv2.imread('util_images/cutout1.jpg')
+    img = cv2.imread('util_images/cutout1.png')
 
     # Select a small fraction of pixels to plot by sub-sampling it
     scale = max(img.shape[0], img.shape[1], 64) / 64  # at most 64 rows and columns
