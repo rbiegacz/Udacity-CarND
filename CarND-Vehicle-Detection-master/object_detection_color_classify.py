@@ -1,3 +1,8 @@
+"""
+    Most of the code included in this file comes from Udacity Self-Driving Car Engineer Nanodegree
+"""
+
+
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import numpy as np
@@ -11,6 +16,7 @@ from sklearn.preprocessing import StandardScaler
 # if you are using scikit-learn >= 0.18 then use this:
 # from sklearn.model_selection import train_test_split
 from sklearn.cross_validation import train_test_split
+import object_detection_utils
 
 
 # Define a function to compute binned color features
