@@ -26,6 +26,52 @@ def print_parameters(color_space, orient, pix_per_cell, cell_per_block, hog_chan
     print("Color Space: {:6.6}, Hog Channel: {}, Orient: {}, Pix per Cell: {:2}, Cell per Block: {}: calculation".format(color_space, hog_channel, orient, pix_per_cell, cell_per_block))
 
 
+def train_model(model_params):
+    """
+    This function trains linear SVC model based on the passed parameters
+    :param model_params: parameters of the model
+    :return: trained linearSVC model
+    """
+    cars = glob.glob('util_images/vehicles/**/*.png')
+    not_cars = glob.glob('util_images/non-vehicles/**/*.png')
+    sample_size = 100
+    cars = cars[0:sample_size]
+    not_cars = not_cars[0:sample_size]
+
+    color_item = model_params["color_item"]
+    orient = model_params["orient"]
+    pix_per_cell = model_params["pix_per_cell"]
+    cells_per_block = 2
+    hog_channels = model_params["hog_channel"]
+
+    print_parameters(color_item, orient, pix_per_cell, cells_per_block, hog_channels)
+
+    car_features = object_detection_utils.extract_features(cars, color_space=color_item, orient=orient,
+                                                           pix_per_cell=pix_per_cell, cell_per_block=cells_per_block,
+                                                           hog_channel=hog_channels)
+    notcar_features = object_detection_utils.extract_features(not_cars, color_space=color_item, orient=orient,
+                                                              pix_per_cell=pix_per_cell, cell_per_block=cells_per_block,
+                                                              hog_channel=hog_channels)
+    # Create an array stack of feature vectors
+    X = np.vstack((car_features, notcar_features)).astype(np.float64)
+    # Define the labels vector
+    y = np.hstack((np.ones(len(car_features)), np.zeros(len(notcar_features))))
+    # Split up data into randomized training and test sets
+    rand_state = np.random.randint(0, 100)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=rand_state)
+    # Fit a per-column scaler
+    X_scaler = StandardScaler().fit(X_train)
+    # Apply the scaler to X
+    X_train = X_scaler.transform(X_train)
+    X_test = X_scaler.transform(X_test)
+    # Use a linear SVC
+    svc = LinearSVC()
+    # Check the training time for the SVC
+    svc.fit(X_train, y_train)
+    # Check the score of the SVC
+    accuracy = round(svc.score(X_test, y_test), 4)
+    return svc
+
 def main_hog():
     """
     TODO: correct description of this function

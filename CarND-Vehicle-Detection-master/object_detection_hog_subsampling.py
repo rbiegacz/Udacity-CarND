@@ -2,12 +2,19 @@
     this module deals with definining a linear SVC model and using it to detect cars
     Most of the code included in this file comes from Udacity Self-Driving Car Engineer Nanodegree
 """
+import glob
+import time
 import numpy as np
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import cv2
-from skimage.feature import hog
 import object_detection_utils
+import object_detection_hog_features
+from sklearn.svm import LinearSVC
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+from skimage.feature import hog
+
 
 
 def find_cars(img, ystart, ystop, scale, cspace, hog_channel, svc, X_scaler, orient, pix_per_cell, cell_per_block, spatial_size, hist_bins):
@@ -105,24 +112,55 @@ def main_hog_subsampling(model, img_file="test_images/test1.jpg"):
     TODO: deliver description of this function
     :return: nothing is return; if function worked correctly it displays an image
     """
+    #svc = model['linearSVC']
+    cars = glob.glob('util_images/vehicles/**/*.png')
+    not_cars = glob.glob('util_images/non-vehicles/**/*.png')
+    sample_size = 100
+    cars = cars[0:sample_size]
+    not_cars = not_cars[0:sample_size]
 
-    # get attributes of our svc object
-    svc = model['linearSVC']
-    x_scaler = model["X_scaler"]
     orient = model["orient"]
     pix_per_cell = model["pix_per_cell"]
-    cell_per_block = model["cell_per_block"]
+    cells_per_block = model["cell_per_block"]
     spatial_size = model["spatial_size"]
     hist_bins = model["hist_bins"]
-    hog_channel = model['hog_channel']
-    colorspace = model['color_item']
-    img = mpimg.imread(img_file)
+    hog_channels = model['hog_channel']
+    color_item = model['color_item']
+    test_img = mpimg.imread(img_file)
     ystart = 400
     ystop = 656
     scale = 1.5
-    out_img = object_detection_hog_subsampling.find_cars(test_img, ystart, ystop, scale, colorspace, hog_channel,
-                                                            svc, x_scaler, orient, pix_per_cell, cell_per_block,
-                                                            spatial_size, hist_bins)
+
+    object_detection_hog_features.print_parameters(color_item, orient, pix_per_cell, cells_per_block, hog_channels)
+
+    car_features = object_detection_utils.extract_features(cars, color_space=color_item, orient=orient,
+                                                           pix_per_cell=pix_per_cell, cell_per_block=cells_per_block,
+                                                           hog_channel=hog_channels)
+    notcar_features = object_detection_utils.extract_features(not_cars, color_space=color_item, orient=orient,
+                                                              pix_per_cell=pix_per_cell, cell_per_block=cells_per_block,
+                                                              hog_channel=hog_channels)
+    # Create an array stack of feature vectors
+    X = np.vstack((car_features, notcar_features)).astype(np.float64)
+    # Define the labels vector
+    y = np.hstack((np.ones(len(car_features)), np.zeros(len(notcar_features))))
+    # Split up data into randomized training and test sets
+    rand_state = np.random.randint(0, 100)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=rand_state)
+    # Fit a per-column scaler
+    X_scaler = StandardScaler().fit(X_train)
+    # Apply the scaler to X
+    X_train = X_scaler.transform(X_train)
+    X_test = X_scaler.transform(X_test)
+    # Use a linear SVC
+    svc = LinearSVC()
+    # Check the training time for the SVC
+    svc.fit(X_train, y_train)
+    # Check the score of the SVC
+    accuracy = round(svc.score(X_test, y_test), 4)
+
+    out_img = find_cars(test_img, ystart, ystop, scale, color_item, hog_channels,
+                        svc, X_scaler, orient, pix_per_cell, cells_per_block,
+                        spatial_size, hist_bins)
 
     #print(len(rectangles), 'rectangles found in image')
     plt.imshow(out_img)
