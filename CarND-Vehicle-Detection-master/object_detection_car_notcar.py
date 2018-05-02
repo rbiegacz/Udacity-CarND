@@ -1,11 +1,13 @@
 """
-    this module explore datasets of car and non-cars
+    This module explore datasets of car and non-cars.
+    A lot of code included in this file comes from Udacity Self-Driving Car Engineer Nanodegree
 """
 
 import glob
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import numpy as np
+import object_detection_utils
 
 
 # Define a function to return some characteristics of the dataset
