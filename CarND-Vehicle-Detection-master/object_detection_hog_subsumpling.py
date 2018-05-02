@@ -1,90 +1,13 @@
 """
     this module deals with definining a linear SVC model and using it to detect cars
+    Most of the code included in this file comes from Udacity Self-Driving Car Engineer Nanodegree
 """
 import numpy as np
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import cv2
 from skimage.feature import hog
-
-
-def convert_color(img, conversion='RGB2YCrCb'):
-    """
-    convert_color function converts and image per specified color convention.
-    :param img: image to convert
-    :param conversion: color space to convert
-    :return: converted image
-    """
-    if conversion == 'RGB2YCrCb':
-        return cv2.cvtColor(img, cv2.COLOR_RGB2YCrCb)
-    if conversion == 'BGR2YCrCb':
-        return cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
-    if conversion == 'RGB2LUV':
-        return cv2.cvtColor(img, cv2.COLOR_RGB2LUV)
-    return img
-
-
-def get_hog_features(img, orient, pix_per_cell, cell_per_block, vis=False, feature_vec=True):
-    """
-    TODO: deliver description of this function
-    :param img:
-    :param orient:
-    :param pix_per_cell:
-    :param cell_per_block:
-    :param vis:
-    :param feature_vec:
-    :return:
-    """
-    # Call with two outputs if vis==True
-    if vis is True:
-        features, hog_image = hog(img, orientations=orient,
-                                  pixels_per_cell=(pix_per_cell, pix_per_cell),
-                                  cells_per_block=(cell_per_block, cell_per_block),
-                                  block_norm='L2-Hys',
-                                  transform_sqrt=False,
-                                  visualise=vis, feature_vector=feature_vec)
-        return features, hog_image
-    # Otherwise call with one output
-    features = hog(img, orientations=orient,\
-                    pixels_per_cell=(pix_per_cell, pix_per_cell),\
-                    cells_per_block=(cell_per_block, cell_per_block),\
-                    block_norm='L2-Hys',\
-                    transform_sqrt=False,\
-                    visualise=vis, feature_vector=feature_vec)
-    return features
-
-
-def bin_spatial(img, size=(32, 32)):
-    """
-    TODO: deliver description of this function
-    :param img:
-    :param size:
-    :return:
-    """
-    color1 = cv2.resize(img[:, :, 0], size).ravel()
-    color2 = cv2.resize(img[:, :, 1], size).ravel()
-    color3 = cv2.resize(img[:, :, 2], size).ravel()
-    return np.hstack((color1, color2, color3))
-
-
-def color_hist(img, nbins=32, bins_range=(0, 256)):
-    """
-    TODO: deliver description of this function
-    :param img:
-    :param nbins:
-    :param bins_range:
-    :return:
-    """
-    # Compute the histogram of the color channels separately
-    channel1_hist = np.histogram(img[:,:,0], bins=nbins, range=bins_range)
-    channel2_hist = np.histogram(img[:,:,1], bins=nbins, range=bins_range)
-    channel3_hist = np.histogram(img[:,:,2], bins=nbins, range=bins_range)
-    # Concatenate the histograms into a single feature vector
-    bin_edges = channel1_hist[1]
-    bin_centers = (bin_edges[1:]  + bin_edges[0:len(bin_edges)-1])/2
-    hist_features = np.concatenate((channel1_hist[0], channel2_hist[0], channel3_hist[0]))
-    # Return the individual histograms, bin_centers and feature vector
-    return hist_features
+import object_detection_utils
 
 
 def find_cars(img, ystart, ystop, scale, cspace, hog_channel, svc, X_scaler, orient, pix_per_cell, cell_per_block, spatial_size, hist_bins):
@@ -131,10 +54,10 @@ def find_cars(img, ystart, ystop, scale, cspace, hog_channel, svc, X_scaler, ori
     nysteps = (nyblocks - nblocks_per_window) // cells_per_step + 1
 
     # Compute individual channel HOG features for the entire image
-    hog1 = get_hog_features(ch1, orient, pix_per_cell, cell_per_block, feature_vec=False)
+    hog1 = object_detection_utils.get_hog_features(ch1, orient, pix_per_cell, cell_per_block, feature_vec=False)
     if hog_channel == 'ALL':
-        hog2 = get_hog_features(ch2, orient, pix_per_cell, cell_per_block, feature_vec=False)
-        hog3 = get_hog_features(ch3, orient, pix_per_cell, cell_per_block, feature_vec=False)
+        hog2 = object_detection_utils.get_hog_features(ch2, orient, pix_per_cell, cell_per_block, feature_vec=False)
+        hog3 = object_detection_utils.get_hog_features(ch3, orient, pix_per_cell, cell_per_block, feature_vec=False)
 
     for xb in range(nxsteps):
         for yb in range(nysteps):
