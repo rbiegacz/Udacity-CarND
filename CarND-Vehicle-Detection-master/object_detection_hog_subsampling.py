@@ -107,17 +107,23 @@ def main_hog_subsampling(model, img_file="test_images/test1.jpg"):
     """
 
     # get attributes of our svc object
-    svc = model["linearsvc"]
-    X_scaler = model["X_scaler"]
+    svc = model['linearSVC']
+    x_scaler = model["X_scaler"]
     orient = model["orient"]
     pix_per_cell = model["pix_per_cell"]
     cell_per_block = model["cell_per_block"]
     spatial_size = model["spatial_size"]
     hist_bins = model["hist_bins"]
+    hog_channel = model['hog_channel']
+    colorspace = model['color_item']
     img = mpimg.imread(img_file)
     ystart = 400
     ystop = 656
     scale = 1.5
-    out_img = find_cars(img, ystart, ystop, scale, svc, X_scaler, orient, \
-                        pix_per_cell, cell_per_block, spatial_size, hist_bins)
+    out_img = object_detection_hog_subsampling.find_cars(test_img, ystart, ystop, scale, colorspace, hog_channel,
+                                                            svc, x_scaler, orient, pix_per_cell, cell_per_block,
+                                                            spatial_size, hist_bins)
+
+    #print(len(rectangles), 'rectangles found in image')
     plt.imshow(out_img)
+
