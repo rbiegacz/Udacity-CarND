@@ -172,14 +172,9 @@ def main_search_and_classify():
     :return:
     """
     # Read in cars and notcars
-    images = glob.glob('test_images//*.jpeg')
-    cars = []
-    notcars = []
-    for image in images:
-        if 'image' in image or 'extra' in image:
-            notcars.append(image)
-        else:
-            cars.append(image)
+    # images = glob.glob('test_images//*.jpeg')
+    cars = glob.glob('util_images/vehicles/**/*.png')
+    notcars = glob.glob('util_images/non-vehicles/**/*.png')
 
     # Reduce the sample size because
     # The quiz evaluator times out after 13s of CPU time
@@ -246,7 +241,7 @@ def main_search_and_classify():
     # Check the prediction time for a single sample
     t = time.time()
 
-    image = mpimg.imread('bbox-example-image.jpg')
+    image = mpimg.imread('util_images/bbox-example-image.jpg')
     draw_image = np.copy(image)
 
     # Uncomment the following line if you extracted training
