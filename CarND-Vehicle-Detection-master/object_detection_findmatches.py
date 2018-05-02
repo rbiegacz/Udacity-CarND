@@ -15,7 +15,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 #from sklearn.cross_validation import train_test_split
 from skimage.feature import hog
-import slide_window
+import object_detection_utils
 
 
 def color_hist(img, nbins=32, bins_range=(0, 256)):
@@ -70,7 +70,6 @@ def find_matches(img, template_list):
         # Return the list of bounding boxes
 
     return bbox_list
-
 
 
 def image_hist(image):
@@ -484,7 +483,7 @@ def main_drawboxes():
     templist = ['util_images/cutout1.jpg', 'util_images/cutout2.jpg', 'util_images/cutout3.jpg',
                 'util_images/cutout4.jpg', 'util_images/cutout5.jpg', 'util_images/cutout6.jpg']
     coordinates_boxes = find_matches(image, templist)
-    result = draw_boxes(image, coordinates_boxes)
+    result = object_detection_utils.draw_boxes(image, coordinates_boxes)
     plt.imshow(result)
 
 
