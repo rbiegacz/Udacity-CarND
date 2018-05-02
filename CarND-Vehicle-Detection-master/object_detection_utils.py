@@ -4,7 +4,26 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+import cv2
 
+
+# Here is your draw_boxes function from the previous exercise
+def draw_boxes(img, bboxes, color=(0, 0, 255), thick=6):
+    """
+    this function draws boxes
+    :param img: image where the boxes should be drawn
+    :param bboxes: the list of boxes to draw
+    :param color: color of a box
+    :param thick: thickness of a line used to draw boxes
+    :return:
+    """
+    imcopy = np.copy(img)
+    # Iterate through the bounding boxes
+    for bbox in bboxes:
+        # Draw a rectangle given bbox coordinates
+        cv2.rectangle(imcopy, bbox[0], bbox[1], color, thick)
+    # Return the image copy with boxes drawn
+    return imcopy
 
 def util_color_hist(img, bins_number=32, bins_range=(0, 256)):
     """

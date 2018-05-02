@@ -15,14 +15,18 @@ from skimage.feature import hog
 def get_hog_features(img, orient, pix_per_cell, cell_per_block,
                      vis=False, feature_vec=True):
     """
-    TODO: description what this function does
-    :param img:
-    :param orient:
-    :param pix_per_cell:
-    :param cell_per_block:
-    :param vis:
-    :param feature_vec:
-    :return:
+    This function retrieves HOG features for a given image.
+    More on Histogram of Oriented Gradients could be read here:
+    http://scikit-image.org/docs/dev/auto_examples/features_detection/plot_hog.html
+    This function uses hog(...) function described here:
+    http://scikit-image.org/docs/dev/api/skimage.feature.html#skimage.feature.hog
+    :param img: image to analize
+    :param orient: number of orientation bins
+    :param pix_per_cell: size in pixels of a cell
+    :param cell_per_block: number of cells in each block
+    :param vis: if true then return an image of HOG; For each cell and orientation bin, the image contains a line segment
+    (more could be read here: http://scikit-image.org/docs/dev/api/skimage.feature.html#skimage.feature.hog)
+    :return: HOG description of the image; if feature_vec is True then flattened array is returned
     """
     # Call with two outputs if vis==True
     if vis is True:
@@ -46,11 +50,11 @@ def extract_features(imgs, cspace='RGB', orient=9,
     This function extracts features from a list of images
     Have this function call bin_spatial() and color_hist()
     :param imgs:
-    :param cspace:
-    :param orient:
-    :param pix_per_cell:
-    :param cell_per_block:
-    :param hog_channel:
+    :param cspace: color space to use
+    :param orient: number of orientation bins
+    :param pix_per_cell: size in pixels of a cell
+    :param cell_per_block: number of cells in each block
+    :param hog_channel: HOG channel to use
     :return:
     """
     # Create a list to append feature vectors to
@@ -58,7 +62,14 @@ def extract_features(imgs, cspace='RGB', orient=9,
     # Iterate through the list of images
     for file in imgs:
         # Read in each one by one
+        # if file.find(".jpg"):
+        #    image = mpimg.imread(file)
+        # elif file.find(".png"):
+        #    image=cv2.imread(file)
+        # else:
+        #    return None
         image = mpimg.imread(file)
+
         # apply color conversion if other than 'RGB'
         if cspace != 'RGB':
             if cspace == 'HSV':
@@ -91,8 +102,17 @@ def extract_features(imgs, cspace='RGB', orient=9,
     return features
 
 
-def print_parameters(colourspace, orient, pix_per_cell, cell_per_block, hog_channel):
-    print("Color Space: {:6.6}, Hog Channel: {}, Orient: {}, Pix per Cell: {:2}, Cell per Block: {}: calculation".format(colourspace, hog_channel,  orient, pix_per_cell, cell_per_block))
+def print_parameters(color_space, orient, pix_per_cell, cell_per_block, hog_channel):
+    """
+    This function is used only to display information. It formats print output for arguments delivered.
+    :param color_space: color space
+    :param orient:
+    :param pix_per_cell:
+    :param cell_per_block: number of cells per block
+    :param hog_channel: HOG channel used
+    :return:
+    """
+    print("Color Space: {:6.6}, Hog Channel: {}, Orient: {}, Pix per Cell: {:2}, Cell per Block: {}: calculation".format(color_space, hog_channel, orient, pix_per_cell, cell_per_block))
 
 
 def main_hog():
@@ -107,16 +127,16 @@ def main_hog():
 
     # Reduce the sample size because HOG features are slow to compute
     # The quiz evaluator times out after 13s of CPU time
-    sample_size = 500
+    sample_size = 100
     cars = cars[0:sample_size]
     not_cars = not_cars[0:sample_size]
 
     experiments_dict = dict()
-    color_space = {'RGB', 'HSV', 'LUV', 'HLS', 'YUV', 'YCrCb'}
-    orients = [8, 9, 10, 11] #[7, 8, 9, 10, 11]
-    pixels_per_block = [8, 16] #[4, 8, 12, 16]
-    cells_per_block = [2] #[2, 4, 8]
-    hog_channels = [0] #[0, 1, 2, "ALL"]
+    color_space = {'RGB', 'HSV', 'HLS', 'YCrCb', 'YUV'} # {'LUV'}
+    orients = [8, 9, 10, 11]
+    pixels_per_block = [8, 16]
+    cells_per_block = [2]
+    hog_channels = [0, 1, 2, "ALL"]
     for color_item in color_space:
         for orient in orients:
             for pix_per_cell in pixels_per_block:
@@ -135,8 +155,10 @@ def main_hog():
 
                         # Create an array stack of feature vectors
                         X = np.vstack((car_features, notcar_features)).astype(np.float64)
+
                         # Define the labels vector
                         y = np.hstack((np.ones(len(car_features)), np.zeros(len(notcar_features))))
+
                         # Split up data into randomized training and test sets
                         rand_state = np.random.randint(0, 100)
                         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=rand_state)
@@ -156,10 +178,6 @@ def main_hog():
                         # Check the score of the SVC
                         accuracy = round(svc.score(X_test, y_test), 4)
                         # Check the prediction time for a single sample
-                        t = time.time()
-                        n_predict = 10
-                        t2 = time.time()
-                        time_for_prediction = round(t2 - t, 5)
                         experiments_dict["{}_{}_{}_{}_{}".format(color_item, hog_channel, orient, pix_per_cell, cell_per_block)] = \
                             {"color_item": color_item, "hog_channel": hog_channel,
                              "orient": orient, "pix_per_cell":pix_per_cell,
@@ -168,19 +186,27 @@ def main_hog():
                              "time_extract_hog_features": time_extract_hog_features,
                              "accuracy": accuracy,
                              "feature vector length": len(X_train[0]),
-                             "linearSVC": svc}
+                             "linearSVC": svc,
+                             "X_scaler": X_scaler,
+                             "spatial_size": (32, 32),
+                             "hist_bins": 32}
     return experiments_dict
 
 
-def print_results(experiments_dict):
+def print_results(experiments):
+    """
+    TODO: deliver description of this function
+    :param experiments:
+    :return:
+    """
     print("CS means Color Space")
     print("Or means Orientation")
     print("C/B means Cells per Block")
     print("P/C means Pixels per Cell")
     print("\n")
     # T(pred):{}\t| T(ext):{}\t|
-    for key in experiments_dict:
-        results = experiments_dict[key]
+    for key in experiments:
+        results = experiments[key]
         print("| CS:{}\t| Or:{:02}\t| C/B:{}\t| P/C:{:02}\t| Acc {:06.4f}\t| F:{:06}\t|"\
               .format(results["color_item"], results["orient"],
                       results["cell_per_block"], results["pix_per_cell"], results["accuracy"],
@@ -188,5 +214,35 @@ def print_results(experiments_dict):
                       results["feature vector length"]))
 
 
+def get_models(experiments, accuracy=0.99):
+    """
+    Return only models that have accuracy specified by 'accuracy' or higher
+    :param experiments: dictionary of all experiments
+    :param accuracy: specified the accuracy we are looking for
+    :return: dictionary of experiments matching the criteria
+    """
+    matching_experiments = dict()
+    for key in experiments:
+        if experiments[key]['accuracy'] > accuracy:
+            matching_experiments[key] = experiments[key]
+    return matching_experiments
+
+
+def get_best_model(experiments):
+    """
+    This function searches thru all the elements of experiments dictionary and retrieves the best model,
+    i.e. model with the best accuracy.
+    :param experiments: dictionary of all models created for vehicle recognition
+    :return: the entry for the best model
+    """
+    best_model_accuracy = 0
+    best_model_entry = None
+    for key in experiments:
+        if experiments[key]['accuracy'] > best_model_accuracy:
+            best_model_accuracy = experiments[key]['accuracy']
+            best_model_entry = experiments[key]
+    return best_model_entry
+
 if __name__ == '__main__':
-    experiments_dict = main_hog()
+    experiments_list = main_hog()
+    best_models = get_models(experiments_list)
