@@ -78,7 +78,7 @@ def image_hist(image):
     :param image:
     :return: it doesn't return anything if there is no error
     """
-    image = mpimg.imread('cutout1.jpg')
+    image = mpimg.imread('util_images/cutout1.png')
     rh, gh, bh, bincen, feature_vec = color_hist(image, nbins=32, bins_range=(0, 256))
 
     # Plot a figure with all three bar charts
@@ -450,12 +450,12 @@ def main_detectcars():
     # Check the prediction time for a single sample
     t = time.time()
 
-    image = mpimg.imread('bbox-example-image.jpg')
+    image = mpimg.imread('util_images/bbox-example-image.png')
     draw_image = np.copy(image)
 
     # Uncomment the following line if you extracted training
     # data from .png images (scaled 0 to 1 by mpimg) and the
-    # image you are searching is a .jpg (scaled 0 to 255)
+    # image you are searching is a jpg (scaled 0 to 255)
     # image = image.astype(np.float32)/255
 
     windows = object_detection_utils.slide_window(image, x_start_stop=[None, None], y_start_stop=y_start_stop,
@@ -478,10 +478,10 @@ def main_drawboxes():
     this function shows how drawing rectangles around cars work
     :return:
     """
-    image = mpimg.imread('util_images/bbox-example-image.jpg')
+    image = mpimg.imread('util_images/bbox-example-image.png')
 
-    templist = ['util_images/cutout1.jpg', 'util_images/cutout2.jpg', 'util_images/cutout3.jpg',
-                'util_images/cutout4.jpg', 'util_images/cutout5.jpg', 'util_images/cutout6.jpg']
+    templist = ['util_images/cutout1.png', 'util_images/cutout2.png', 'util_images/cutout3.png',
+                'util_images/cutout4.png', 'util_images/cutout5.png', 'util_images/cutout6.png']
     coordinates_boxes = find_matches(image, templist)
     result = object_detection_utils.draw_boxes(image, coordinates_boxes)
     plt.imshow(result)
