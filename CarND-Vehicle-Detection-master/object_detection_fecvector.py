@@ -53,7 +53,7 @@ def main_fecvector():
     """
     # Read in an image
     # You can also read cutout2, 3, 4 etc. to see other examples
-    image = mpimg.imread('util_images/cutout1.jpg')
+    image = mpimg.imread('util_images/cutout1.png')
     feature_vec = bin_spatial(image, color_space='RGB', size=(32, 32))
 
     # Plot features
