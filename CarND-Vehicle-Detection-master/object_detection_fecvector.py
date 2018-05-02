@@ -1,11 +1,13 @@
 """
     this module shows hot to convert an image to 32x32x3
     and still get reasonable feature vector for object detection
+    Most of the code included in this file comes from Udacity Self-Driving Car Engineer Nanodegree
 """
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+import object_detection_utils
 
 
 def bin_spatial(img, color_space='RGB', size=(32, 32)):
