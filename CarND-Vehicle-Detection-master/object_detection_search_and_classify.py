@@ -178,7 +178,7 @@ def main_search_and_classify():
 
     # Reduce the sample size because
     # The quiz evaluator times out after 13s of CPU time
-    sample_size = 500
+    sample_size = 1000
     cars = cars[0:sample_size]
     notcars = notcars[0:sample_size]
 
@@ -193,7 +193,7 @@ def main_search_and_classify():
     spatial_feat = True  # Spatial features on or off
     hist_feat = True  # Histogram features on or off
     hog_feat = True  # HOG features on or off
-    y_start_stop = [None, None]  # Min and max in y to search in slide_window()
+    y_start_stop = [400, 750]  # Min and max in y to search in slide_window()
 
     car_features = object_detection_utils.extract_features(cars, color_space=color_space,\
                                                            spatial_size=spatial_size, hist_bins=hist_bins,
@@ -241,17 +241,17 @@ def main_search_and_classify():
     # Check the prediction time for a single sample
     t = time.time()
 
-    image = mpimg.imread('util_images/bbox-example-image.jpg')
+    image = mpimg.imread('util_images/bbox-example-image.png')
     draw_image = np.copy(image)
 
     # Uncomment the following line if you extracted training
     # data from .png images (scaled 0 to 1 by mpimg) and the
-    # image you are searching is a .jpg (scaled 0 to 255)
+    # image you are searching is a jpg (scaled 0 to 255)
     # image = image.astype(np.float32)/255
 
     windows = object_detection_utils.slide_window(image, x_start_stop=[None, None],
                                                   y_start_stop=y_start_stop,
-                                                  xy_window=(96, 96), xy_overlap=(0.5, 0.5))
+                                                  xy_window=(128, 128), xy_overlap=(0.5, 0.5))
 
     hot_windows = search_windows(image, windows, svc, X_scaler, color_space=color_space,
                                  spatial_size=spatial_size, hist_bins=hist_bins,
