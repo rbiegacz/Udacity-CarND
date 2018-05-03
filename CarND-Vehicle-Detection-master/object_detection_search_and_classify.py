@@ -12,6 +12,7 @@ from sklearn.svm import LinearSVC
 from sklearn.preprocessing import StandardScaler
 from sklearn.cross_validation import train_test_split
 import object_detection_utils
+import object_detection_heatmap
 
 
 # Define a function to compute binned color features
@@ -168,7 +169,7 @@ def search_windows(img, windows, clf, scaler, color_space='RGB',
     return on_windows
 
 
-def main_search_and_classify():
+def main_search_and_classify(use_heatmap=False):
     """
     TODO: write a description of this function
     :return:
@@ -270,10 +271,23 @@ def main_search_and_classify():
                                  cell_per_block=cell_per_block,
                                  hog_channel=hog_channel, spatial_feat=spatial_feat,
                                  hist_feat=hist_feat, hog_feat=hog_feat)
+    if use_heatmap:
+        heat = np.zeros_like(image[:, :, 0]).astype(np.float)
+        # Add heat to each box in box list
+        heat = object_detection_heatmap.add_heat(heat, hot_windows)
+        # Apply threshold to help remove false positives
+        heat = object_detection_heatmap.apply_threshold(heat, 1)
+        # Visualize the heatmap when displaying
+        heatmap = np.clip(heat, 0, 255)
+        # Find final boxes from heatmap using label function
+        labels = object_detection_heatmap.label(heatmap)
+        draw_img = object_detection_heatmap.draw_labeled_bboxes(np.copy(image), labels)
+        plt.imshow(draw_img)
 
-    window_img = object_detection_utils.draw_boxes(draw_image, hot_windows, color=(0, 0, 255), thick=6)
+    if not use_heatmap:
+        window_img = object_detection_utils.draw_boxes(draw_image, hot_windows, color=(0, 0, 255), thick=6)
+        plt.imshow(window_img)
 
-    plt.imshow(window_img)
 
 if __name__ == '__main__':
     main_search_and_classify()
