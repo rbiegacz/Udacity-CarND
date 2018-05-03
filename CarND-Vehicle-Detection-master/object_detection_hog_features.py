@@ -184,7 +184,7 @@ def get_models(experiments, accuracy=0.99):
     return matching_experiments
 
 
-def get_best_model(experiments):
+def get_best_model(experiments, model_type='HLS'):
     """
     This function searches thru all the elements of experiments dictionary and retrieves the best model,
     i.e. model with the best accuracy.
@@ -194,9 +194,14 @@ def get_best_model(experiments):
     best_model_accuracy = 0
     best_model_entry = None
     for key in experiments:
-        if experiments[key]['accuracy'] > best_model_accuracy:
-            best_model_accuracy = experiments[key]['accuracy']
-            best_model_entry = experiments[key]
+        if model_type == '':
+            if experiments[key]['accuracy'] > best_model_accuracy:
+                best_model_accuracy = experiments[key]['accuracy']
+                best_model_entry = experiments[key]
+        elif experiments[key]['color_item'] == model_type:
+            if experiments[key]['accuracy'] > best_model_accuracy:
+                best_model_accuracy = experiments[key]['accuracy']
+                best_model_entry = experiments[key]
     return best_model_entry
 
 if __name__ == '__main__':

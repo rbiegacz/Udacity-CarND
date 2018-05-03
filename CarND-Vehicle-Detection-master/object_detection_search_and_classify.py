@@ -145,9 +145,11 @@ def search_windows(img, windows, clf, scaler, color_space='RGB',
     # 1) Create an empty list to receive positive detection windows
     on_windows = []
     # 2) Iterate over all windows in the list
+    #print(windows)
     for window in windows:
         # 3) Extract the test window from original image
-        test_img = cv2.resize(img[window[0][1]:window[1][1], window[0][0]:window[1][0]], (64, 64))
+        test_img = img[window[0][1]:window[1][1], window[0][0]:window[1][0]]
+        test_img = cv2.resize(test_img, (64, 64))
         # 4) Extract features for that window using single_img_features()
         features = single_img_features(test_img, color_space=color_space,
                                        spatial_size=spatial_size, hist_bins=hist_bins,
@@ -249,11 +251,20 @@ def main_search_and_classify():
     # image you are searching is a jpg (scaled 0 to 255)
     # image = image.astype(np.float32)/255
 
-    windows = object_detection_utils.slide_window(image, x_start_stop=[None, None],
-                                                  y_start_stop=y_start_stop,
-                                                  xy_window=(128, 128), xy_overlap=(0.5, 0.5))
+    windows_list = []
+    y_start_stop_list = [(400, 600), (400, 600), (500, 750), (500, 750)]
+    xy_window_list = [(96, 96), (96, 96), (96, 96), (96, 96)]
 
-    hot_windows = search_windows(image, windows, svc, X_scaler, color_space=color_space,
+    overlapx=0.1
+    overlapy=0.5
+
+    for y in y_start_stop_list:
+        for xy in xy_window_list:
+            windows_list += (object_detection_utils.slide_window(image, x_start_stop=[None, None],
+                                                                    y_start_stop=y, xy_window=xy,
+                                                                    xy_overlap=(overlapx, overlapy)))
+    #print(windows_list)
+    hot_windows = search_windows(image, windows_list, svc, X_scaler, color_space=color_space,
                                  spatial_size=spatial_size, hist_bins=hist_bins,
                                  orient=orient, pix_per_cell=pix_per_cell,
                                  cell_per_block=cell_per_block,

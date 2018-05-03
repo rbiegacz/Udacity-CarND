@@ -219,30 +219,32 @@ def main_hog_subsampling(model, img_file="test_images/test1.png"):
     test_img = mpimg.imread(img_file)
 
     rectangles = []
-    ystart = 500
+    ystart = 520
     ystop = 750
-    scale = 3.0
+    scale = 3
     rectangles = find_cars(test_img, ystart, ystop, scale, color_item,
                            hog_channels, svc, X_scaler, orient, pix_per_cell,
                            cells_per_block,spatial_size, hist_bins)
     rectangles1 = []
-    ystart = 300
+    ystart = 450
     ystop = 600
-    scale = 1.5
+    scale = 2
     rectangles1 = find_cars(test_img, ystart, ystop, scale, color_item,
                             hog_channels, svc, X_scaler, orient, pix_per_cell,
                             cells_per_block,spatial_size, hist_bins)
 
     rectangles3 = []
     ystart = 400
-    ystop = 700
+    ystop = 650
     scale = 2.5
     rectangles3 = find_cars(test_img, ystart, ystop, scale, color_item,
                             hog_channels, svc, X_scaler, orient, pix_per_cell,
                             cells_per_block,spatial_size, hist_bins)
 
-
-    pic = object_detection_utils.draw_boxes(cv2.imread(img_file), rectangles + rectangles1+rectangles3)
+    print("Number of rectangles: {}".format(len(rectangles)))
+    print("Number of rectangles: {}".format(len(rectangles1)))
+    print("Number of rectangles: {}".format(len(rectangles3)))
+    pic = object_detection_utils.draw_boxes(cv2.imread(img_file), rectangles+rectangles1)
     # you can replace cv2.imread(...) with mpimg.imread(img_file)
     # but you will need to comment out the line below
     pic = cv2.cvtColor(pic, cv2.COLOR_RGB2BGR)

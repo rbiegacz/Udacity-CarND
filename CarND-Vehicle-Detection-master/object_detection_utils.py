@@ -249,7 +249,7 @@ def slide_window(img, x_start_stop=[None, None], y_start_stop=[None, None],
             endy = starty + xy_window[1]
 
             # Append window position to list
-            window_list.append(((startx, starty), (endx, endy)))
+            window_list.append(((int(startx), int(starty)), (int(endx), int(endy))))
     # Return the list of windows
     return window_list
 
