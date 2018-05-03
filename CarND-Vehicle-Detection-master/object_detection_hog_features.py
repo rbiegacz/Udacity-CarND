@@ -34,7 +34,7 @@ def train_model(model_params):
     """
     cars = glob.glob('util_images/vehicles/**/*.png')
     not_cars = glob.glob('util_images/non-vehicles/**/*.png')
-    sample_size = 500
+    sample_size = model_params["sample_size"]
     cars = cars[0:sample_size]
     not_cars = not_cars[0:sample_size]
 
@@ -43,6 +43,7 @@ def train_model(model_params):
     pix_per_cell = model_params["pix_per_cell"]
     cells_per_block = 2
     hog_channels = model_params["hog_channel"]
+
 
     print_parameters(color_item, orient, pix_per_cell, cells_per_block, hog_channels)
 
@@ -70,7 +71,19 @@ def train_model(model_params):
     svc.fit(X_train, y_train)
     # Check the score of the SVC
     accuracy = round(svc.score(X_test, y_test), 4)
-    return svc
+    model = dict()
+    model["linearSVC"] = svc
+    model["X_scaler"] = X_scaler
+    model["color_item"] = model_params["color_item"]
+    model["orient"] = model_params["orient"]
+    model["pix_per_cell"] = model_params["pix_per_cell"]
+    model["cells_per_block"] = 2
+    model["hog_channel"] = model_params["hog_channel"]
+    model["sample_size"] = model_params["sample_size"]
+    model["spatial_feat"] = True
+    model["hist_feat"] = True
+    model["hog_feat"] = True
+    return model
 
 def main_hog():
     """
