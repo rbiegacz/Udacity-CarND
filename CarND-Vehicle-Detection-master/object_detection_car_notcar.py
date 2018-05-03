@@ -43,8 +43,8 @@ def main_look_for_car():
     # from skimage import color, exposure
     # images are divided up into vehicles and non-vehicles
 
-    notcars = glob.glob('util_images/non-vehicles_smallset/*/*.jpeg')
-    cars = glob.glob('util_images/vehicles_smallset/*/*.jpeg')
+    notcars = glob.glob('util_images/non-vehicles/*/*.png')
+    cars = glob.glob('util_images/vehicles/*/*.png')
 
     data_info = data_look(cars, notcars)
 
