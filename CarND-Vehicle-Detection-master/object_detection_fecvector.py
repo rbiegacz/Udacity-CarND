@@ -7,7 +7,6 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-import object_detection_utils
 
 
 def bin_spatial(img, color_space='RGB', size=(32, 32)):

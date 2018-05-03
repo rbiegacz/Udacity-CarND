@@ -7,7 +7,6 @@ import glob
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import numpy as np
-import object_detection_utils
 
 
 # Define a function to return some characteristics of the dataset
