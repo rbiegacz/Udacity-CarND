@@ -137,7 +137,7 @@ def search_windows(img, windows, clf, scaler, color_space='RGB',
     return on_windows
 
 
-def main_search_and_classify(model=None, image_file='util_images/bbox-example-image.png',
+def main_search_and_classify(model=None, image=None, image_file='util_images/bbox-example-image.png',
                              use_heatmap=False, display_results=True):
     """
     TODO: write a description of this function
@@ -226,7 +226,8 @@ def main_search_and_classify(model=None, image_file='util_images/bbox-example-im
         hist_feat = model["hist_feat"]  # Histogram features on or off
         hog_feat = model["hog_feat"]  # HOG features on or off
 
-    image = mpimg.imread(image_file)
+    if image_file is not None:
+        image = mpimg.imread(image_file)
     draw_image = np.copy(image)
     # Uncomment the following line if you extracted training
     # data from .png images (scaled 0 to 1 by mpimg) and the
