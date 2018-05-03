@@ -34,7 +34,7 @@ def train_model(model_params):
     """
     cars = glob.glob('util_images/vehicles/**/*.png')
     not_cars = glob.glob('util_images/non-vehicles/**/*.png')
-    sample_size = 100
+    sample_size = 500
     cars = cars[0:sample_size]
     not_cars = not_cars[0:sample_size]
 
@@ -93,7 +93,7 @@ def main_hog():
     orients = [8, 9, 10, 11]
     pixels_per_block = [8, 16]
     cells_per_block = [2]
-    hog_channels = [0, 1, 2, "ALL"]
+    hog_channels = ["ALL"] #[0, 1, 2, "ALL"]
     for color_item in color_space:
         for orient in orients:
             for pix_per_cell in pixels_per_block:

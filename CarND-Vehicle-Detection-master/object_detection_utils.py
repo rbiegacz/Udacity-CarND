@@ -22,7 +22,8 @@ def draw_boxes(img, bboxes, color=(0, 0, 255), thick=6):
     # Iterate through the bounding boxes
     for bbox in bboxes:
         # Draw a rectangle given bbox coordinates
-        cv2.rectangle(imcopy, bbox[0], bbox[1], color, thick)
+        if len(bbox) > 0:
+            cv2.rectangle(imcopy, bbox[0], bbox[1], color, thick)
     # Return the image copy with boxes drawn
     return imcopy
 
@@ -201,7 +202,7 @@ def extract_features(imgs, color_space='RGB', spatial_size=(32, 32),
 def slide_window(img, x_start_stop=[None, None], y_start_stop=[None, None],
                  xy_window=(64, 64), xy_overlap=(0.5, 0.5)):
     """
-    This function takes an image calcualtes sliding widndows with the following paremeters/conditions:
+    This function takes an image calcualtes sliding windows with the following paremeters/conditions:
     - start and stop positions in both x and y,
     - window size specified by xy_window,
     - and overlap fraction (for both x and y)
