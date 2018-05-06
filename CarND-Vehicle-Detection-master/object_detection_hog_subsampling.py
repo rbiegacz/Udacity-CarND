@@ -10,7 +10,7 @@ import object_detection_utils
 import object_detection_hog_features
 
 
-def find_cars(img, ystart, ystop, scale, cspace, hog_channel, svc, X_scaler, orient, pix_per_cell, cell_per_block, spatial_size, hist_bins):
+def find_cars(img, ystart, ystop, scale, cspace, hog_channel, svc, X_scaler, orient, pix_per_cell, cell_per_block, spatial_size, hist_bins, xstart=None, xstop=None):
     """
     TODO: write description of this function
     :param img:
@@ -26,10 +26,15 @@ def find_cars(img, ystart, ystop, scale, cspace, hog_channel, svc, X_scaler, ori
     :param hist_bins:
     :return:
     """
-    draw_img = np.copy(img)
     # img = img.astype(np.float32) / 255
     rectangles = []
-    img_tosearch = img[ystart:ystop, :, :]
+    if xstart is None:
+        xstart = 0
+    if xstop is None:
+        xstop=1280
+
+    img_tosearch = img[ystart:ystop, xstart:xstop, :]
+
     if cspace != 'RGB':
         if cspace == 'HSV':
             ctrans_tosearch = cv2.cvtColor(img_tosearch, cv2.COLOR_RGB2HSV)
@@ -41,7 +46,7 @@ def find_cars(img, ystart, ystop, scale, cspace, hog_channel, svc, X_scaler, ori
             ctrans_tosearch = cv2.cvtColor(img_tosearch, cv2.COLOR_RGB2YUV)
         elif cspace == 'YCrCb':
             ctrans_tosearch = cv2.cvtColor(img_tosearch, cv2.COLOR_RGB2YCrCb)
-    else: ctrans_tosearch = np.copy(img)
+    else: ctrans_tosearch = img_tosearch
 
     if scale != 1:
         imshape = ctrans_tosearch.shape
@@ -62,7 +67,7 @@ def find_cars(img, ystart, ystop, scale, cspace, hog_channel, svc, X_scaler, ori
     # 64 was the orginal sampling rate, with 8 cells and 8 pix per cell
     window = 64
     nblocks_per_window = (window // pix_per_cell) - cell_per_block + 1
-    cells_per_step = 1  # Instead of overlap, define how many cells to step
+    cells_per_step = 2  # Instead of overlap, define how many cells to step
     nxsteps = (nxblocks - nblocks_per_window) // cells_per_step + 1
     nysteps = (nyblocks - nblocks_per_window) // cells_per_step + 1
 
@@ -105,7 +110,7 @@ def find_cars(img, ystart, ystop, scale, cspace, hog_channel, svc, X_scaler, ori
                 xbox_left = np.int(xleft * scale)
                 ytop_draw = np.int(ytop * scale)
                 win_draw = np.int(window * scale)
-                rectangles.append(((xbox_left, ytop_draw + ystart), (xbox_left + win_draw, ytop_draw + win_draw + ystart)))
+                rectangles.append(((xbox_left+xstart, ytop_draw + ystart), (xbox_left+xstart + win_draw, ytop_draw + win_draw + ystart)))
     return rectangles
 
 
@@ -128,33 +133,63 @@ def main_hog_subsampling(model, img_file="test_images/test1.png"):
 
     test_img = mpimg.imread(img_file)
 
-    rectangles = []
-    ystart = 520
-    ystop = 750
-    scale = 3
-    rectangles = find_cars(test_img, ystart, ystop, scale, color_item,
+    rectangles0 = []
+    ystart = 400
+    ystop = 600
+    scale = 1.5
+    xstart =  0
+    xstop = None
+    rectangles0 = find_cars(test_img, ystart, ystop, scale, color_item,
                            hog_channels, svc, X_scaler, orient, pix_per_cell,
-                           cells_per_block,spatial_size, hist_bins)
+                           cells_per_block,spatial_size, hist_bins, xstart, xstop)
+
+    rectangles = []
+    ystart = 500
+    ystop = 720
+    scale = 3
+    xstart =  800
+    xstop = None
+    rectangles = find_cars(test_img[:, :, :], ystart, ystop, scale, color_item,
+                           hog_channels, svc, X_scaler, orient, pix_per_cell,
+                           cells_per_block,spatial_size, hist_bins, xstart, xstop)
     rectangles1 = []
     ystart = 450
     ystop = 600
     scale = 2
+    xstart =  0
+    xstop = 200
     rectangles1 = find_cars(test_img, ystart, ystop, scale, color_item,
                             hog_channels, svc, X_scaler, orient, pix_per_cell,
-                            cells_per_block,spatial_size, hist_bins)
+                            cells_per_block,spatial_size, hist_bins,  xstart, xstop)
+
+    rectangles2 = []
+    ystart = 450
+    ystop = 600
+    scale = 1
+    xstart =  1000
+    xstop = None
+    rectangles2 = find_cars(test_img, ystart, ystop, scale, color_item,
+                            hog_channels, svc, X_scaler, orient, pix_per_cell,
+                            cells_per_block,spatial_size, hist_bins,  xstart, xstop)
 
     rectangles3 = []
     ystart = 400
     ystop = 650
-    scale = 2.5
+    scale = 2
+    xstart =  100
+    xstop = 900
     rectangles3 = find_cars(test_img, ystart, ystop, scale, color_item,
                             hog_channels, svc, X_scaler, orient, pix_per_cell,
-                            cells_per_block,spatial_size, hist_bins)
+                            cells_per_block,spatial_size, hist_bins,  xstart, xstop)
 
+    display_rectangles = rectangles+rectangles0+rectangles1+rectangles2+rectangles3
+    #display_rectangles = rectangles0 + rectangles
+    print("Number of rectangles: {}".format(len(rectangles0)))
     print("Number of rectangles: {}".format(len(rectangles)))
     print("Number of rectangles: {}".format(len(rectangles1)))
+    print("Number of rectangles: {}".format(len(rectangles2)))
     print("Number of rectangles: {}".format(len(rectangles3)))
-    pic = object_detection_utils.draw_boxes(cv2.imread(img_file), rectangles+rectangles1)
+    pic = object_detection_utils.draw_boxes(cv2.imread(img_file), display_rectangles)
     # you can replace cv2.imread(...) with mpimg.imread(img_file)
     # but you will need to comment out the line below
     pic = cv2.cvtColor(pic, cv2.COLOR_RGB2BGR)
