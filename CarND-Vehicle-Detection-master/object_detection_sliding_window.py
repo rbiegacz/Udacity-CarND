@@ -15,24 +15,17 @@ def sliding_window_main():
     """
     image = mpimg.imread('util_images/bbox-example-image.png')
     windows_list = []
-    y_start_stop_list = [(400, 600), (400, 600), (500, 750), (500, 750)]
-    xy_window_list = [(64, 64), (64, 64), (64, 64), (64, 64)]
+    x_start_stop_list = [[50, 400], [400, 750], [750, 1200]]
+    y_start_stop_list = [(420, 700), (400, 600), (420, 700)]
+    xy_window_list = [(128, 128), (64, 64), (128, 128)]
+    overlapx=0.75
+    overlapy=0.75
 
-    overlapx=0.1
-    overlapy=0.5
-
-    for y in y_start_stop_list:
-        for xy in xy_window_list:
-            windows_list.append(object_detection_utils.slide_window(image, x_start_stop=[None, None],
-                                                                    y_start_stop=y, xy_window=xy,
-                                                                    xy_overlap=(overlapx, overlapy)))
-    window_img = image
-    for windows in windows_list:
-        color1 = np.random.randint(0, 255)
-        color2 = np.random.randint(0, 255)
-        color3 = np.random.randint(0, 255)
-        window_img = object_detection_utils.draw_boxes(window_img, windows, color=(color1,color2, color3), thick=6)
-
+    for y_start_stop, xy, x_start_stop in zip(y_start_stop_list,xy_window_list,x_start_stop_list):
+        windows_list += object_detection_utils.slide_window(image, x_start_stop=x_start_stop,
+                                                           y_start_stop=y_start_stop, xy_window=xy,
+                                                           xy_overlap=(overlapx, overlapy))
+    window_img = object_detection_utils.draw_boxes(image, windows_list, color=(0, 0, 255), thick=6)
     plt.imshow(window_img)
 
 
