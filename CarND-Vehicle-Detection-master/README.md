@@ -114,13 +114,16 @@ Couple of highlights:
 * Strengthen identification of vehicles via using cv2.matchTemplate template matching function
 * Calculation of distances from the objects (e.g. vehicles) could help to set scale values to appropriate values. The implemented algorithm is not aware of how far or close is a given object and it makes identification harder. Knowing distances would also let to set ranges for sliding windows mechanism to define in a better way.
 
-There is lots of hard-coded values like:
-* Threshold for heatmap
-* ranges for sliding windows
+There are hard-coded values like:
+* Threshold for heatmap function
+* Ranges for sliding windows
 These items should be calculated in automated way.
+
+Training LinearSVC model always uses all HOG channels. One could explore if limitting the number of channels would speed up processing while preserving quality of object identification.
 
 The applied approach using linear SVC classifier is dependent on the sizes of objects. Because the ranges for sliding windows are hardcoded then they work properly assuming that objects are within appropriate distance from a car. Some automated way of sliding windows ranges and scale needs to be implemented so those values don't need to be hardcoded. Calculation of the lane of a car and neighboring lanes should be applied to define scale and ranges.
 
 The classification mechanism should probably be implemented in some other language than Python - python processing might be too slow for real-time processing of images from car cameras.
 
 One could combined the method used in this project with vehicle detection mechanism implemented based on neural networks - it would improve quality of object identifications.
+
