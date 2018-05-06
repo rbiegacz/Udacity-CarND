@@ -93,6 +93,15 @@ The pictures taken by camera were divided into small pieces as it was shown in c
 ###Heatmap
 Heatmap mechanism was used to identify areas detected as 'vehicles' by many boxes. This method allowed to eliminate a lot of false positives.
 
+One can compare images with and without heatmap function applied in the vehicle_detection.ipynb.
+
+Section "Let's see how vehicle identification works in case HEATMAP is NOT USED" - cell#23 shows vehicle detection mechanism using sliding windows but not using heatmaps.
+- linearClassifier identifies cars but it also generates a lot of false positives.
+
+Section "Let's see how vehicle identification works in case HEATMAP is USED" - cell#24 shows vehicle detection mechanism using sliding windows and using heatmaps.
+- Identification works much better with application of heatmap function.
+
+
 ###Video Processing
 Video processing is implemented in the last cells of the Jupyter Notebook in the section called "Video Processing".
 
