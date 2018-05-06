@@ -23,7 +23,6 @@ def data_look(car_list, notcar_list):
     # Define a key "n_notcars" and store the number of notcar images
     data_dict["n_notcars"] = len(notcar_list)
     # Read in a test image, either car or notcar
-    print(car_list[0])
     example_img = mpimg.imread(car_list[0])
     # Define a key "image_shape" and store the test image shape 3-tuple
     data_dict["image_shape"] = example_img.shape
