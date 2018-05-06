@@ -78,6 +78,9 @@ Feature vector used as an input to Linear SVC consists of the following elements
 - Histogram of image colors 
 - Picture pixels
 
+Finally, taking into account the accuracy of various models the following model was used to process project videos:
+- Color Space: HSV   , Hog Channel: ALL, Orient: 9, Pix per Cell: 16, Cell per Block: 2: calculation
+
 ###Histogram of Oriented Gradients (HOG)
 This projected uses Histogram of Oriented Gradients (HOG) to detect objects.
 
@@ -86,6 +89,8 @@ HOG feature vector contains:
 - computing gradient histograms
 - normalising across blocks
 HOG feature vector is flattened into a one-dimensional feature vector.
+
+More about HOG could be read here: https://en.wikipedia.org/wiki/Histogram_of_oriented_gradients and on Scikit Image processing web pages (http://scikit-image.org/docs/dev/auto_examples/features_detection/plot_hog.html)
 
 ###Sliding Window Search
 The pictures taken by camera were divided into small pieces as it was shown in cell #
