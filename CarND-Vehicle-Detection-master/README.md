@@ -24,4 +24,7 @@ Video Processing
 ---
 Video processing is implemented in the last cells of the Jupyter Notebook - 
 
+Summary and Improvement Suggestions
+---
+Project is a good exploration exercise what might work 
 
