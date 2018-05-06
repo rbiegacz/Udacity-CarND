@@ -162,7 +162,7 @@ def main_search_and_classify_many(model=None, image_files=None, use_heatmap=Fals
 
 
 def main_search_and_classify(model=None, image=None, image_file='util_images/bbox-example-image.png',
-                             use_heatmap=False, display_results=True, method="both"):
+                             use_heatmap=False, display_results=True, method="both", video_optimization=False):
     """
     TODO: write a description of this function
     :return:
@@ -199,9 +199,14 @@ def main_search_and_classify(model=None, image=None, image_file='util_images/bbo
         y_start_stop_list = [(450, 70), (420, 500), (450, 700)]
         xy_window_list = [(128, 128), (64, 64), (128, 128)]
 
-        x_start_stop_list = [[50, 1280], [50, 1280], [860, 1200]]
-        y_start_stop_list = [(410, 450), (400, 600), (500, 700)]
-        xy_window_list = [(32, 32), (64, 64), (128, 128)]
+        if video_optimization:
+            x_start_stop_list = [[800, 1280], [800, 1280]]
+            y_start_stop_list = [(400, 550), (350, 650)]
+            xy_window_list = [(64, 64), (128, 128)]
+        else:
+            x_start_stop_list = [[50, 1280], [50, 1280], [860, 1200]]
+            y_start_stop_list = [(410, 450), (400, 600), (500, 700)]
+            xy_window_list = [(32, 32), (64, 64), (128, 128)]
         overlapx = 0.75
         overlapy = 0.75
         overlap_list = [(overlapx, overlapy), (overlapx, overlapy), (overlapx, overlapy)]
@@ -237,7 +242,10 @@ def main_search_and_classify(model=None, image=None, image_file='util_images/bbo
         # Add heat to each box in box list
         heat = object_detection_heatmap.add_heat(heat, hotty_windows)
         # Apply threshold to help remove false positives
-        heat = object_detection_heatmap.apply_threshold(heat, 4)
+        if video_optimization:
+            heat = object_detection_heatmap.apply_threshold(heat, 3)
+        else:
+            heat = object_detection_heatmap.apply_threshold(heat, 4)
         # Visualize the heatmap when displaying
         #heatmap = np.clip(heat, 0, 255)
         heatmap = np.clip(heat, 0, 1)
