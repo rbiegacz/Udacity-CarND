@@ -9,7 +9,7 @@ import matplotlib.image as mpimg
 from skimage.feature import hog
 
 
-def draw_boxes(img, bboxes, color=(0, 0, 255), thick=6):
+def draw_boxes(img, bboxes, color=(0, 0, 1), thick=6):
     """
     This function draws rectangles specified by bbox in the picture img.
     :param img: image where the boxes should be drawn
@@ -18,7 +18,8 @@ def draw_boxes(img, bboxes, color=(0, 0, 255), thick=6):
     :param thick: thickness of a line used to draw boxes
     :return: it returnes modified image which is original images + rectangles
     """
-    imcopy = np.copy(img)
+    # imcopy = np.copy(img)
+    imcopy = img
     # Iterate through the bounding boxes
     for bbox in bboxes:
         # Draw a rectangle given bbox coordinates
@@ -190,7 +191,8 @@ def extract_features(imgs, color_space='RGB', spatial_size=(32, 32),
             elif color_space == 'YCrCb':
                 feature_image = cv2.cvtColor(image, cv2.COLOR_RGB2YCrCb)
         else:
-            feature_image = np.copy(image)
+            #feature_image = np.copy(image)
+            feature_image = image
 
         if spatial_feat is True:
             spatial_features = bin_spatial(feature_image, size=spatial_size)
