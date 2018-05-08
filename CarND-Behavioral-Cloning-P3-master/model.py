@@ -61,6 +61,7 @@ def train_model():
     :return:
     """
     aug_images, aug_measurements = load_data()
+
     X_train = np.array(aug_images)
     y_train = np.array(aug_measurements)
 
@@ -91,10 +92,11 @@ def train_model():
 
         model.compile(loss='mse', optimizer='adam')
         model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=7)
-        if simple_model:
-            model.save('simple_model.h5')
-        else:
-            model.save('lenet_model.h5')
-    exit()
 
-train_model()
+    if simple_model:
+        model.save('simple_model.h5')
+    else:
+        model.save('lenet_model.h5')
+
+if __name__ == '__main__':
+    train_model()
