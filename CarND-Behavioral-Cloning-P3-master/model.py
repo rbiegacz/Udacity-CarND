@@ -129,6 +129,7 @@ def train_model():
         model = Sequential()
         model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
         model.add(Cropping2D(cropping=((40, 10), (0, 0))))
+        model.add(MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid', data_format=None))
         model.add(Convolution2D(6, 5, 5, activation="relu"))
         model.add(Activation("relu"))
         model.add(MaxPooling2D())
