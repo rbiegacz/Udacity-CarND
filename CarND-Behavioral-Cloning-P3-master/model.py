@@ -18,6 +18,7 @@
 # limitations under the License.
 #
 
+import os
 import csv
 import cv2
 import numpy as np
@@ -25,8 +26,9 @@ from keras.models import Sequential
 from keras.layers import Flatten, Dense, Lambda, Activation, Cropping2D
 from keras.layers.convolutional import Convolution2D, Conv2D
 from keras.layers.pooling import MaxPooling2D
-
 from keras.models import Model
+
+from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 def training_history():
@@ -67,20 +69,12 @@ def load_data():
         current_path_left = 'data/IMG/' + filename_left
         current_path_right = 'data/IMG/' + filename_right
 
-        resize = True
-
         image = cv2.imread(current_path)
         image=cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
-        if resize:
-            image=cv2.resize(image,(x_size,y_size))
         image_left = cv2.imread(current_path_left)
         image_left=cv2.cvtColor(image_left,cv2.COLOR_BGR2RGB)
-        if resize:
-            image_left=cv2.resize(image_left,(x_size,y_size))
         image_right = cv2.imread(current_path_right)
         image_right=cv2.cvtColor(image_right,cv2.COLOR_BGR2RGB)
-        if resize:
-            image_right=cv2.resize(image_right,(x_size,y_size))
 
         steering_center = float(line[3])
         correction = 0.1
@@ -129,6 +123,72 @@ def train_model():
         model = Sequential()
         model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
         model.add(Cropping2D(cropping=((40, 10), (0, 0))))
+        model.add(MaxPooling2D(pool_size=(2, 2), strides=None))
+        model.add(Convolution2D(6, 5, 5, activation="relu"))
+        model.add(Activation("relu"))
+        model.add(MaxPooling2D())
+
+        model.add(Convolution2D(6, 5, 5, activation="relu"))
+        model.add(Activation("relu"))
+        model.add(MaxPooling2D())
+
+        model.add(Flatten())
+        model.add(Dense(120))
+        model.add(Activation("relu"))
+        model.add(Dense(84))
+        model.add(Dense(1))
+
+        model.compile(loss='mse', optimizer='adam')
+        model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=1)
+
+    if simple_model:
+        model.save('simple_model.h5')
+    else:
+        model.save('lenet_model.h5')
+
+def generator(samples, batch_size=32):
+    num_samples = len(samples)
+    while 1: # Loop forever so the generator never terminates
+        shuffle(samples)
+        for offset in range(0, num_samples, batch_size):
+            batch_samples = samples[offset:offset+batch_size]
+
+            images = []
+            angles = []
+            for batch_sample in batch_samples:
+                name = './IMG/'+batch_sample[0].split('/')[-1]
+                center_image = cv2.imread(name)
+                center_angle = float(batch_sample[3])
+                images.append(center_image)
+                angles.append(center_angle)
+
+            # trim image to only see section with road
+            X_train = np.array(images)
+            y_train = np.array(angles)
+            yield sklearn.utils.shuffle(X_train, y_train)
+
+def train_model_2():
+    """
+    this function is responsible for training the model
+    :return:
+    """
+    aug_images, aug_measurements = load_data()
+
+    X_train = np.array(aug_images)
+    y_train = np.array(aug_measurements)
+
+    simple_model = False
+
+    if simple_model:
+        model = Sequential()
+        model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
+        model.add(Cropping2D(cropping=((50, 10), (0, 0))))
+        model.add(Flatten())
+        model.add(Dense(1))
+    else:
+        model = Sequential()
+        model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
+        model.add(Cropping2D(cropping=((40, 10), (0, 0))))
         model.add(MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid', data_format=None))
         model.add(Conv2D(6, (5, 5), activation="relu"))
         model.add(Activation("relu"))
@@ -144,9 +204,13 @@ def train_model():
         model.add(Dense(84))
         model.add(Dense(1))
 
-        model.compile(loss='mse', optimizer='adam')
-        model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=1)
+        train_generator = generator(train_samples, batch_size=32)
+        validation_generator = generator(validation_samples, batch_size=32)
 
+        model.compile(loss='mse', optimizer='adam')
+        model.fit_generator(train_generator, samples_per_epoch=len(train_samples),\
+                            validation_data = validation_generator,\
+                            nb_val_samples = len(validation_samples), nb_epoch = 7)
     if simple_model:
         model.save('simple_model.h5')
     else:
