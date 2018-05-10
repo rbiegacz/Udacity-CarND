@@ -65,3 +65,7 @@ CarND-Vehicle-Detection-master/util_images/non-vehicles_smallset/*
 CarND-Vehicle-Detection-master/__pycache__/*
 CarND-Vehicle-Detection-master/.ipynb_checkpoints/*
 CarND-Vehicle-Detection-master/CarND-Vehicle-Detection-master.zip
+CarND-Behavioral-Cloning-P3-master/data/*
+CarND-Behavioral-Cloning-P3-master/training_data/*
+CarND-Behavioral-Cloning-P3-master/combined_data/*
+CarND-Term1-Starter-Kit/*
