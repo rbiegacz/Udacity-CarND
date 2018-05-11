@@ -206,7 +206,7 @@ def train_model_2():
         model = Sequential()
         model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
         model.add(Cropping2D(cropping=((40, 10), (0, 0))))
-        model.add(MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid', data_format=None))
+        model.add(MaxPooling2D(pool_size=(2, 2), strides=None))
         model.add(Conv2D(6, (5, 5), activation="relu"))
         model.add(Activation("relu"))
         model.add(MaxPooling2D())
@@ -227,7 +227,7 @@ def train_model_2():
         model.compile(loss='mse', optimizer='adam')
         model.fit_generator(train_generator, samples_per_epoch=len(train_samples),\
                             validation_data = validation_generator,\
-                            nb_val_samples = len(validation_samples), nb_epoch = 7)
+                            nb_val_samples = len(validation_samples), nb_epoch = 5)
     if simple_model:
         model.save('simple_model.h5')
     else:
