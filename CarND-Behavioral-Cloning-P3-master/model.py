@@ -39,7 +39,7 @@ RESIZE_SCALE = 4
 y_size = 160
 x_size = 320
 
-def generator(samples, batch_size=32):
+def generator(samples, batch_size=192):
     num_samples = len(samples)
     while 1: # Loop forever so the generator never terminates
         shuffle(samples)
@@ -56,6 +56,8 @@ def generator(samples, batch_size=32):
                 center_angle = float(batch_sample[3])
                 images.append(center_image)
                 angles.append(center_angle)
+                images.append(np.fliplr(center_image))
+                angles.append(-center_angle)
 
                 name = 'data/IMG/'+batch_sample[1].split('/')[-1]
                 left_image = cv2.imread(name)
@@ -63,13 +65,17 @@ def generator(samples, batch_size=32):
                 left_angle = float(batch_sample[3]) + correction
                 images.append(left_image)
                 angles.append(left_angle)
+                images.append(np.fliplr(left_image))
+                angles.append(-left_angle)
 
                 name = 'data/IMG/'+batch_sample[1].split('/')[-1]
                 right_image = cv2.imread(name)
                 right_image = cv2.cvtColor(right_image, cv2.COLOR_BGR2RGB)
-                right_angle = float(batch_sample[3]) + correction
+                right_angle = float(batch_sample[3]) - correction
                 images.append(right_image)
                 angles.append(right_angle)
+                images.append(np.fliplr(right_image))
+                angles.append(-right_angle)
 
             # trim image to only see section with road
             X_train = np.array(images)
@@ -221,8 +227,8 @@ def train_model_2():
         model.add(Dense(84))
         model.add(Dense(1))
 
-        train_generator = generator(train_samples, batch_size=32)
-        validation_generator = generator(validation_samples, batch_size=32)
+        train_generator = generator(train_samples, batch_size=192)
+        validation_generator = generator(validation_samples, batch_size=192)
 
         model.compile(loss='mse', optimizer='adam')
         model.fit_generator(train_generator, samples_per_epoch=len(train_samples),\
