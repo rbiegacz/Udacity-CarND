@@ -234,9 +234,9 @@ def train_model_2():
         validation_generator = generator(validation_samples, batch_size=192)
 
         model.compile(loss='mse', optimizer='adam')
-        model.fit_generator(train_generator, samples_per_epoch= 6*len(train_samples), steps_per_epoch = 6*len(train_samples)/192,\
+        model.fit_generator(train_generator, samples_per_epoch= 6*len(train_samples),\
                             validation_data = validation_generator,\
-                            validation_steps = 6*len(validation_samples)/192, nb_epoch = 5)
+                            nb_val_samples = 6*len(validation_samples)/192, nb_epoch = 5)
     if simple_model:
         model.save('simple_model.h5')
     else:
