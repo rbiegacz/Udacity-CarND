@@ -198,10 +198,10 @@ def train_model_2():
     :return:
     """
     samples = load_data(read_only_data=True)
-    print("Number of all samples: {}".format(len(samples)))
+    print("Number of all samples: {}".format(6*len(samples)))
     train_samples, validation_samples = train_test_split(samples, test_size=0.2)
-    print("Number of all training samples: {}".format(len(train_samples)))
-    print("Number of all validation samples: {}".format(len(validation_samples)))
+    print("Number of all training samples: {}".format(6*len(train_samples)))
+    print("Number of all validation samples: {}".format(6*len(validation_samples)))
 
     simple_model = False
 
