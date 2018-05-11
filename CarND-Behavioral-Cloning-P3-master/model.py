@@ -25,7 +25,7 @@ import numpy as np
 from random import shuffle
 from keras.models import Sequential
 from keras.layers import Flatten, Dense, Lambda, Activation, Cropping2D
-from keras.layers.convolutional import Convolution2D, Conv2D
+from keras.layers.convolutional import Convolution2D
 from keras.layers.pooling import MaxPooling2D
 from keras.models import Model
 import sklearn
@@ -213,11 +213,11 @@ def train_model_2():
         model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
         model.add(Cropping2D(cropping=((40, 10), (0, 0))))
         model.add(MaxPooling2D(pool_size=(2, 2), strides=None))
-        model.add(Conv2D(6, (5, 5), activation="relu"))
+        model.add(Convolution2D(6, 5, 5, activation="relu"))
         model.add(Activation("relu"))
         model.add(MaxPooling2D())
 
-        model.add(Conv2D(6, (5, 5), activation="relu"))
+        model.add(Convolution2D(6, 5, 5, activation="relu"))
         model.add(Activation("relu"))
         model.add(MaxPooling2D())
 
