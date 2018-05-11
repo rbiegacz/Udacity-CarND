@@ -198,7 +198,10 @@ def train_model_2():
     :return:
     """
     samples = load_data(read_only_data=True)
+    print("Number of all samples: {}".format(len(samples)))
     train_samples, validation_samples = train_test_split(samples, test_size=0.2)
+    print("Number of all training samples: {}".format(len(train_samples)))
+    print("Number of all validation samples: {}".format(len(validation_samples)))
 
     simple_model = False
 
@@ -231,9 +234,9 @@ def train_model_2():
         validation_generator = generator(validation_samples, batch_size=192)
 
         model.compile(loss='mse', optimizer='adam')
-        model.fit_generator(train_generator, samples_per_epoch=len(train_samples),\
+        model.fit_generator(train_generator, samples_per_epoch=6*len(train_samples),\
                             validation_data = validation_generator,\
-                            nb_val_samples = len(validation_samples), nb_epoch = 5)
+                            nb_val_samples = 6*len(validation_samples), nb_epoch = 5)
     if simple_model:
         model.save('simple_model.h5')
     else:
