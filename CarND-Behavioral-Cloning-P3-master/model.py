@@ -19,6 +19,7 @@
 #
 
 import os
+import sys
 import csv
 import cv2
 import numpy as np
@@ -40,6 +41,7 @@ y_size = 160
 x_size = 320
 
 DATA_PATH="data"
+MODELS = {"simple", "lenet", "advanced"}
 
 def generator(samples, batch_size=192):
     """
@@ -159,9 +161,8 @@ def load_data(read_only_data=False):
     return aug_images, aug_measurements
 
 def create_model(model_type):
-    models = {"simple", "lenet", "advanced"}
     model = None
-    if not (model_type in models):
+    if not (model_type in MODELS):
         print("Wrong model type!")
         exit()
 
@@ -228,8 +229,7 @@ def train_model(model_type):
     X_train = np.array(aug_images)
     y_train = np.array(aug_measurements)
 
-    models = {"simple", "lenet", "advanced"}
-    if not (model_type in models):
+    if not (model_type in MODELS):
         print("Wrong model type!")
         exit()
 
@@ -283,4 +283,10 @@ def train_model_2(model_type):
         model.save('t2_lenet_model.h5')
 
 if __name__ == '__main__':
-    train_model_2("advanced")
+    if len(sys.argv[1]):
+        if not (model_type in MODELS):
+            print("Wrong model type!")
+            exit()
+        train_model_2(sys.argv[1])
+    else:
+        train_model_2("advanced")
