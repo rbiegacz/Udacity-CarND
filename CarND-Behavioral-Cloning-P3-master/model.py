@@ -39,6 +39,8 @@ RESIZE_SCALE = 4
 y_size = 160
 x_size = 320
 
+DATA_PATH="data"
+
 def generator(samples, batch_size=192):
     num_samples = len(samples)
     while 1: # Loop forever so the generator never terminates
@@ -50,7 +52,7 @@ def generator(samples, batch_size=192):
             angles = []
             correction = 0.1
             for batch_sample in batch_samples:
-                name = 'data/IMG/'+batch_sample[0].split('/')[-1]
+                name = '{}/IMG/'.format(DATA_PATH)+batch_sample[0].split('/')[-1]
                 center_image = cv2.imread(name)
                 center_image = cv2.cvtColor(center_image, cv2.COLOR_BGR2RGB)
                 center_angle = float(batch_sample[3])
@@ -59,7 +61,7 @@ def generator(samples, batch_size=192):
                 images.append(np.fliplr(center_image))
                 angles.append(-center_angle)
 
-                name = 'data/IMG/'+batch_sample[1].split('/')[-1]
+                name = '{}/IMG/'.format(DATA_PATH)+batch_sample[1].split('/')[-1]
                 left_image = cv2.imread(name)
                 left_image = cv2.cvtColor(left_image, cv2.COLOR_BGR2RGB)
                 left_angle = float(batch_sample[3]) + correction
@@ -68,7 +70,7 @@ def generator(samples, batch_size=192):
                 images.append(np.fliplr(left_image))
                 angles.append(-left_angle)
 
-                name = 'data/IMG/'+batch_sample[1].split('/')[-1]
+                name = '{}/IMG/'.format(DATA_PATH)+batch_sample[1].split('/')[-1]
                 right_image = cv2.imread(name)
                 right_image = cv2.cvtColor(right_image, cv2.COLOR_BGR2RGB)
                 right_angle = float(batch_sample[3]) - correction
@@ -88,7 +90,7 @@ def load_data(read_only_data=False):
     :return:
     """
     lines = []
-    with open('data/driving_log.csv') as csvfile:
+    with open('{}/driving_log.csv'.format(DATA_PATH)) as csvfile:
         reader = csv.reader(csvfile)
         for line in reader:
             lines.append(line)
@@ -111,9 +113,9 @@ def load_data(read_only_data=False):
         filename_left = source_path_left.split('/')[-1]
         filename_right = source_path_right.split('/')[-1]
 
-        current_path = 'data/IMG/' + filename
-        current_path_left = 'data/IMG/' + filename_left
-        current_path_right = 'data/IMG/' + filename_right
+        current_path = '{}/IMG/'.format(DATA_PATH) + filename
+        current_path_left = '{}/IMG/'.format(DATA_PATH) + filename_left
+        current_path_right = '{}/IMG/'.format(DATA_PATH) + filename_right
 
         image = cv2.imread(current_path)
         image=cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
@@ -218,7 +220,7 @@ def train_model(model_type):
         exit()
 
     model.compile(loss='mse', optimizer='adam')
-    model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=1)
+    model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=5)
 
     if model_type == "simple":
         model.save('simple_model.h5')
@@ -263,4 +265,4 @@ def train_model_2(model_type):
         model.save('lenet_model.h5')
 
 if __name__ == '__main__':
-    train_model("advanced")
+    train_model_2("advanced")
