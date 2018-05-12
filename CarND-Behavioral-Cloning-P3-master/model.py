@@ -232,11 +232,11 @@ def train_model(model_type):
     model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=5)
 
     if model_type == "simple":
-        model.save('simple_model.h5')
+        model.save('t1_simple_model.h5')
     elif model_type == "advanced":
-        model.save('advanced_model.h5')
+        model.save('t1_advanced_model.h5')
     else:
-        model.save('lenet_model.h5')
+        model.save('t1_lenet_model.h5')
 
 def train_model_2(model_type):
     """
@@ -267,11 +267,11 @@ def train_model_2(model_type):
                         nb_val_samples = 6*len(validation_samples)/192, nb_epoch = 5)
 
     if model_type == "simple":
-        model.save('simple_model.h5')
+        model.save('t2_simple_model.h5')
     elif model_type == "advanced":
-        model.save('advanced_model.h5')
+        model.save('t2_advanced_model.h5')
     else:
-        model.save('lenet_model.h5')
+        model.save('t2_lenet_model.h5')
 
 if __name__ == '__main__':
     train_model_2("advanced")
