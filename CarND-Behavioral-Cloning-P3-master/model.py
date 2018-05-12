@@ -25,7 +25,7 @@ import cv2
 import numpy as np
 from random import shuffle
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Lambda, Activation, Cropping2D
+from keras.layers import Flatten, Dense, Lambda, Activation, Cropping2D, Dropout
 from keras.layers.convolutional import Convolution2D
 from keras.layers.pooling import MaxPooling2D
 from keras.models import Model
@@ -181,6 +181,7 @@ def create_model(model_type):
         model.add(Convolution2D(24, 5, 5, subsample=(2,2), activation="relu"))
         model.add(Convolution2D(36, 5, 5, subsample=(2, 2), activation="relu"))
         model.add(Convolution2D(48, 5, 5, subsample=(2, 2), activation="relu"))
+        model.add(Dropout(0.9))
         model.add(Convolution2D(64, 3, 3, activation="relu"))
         model.add(Convolution2D(64, 3, 3, activation="relu"))
         model.add(Flatten())
@@ -238,7 +239,7 @@ def train_model(model_type):
         exit()
 
     model.compile(loss='mse', optimizer='adam')
-    model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=5)
+    model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=3)
 
     if model_type == "simple":
         model.save('t1_simple_model.h5')
@@ -273,7 +274,7 @@ def train_model_2(model_type):
     model.compile(loss='mse', optimizer='adam')
     model.fit_generator(train_generator, samples_per_epoch= 6*len(train_samples),\
                         validation_data = validation_generator,\
-                        nb_val_samples = 6*len(validation_samples)/192, nb_epoch = 5)
+                        nb_val_samples = 6*len(validation_samples)/192, nb_epoch = 3)
 
     if model_type == "simple":
         model.save('t2_simple_model.h5')
