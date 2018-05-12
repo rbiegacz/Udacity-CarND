@@ -147,25 +147,34 @@ def load_data(read_only_data=False):
         aug_measurements.append(-steering_right)
     return aug_images, aug_measurements
 
-def train_model():
-    """
-    this function is responsible for training the model
-    :return:
-    """
-    aug_images, aug_measurements = load_data()
+def create_model(model_type):
+    models = {"simple", "sophisticated", "advanced"}
+    model = None
+    if not (model_type in models):
+        print("Wrong model type!")
+        exit()
 
-    X_train = np.array(aug_images)
-    y_train = np.array(aug_measurements)
-
-    simple_model = False
-
-    if simple_model:
+    if model_type == "simple" :
         model = Sequential()
         model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
         model.add(Cropping2D(cropping=((50, 10), (0, 0))))
         model.add(Flatten())
         model.add(Dense(1))
-    else:
+    elif model_type == "advanced":
+        # implementation of https://devblogs.nvidia.com/deep-learning-self-driving-cars/
+        model = Sequential()
+        model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
+        model.add(Cropping2D(cropping=((70, 25), (0, 0))))
+        model.add(Convolution2D(24, 5, 5, subsample=(2,2), activation="relu"))
+        model.add(Convolution2D(36, 5, 5, subsample=(2, 2), activation="relu"))
+        model.add(Convolution2D(48, 5, 5, subsample=(2, 2), activation="relu"))
+        model.add(Convolution2D(64, 5, 5, activation="relu"))
+        model.add(Convolution2D(64, 5, 5, activation="relu"))
+        model.add(Flatten())
+        model.add(Dense(100))
+        model.add(Dense(50))
+        model.add(Dense(10))
+    elif model_type == "sophisticated":
         model = Sequential()
         model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
         model.add(Cropping2D(cropping=((40, 10), (0, 0))))
@@ -183,16 +192,41 @@ def train_model():
         model.add(Activation("relu"))
         model.add(Dense(84))
         model.add(Dense(1))
+    else:
+        print("Wrong model type!")
+    return model
 
-        model.compile(loss='mse', optimizer='adam')
-        model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=1)
 
-    if simple_model:
+def train_model(model_type):
+    """
+    this function is responsible for training the model
+    :return:
+    """
+    aug_images, aug_measurements = load_data()
+
+    X_train = np.array(aug_images)
+    y_train = np.array(aug_measurements)
+
+    models = {"simple", "sophisticated", "advanced"}
+    if not (model_type in models):
+        print("Wrong model type!")
+        exit()
+
+    model = create_model(model)
+    if model is None:
+        exit()
+
+    model.compile(loss='mse', optimizer='adam')
+    model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=1)
+
+    if model_type == "simple":
         model.save('simple_model.h5')
+    elif model_type == "advanced":
+        model.save('advanced_model.h5')
     else:
         model.save('lenet_model.h5')
 
-def train_model_2():
+def train_model_2(model_type):
     """
     this function is responsible for training the model
     :return:
@@ -203,44 +237,29 @@ def train_model_2():
     print("Number of all training samples: {}".format(6*len(train_samples)))
     print("Number of all validation samples: {}".format(6*len(validation_samples)))
 
-    simple_model = False
+    models = {"simple", "sophisticated", "advanced"}
+    if not (model_type in models):
+        print("Wrong model type!")
+        exit()
 
-    if simple_model:
-        model = Sequential()
-        model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
-        model.add(Cropping2D(cropping=((50, 10), (0, 0))))
-        model.add(Flatten())
-        model.add(Dense(1))
-    else:
-        model = Sequential()
-        model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
-        model.add(Cropping2D(cropping=((40, 10), (0, 0))))
-        model.add(MaxPooling2D(pool_size=(2, 2), strides=None))
-        model.add(Convolution2D(6, 5, 5, activation="relu"))
-        model.add(Activation("relu"))
-        model.add(MaxPooling2D())
+    model = create_model(model_type)
+    if model is None:
+        exit()
 
-        model.add(Convolution2D(6, 5, 5, activation="relu"))
-        model.add(Activation("relu"))
-        model.add(MaxPooling2D())
+    train_generator = generator(train_samples, batch_size=192)
+    validation_generator = generator(validation_samples, batch_size=192)
 
-        model.add(Flatten())
-        model.add(Dense(120))
-        model.add(Activation("relu"))
-        model.add(Dense(84))
-        model.add(Dense(1))
+    model.compile(loss='mse', optimizer='adam')
+    model.fit_generator(train_generator, samples_per_epoch= 6*len(train_samples),\
+                        validation_data = validation_generator,\
+                        nb_val_samples = 6*len(validation_samples)/192, nb_epoch = 5)
 
-        train_generator = generator(train_samples, batch_size=192)
-        validation_generator = generator(validation_samples, batch_size=192)
-
-        model.compile(loss='mse', optimizer='adam')
-        model.fit_generator(train_generator, samples_per_epoch= 6*len(train_samples),\
-                            validation_data = validation_generator,\
-                            nb_val_samples = 6*len(validation_samples)/192, nb_epoch = 5)
-    if simple_model:
+    if model_type == "simple":
         model.save('simple_model.h5')
+    elif model_type == "advanced":
+        model.save('advanced_model.h5')
     else:
         model.save('lenet_model.h5')
 
 if __name__ == '__main__':
-    train_model_2()
+    train_model("simple")
