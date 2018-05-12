@@ -59,21 +59,7 @@ The model.py file contains the code for training and saving the convolution neur
 
 ### Model Architecture and Training Strategy
 
-#### 1. An appropriate model architecture has been employed
 
-My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
-
-The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
-
-#### 2. Attempts to reduce overfitting in the model
-
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
-
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
-
-#### 3. Model parameter tuning
-
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
 
 #### 4. Appropriate training data
 
@@ -101,13 +87,33 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 
 #### 2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
+The final architecture of the neural network used for this project is similar to what it was described in NVIDIA article: https://devblogs.nvidia.com/deep-learning-self-driving-cars/
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
+The network topology consists of the following layers:
+1. Normalization layer (model.py: 178) using Keras lambda layer.
+2. Cropping the image only to this part of the image that is relevant for making steering decisions (model.py: 179)
+3. Convolutional Layer #1 (model.py: )
+   the output of this layer goes thru RELU activation function to introduce non-linearity
+4. Convolutional Layer #2 (model.py: )
+5. Convolutional Layer #3 (model.py: )
+6. Convolutional Layer #4 (model.py: )
+7. Convolutional Layer #5 (model.py: )
+8. Fully connected layer (model.py: 186)
+9. Fully connected layer (model.py: 187)
+9. Fully connected layer (model.py: 188)
+9. Fully connected layer (model.py: 189)
 
-![alt text][image1]
+#### 3. Attempts to reduce overfitting in the model
 
-#### 3. Creation of the Training Set & Training Process
+#### 4. Model parameter tuning
+
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 273).
+
+
+The model was trained and validated on different data sets to ensure that the model was not overfitting (model.py: lines 270-271). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+
+#### 4. Creation of the Training Set & Training Process
+
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
 
