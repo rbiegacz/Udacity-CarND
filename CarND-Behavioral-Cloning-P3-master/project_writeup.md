@@ -20,19 +20,32 @@ The steps of this project are the following:
 [image6]: ./examples/placeholder_small.png "Normal Image"
 [image7]: ./examples/placeholder_small.png "Flipped Image"
 
-## Rubric Points
-### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
+This project fulfills requirements/expectations that are documented in [rubric points](https://review.udacity.com/#!/rubrics/432/view).
 
 ---
 ### Files Submitted & Code Quality
 
-#### 1. Submission includes all required files and can be used to run the simulator in autonomous mode
+#### 1. Project structure and project artifacts
 
 My project includes the following files:
 * model.py containing the script to create and train the model
+  the following functions in model.py are key for the whole project:
+  a) load_data(...) - this function loads the information about training data from driving_log.csv
+  b) generator(...) - generates a batch of (X, y) data of batch_size that is used to train a model; this function allows to read data in chunks and helps especially in case you don't have enough computer memory to load all the training data at once.
+  c) create_model(...) this function creates a topology of a model - there are 3 types of models created by it:
+  - "simple" (just for test purposes)
+  - "sophisticated" - based on LeNet topology
+  - "advanced" - based on NN topology described in this article: https://devblogs.nvidia.com/deep-learning-self-driving-cars/
+    (normalization layer, cropping layer, 5 convolutional layers, 4 fully connected layers)
+  
 * drive.py for driving the car in autonomous mode
-* model.h5 containing a trained convolution neural network 
+  this file serves data to car simulator and allows for capturing images from autonomous drive of a car
+
+* model.h5 containing a trained convolution neural network
+  this is the trained model used futher in autonomous mode to drive the car and record project video
+  
 * writeup_report.md or writeup_report.pdf summarizing the results
+  this is the file that you're reading
 
 #### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
