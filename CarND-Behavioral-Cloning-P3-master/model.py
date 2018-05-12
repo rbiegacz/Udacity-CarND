@@ -159,7 +159,7 @@ def load_data(read_only_data=False):
     return aug_images, aug_measurements
 
 def create_model(model_type):
-    models = {"simple", "sophisticated", "advanced"}
+    models = {"simple", "lenet", "advanced"}
     model = None
     if not (model_type in models):
         print("Wrong model type!")
@@ -186,7 +186,7 @@ def create_model(model_type):
         model.add(Dense(100))
         model.add(Dense(50))
         model.add(Dense(1))
-    elif model_type == "sophisticated":
+    elif model_type == "lenet":
         model = Sequential()
         model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
         model.add(Cropping2D(cropping=((40, 10), (0, 0))))
@@ -219,7 +219,7 @@ def train_model(model_type):
     X_train = np.array(aug_images)
     y_train = np.array(aug_measurements)
 
-    models = {"simple", "sophisticated", "advanced"}
+    models = {"simple", "lenet", "advanced"}
     if not (model_type in models):
         print("Wrong model type!")
         exit()
@@ -249,7 +249,7 @@ def train_model_2(model_type):
     print("Number of all training samples: {}".format(6*len(train_samples)))
     print("Number of all validation samples: {}".format(6*len(validation_samples)))
 
-    models = {"simple", "sophisticated", "advanced"}
+    models = {"simple", "lenet", "advanced"}
     if not (model_type in models):
         print("Wrong model type!")
         exit()
