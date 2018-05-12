@@ -284,7 +284,7 @@ def train_model_2(model_type):
 
 if __name__ == '__main__':
     if len(sys.argv[1]):
-        if not (model_type in MODELS):
+        if not (sys.argv[1] in MODELS):
             print("Wrong model type!")
             exit()
         train_model_2(sys.argv[1])
