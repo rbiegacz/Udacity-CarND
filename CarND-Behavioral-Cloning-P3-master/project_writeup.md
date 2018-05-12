@@ -30,8 +30,11 @@ This project fulfills requirements/expectations that are documented in [rubric p
 My project includes the following files:
 * model.py containing the script to create and train the model
   the following functions in model.py are key for the whole project:
+  
   a) load_data(...) - this function loads the information about training data from driving_log.csv
+  
   b) generator(...) - generates a batch of (X, y) data of batch_size that is used to train a model; this function allows to read data in chunks and helps especially in case you don't have enough computer memory to load all the training data at once.
+  
   c) create_model(...) this function creates a topology of a model - there are 3 types of models created by it:
   - "simple" (just for test purposes)
   - "lenet" - based on LeNet topology
@@ -83,24 +86,24 @@ The network topology consists of the following layers:
 5. Convolutional Layer #3 (model.py: line 183)
    model.add(Convolution2D(48, 5, 5, subsample=(2,2), activation="relu"))
    the output of this layer goes thru RELU activation function to introduce non-linearity
-6. Convolutional Layer #4 (model.py: line 184)
+6. Convolutional Layer #4 (model.py: line 185)
    model.add(Convolution2D(64, 3, 3, activation="relu"))
    the output of this layer goes thru RELU activation function to introduce non-linearity
-7. Convolutional Layer #5 (model.py: line 185)
+7. Convolutional Layer #5 (model.py: line 186)
    model.add(Convolution2D(64, 3, 3, activation="relu"))
    the output of this layer goes thru RELU activation function to introduce non-linearity
-8. Fully connected layer (model.py: line 186)
-9. Fully connected layer (model.py: line 187)
+8. Fully connected layer (model.py: line 187)
 9. Fully connected layer (model.py: line 188)
 9. Fully connected layer (model.py: line 189)
+9. Fully connected layer (model.py: line 190)
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 273).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 274).
 
 #### 4. Creation of the Training Set & Training Process
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (model.py: lines 270-271). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different data sets to ensure that the model was not overfitting (model.py: lines 271-272). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 I managed to use course-provided data, I didn't need to prepare additional data to train models.
 
