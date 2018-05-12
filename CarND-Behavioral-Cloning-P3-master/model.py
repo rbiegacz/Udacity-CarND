@@ -42,6 +42,15 @@ x_size = 320
 DATA_PATH="data"
 
 def generator(samples, batch_size=192):
+    """
+    this function returns data in batches - batch size is specified by batch_size parameters;
+    using this function helps in situation when you don't have enough memory on your computer
+    to load all the data into memory;
+    this function uses the concept of generator (implemented based on 'yield')
+    :param samples:
+    :param batch_size: size of a batch to generate
+    :return: batch of data consisting of features and expected result, size of it = batch_size
+    """
     num_samples = len(samples)
     while 1: # Loop forever so the generator never terminates
         shuffle(samples)
