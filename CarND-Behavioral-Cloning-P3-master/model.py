@@ -157,7 +157,7 @@ def create_model(model_type):
     if model_type == "simple" :
         model = Sequential()
         model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
-        model.add(Cropping2D(cropping=((50, 10), (0, 0))))
+        model.add(Cropping2D(cropping=((40, 10), (0, 0))))
         model.add(Flatten())
         model.add(Dense(1))
     elif model_type == "advanced":
@@ -165,20 +165,21 @@ def create_model(model_type):
         model = Sequential()
         model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
         model.add(Cropping2D(cropping=((70, 25), (0, 0))))
+        #model.add(MaxPooling2D(pool_size=(2, 2), strides=None))
         model.add(Convolution2D(24, 5, 5, subsample=(2,2), activation="relu"))
         model.add(Convolution2D(36, 5, 5, subsample=(2, 2), activation="relu"))
         model.add(Convolution2D(48, 5, 5, subsample=(2, 2), activation="relu"))
-        model.add(Convolution2D(64, 5, 5, activation="relu"))
-        model.add(Convolution2D(64, 5, 5, activation="relu"))
+        model.add(Convolution2D(64, 3, 3, activation="relu"))
+        model.add(Convolution2D(64, 3, 3, activation="relu"))
         model.add(Flatten())
         model.add(Dense(100))
         model.add(Dense(50))
-        model.add(Dense(10))
+        model.add(Dense(1))
     elif model_type == "sophisticated":
         model = Sequential()
         model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
         model.add(Cropping2D(cropping=((40, 10), (0, 0))))
-        model.add(MaxPooling2D(pool_size=(2, 2), strides=None))
+        #model.add(MaxPooling2D(pool_size=(2, 2), strides=None))
         model.add(Convolution2D(6, 5, 5, activation="relu"))
         model.add(Activation("relu"))
         model.add(MaxPooling2D())
@@ -212,7 +213,7 @@ def train_model(model_type):
         print("Wrong model type!")
         exit()
 
-    model = create_model(model)
+    model = create_model(model_type)
     if model is None:
         exit()
 
@@ -262,4 +263,4 @@ def train_model_2(model_type):
         model.save('lenet_model.h5')
 
 if __name__ == '__main__':
-    train_model("simple")
+    train_model("advanced")
