@@ -33,15 +33,13 @@ import sklearn
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
-def training_history():
-    history_object = model.fit_generator(train_generator)
-
 RESIZE_SCALE = 4
-y_size = 160
-x_size = 320
-
 DATA_PATH="data"
 MODELS = {"simple", "lenet", "advanced"}
+
+Y_SIZE = 160
+X_SIZE = 320
+
 
 def generator(samples, batch_size=192):
     """
@@ -168,31 +166,41 @@ def create_model(model_type):
 
     if model_type == "simple" :
         model = Sequential()
-        model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
+        model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(Y_SIZE, X_SIZE, 3)))
         model.add(Cropping2D(cropping=((40, 10), (0, 0))))
         model.add(Flatten())
         model.add(Dense(1))
     elif model_type == "advanced":
         # implementation of https://devblogs.nvidia.com/deep-learning-self-driving-cars/
         model = Sequential()
-        model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
+
+        # image normalization
+        model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(Y_SIZE, X_SIZE, 3)))
+
+        # cropping the image
         model.add(Cropping2D(cropping=((70, 25), (0, 0))))
-        #model.add(MaxPooling2D(pool_size=(2, 2), strides=None))
+        # the line below could be used to lower resolution of an image
+        # model.add(MaxPooling2D(pool_size=(2, 2), strides=None))
+
+        # convolutional layers
         model.add(Convolution2D(24, 5, 5, subsample=(2,2), activation="relu"))
         model.add(Convolution2D(36, 5, 5, subsample=(2, 2), activation="relu"))
         model.add(Convolution2D(48, 5, 5, subsample=(2, 2), activation="relu"))
-        # model.add(Dropout(0.9))
         model.add(Convolution2D(64, 3, 3, activation="relu"))
         model.add(Convolution2D(64, 3, 3, activation="relu"))
+
+        # fully connected layers
         model.add(Flatten())
-        model.add(Dense(100))
+        model.add(Dense(100, activation="relu"))
+        model.add(Dropout(0.1))
         model.add(Dense(50))
         model.add(Dense(1))
+
     elif model_type == "lenet":
         model = Sequential()
 
         # image normalization
-        model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(y_size,x_size,3)))
+        model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(Y_SIZE, X_SIZE, 3)))
 
         # cropping the image
         model.add(Cropping2D(cropping=((70, 25), (0, 0))))
