@@ -127,17 +127,19 @@ The network topology consists of the following layers:
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 274).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 282).
 
 #### 4. Training Process
 
-During the process of training data I tried to avoid overfitting via 
+Data set used for training the model consists of 48216 images. During the process of training data I tried to avoid overfitting via 
 
-- splitting data set into training and validation sets (model.py: lines 279-280)
+- splitting data set into training and validation sets (model.py: lines 279-280) - 80% of the dataset is used for training (38572), 20% is used for validation (9644).
 
 - using Dropout layer in Neural Network architecture (model.py: lines 195)
 
 I finally randomly shuffled the data set and put Y% of the data into a validation set (model.py: line 56 in generator(...) function).
+
+Training was done using batches of size 192 images per batch and 201 batches within one epoch.
 
 The console output from the training sessions is presented below:
 
