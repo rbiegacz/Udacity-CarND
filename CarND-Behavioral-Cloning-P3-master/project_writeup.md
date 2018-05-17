@@ -68,7 +68,9 @@ c) Recovery from a situation that a car is on the right edge of the road
 d) Recovery from a situation that a car is on the left edge of the road
 
 During the learning process I take into account images from centeral, right and left camera (as it is presented below):
-[[!image1]
+![Center Camera][image1]
+![Right Camera][image2]
+![Left Camera][image3]
 
 
 ### Model Architecture and Training Strategy
