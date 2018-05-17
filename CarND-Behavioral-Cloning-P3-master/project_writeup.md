@@ -104,26 +104,27 @@ The final architecture of the neural network used for this project is similar to
 
 The network topology consists of the following layers:
 1. Normalization layer (model.py: 178) using Keras lambda layer.
-2. Cropping the image only to this part of the image that is relevant for making steering decisions (model.py: 179)
-3. Convolutional Layer #1 (model.py: line 181)
+2. Cropping the image only to this part of the image that is relevant for making steering decisions (model.py: 181)
+3. Convolutional Layer #1 (model.py: line 1816
    model.add(Convolution2D(24, 5, 5, subsample=(2,2), activation="relu"))
    the output of this layer goes thru RELU activation function to introduce non-linearity
-4. Convolutional Layer #2 (model.py: line 182)
+4. Convolutional Layer #2 (model.py: line 187)
    model.add(Convolution2D(36, 5, 5, subsample=(2,2), activation="relu"))
    the output of this layer goes thru RELU activation function to introduce non-linearity
-5. Convolutional Layer #3 (model.py: line 183)
+5. Convolutional Layer #3 (model.py: line 188)
    model.add(Convolution2D(48, 5, 5, subsample=(2,2), activation="relu"))
    the output of this layer goes thru RELU activation function to introduce non-linearity
-6. Convolutional Layer #4 (model.py: line 185)
+6. Convolutional Layer #4 (model.py: line 189)
    model.add(Convolution2D(64, 3, 3, activation="relu"))
    the output of this layer goes thru RELU activation function to introduce non-linearity
-7. Convolutional Layer #5 (model.py: line 186)
+7. Convolutional Layer #5 (model.py: line 190)
    model.add(Convolution2D(64, 3, 3, activation="relu"))
    the output of this layer goes thru RELU activation function to introduce non-linearity
-8. Fully connected layer (model.py: line 187)
-9. Fully connected layer (model.py: line 188)
-9. Fully connected layer (model.py: line 189)
-9. Fully connected layer (model.py: line 190)
+8. Fully connected layer (model.py: line 193)
+9. Fully connected layer (model.py: line 194)
+10. Dropout layer (model.py: line 195)
+11. Fully connected layer (model.py: line 196)
+12. Fully connected layer (model.py: line 197)
 
 #### 3. Model parameter tuning
 
