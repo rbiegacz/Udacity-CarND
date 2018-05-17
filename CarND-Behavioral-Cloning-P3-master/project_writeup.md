@@ -131,13 +131,13 @@ The model used an adam optimizer, so the learning rate was not tuned manually (m
 
 #### 4. Training Process
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (model.py: lines 271-272). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+During the process of training data I tried to avoid overfitting via 
 
-I managed to use course-provided data, I didn't need to prepare additional data to train models.
+- splitting data set into training and validation sets (model.py: lines 279-280)
 
-Training data consited of images captured by center, left and right camera and I also flipped images & angles to augment the training data.
+- using Dropout layer in Neural Network architecture (model.py: lines 195)
 
-I finally randomly shuffled the data set and put Y% of the data into a validation set (model.py: line 58 in generator(...) function).
+I finally randomly shuffled the data set and put Y% of the data into a validation set (model.py: line 56 in generator(...) function).
 
 The console output from the training sessions is presented below:
 
@@ -156,6 +156,8 @@ Epoch 5/5
 38572/38572 [==============================] - 215s - loss: 0.0087 - val_loss: 0.0119
 
 As you can see 3-5 epochs were enought to get fully functional/trained model that allowed to achieve project goals.
+
+The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 #### Results
 
