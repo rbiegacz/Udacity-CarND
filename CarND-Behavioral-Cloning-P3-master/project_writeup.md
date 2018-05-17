@@ -12,6 +12,7 @@ The steps of this project are the following:
 
 [//]: # (Image References)
 
+[image0]: ./examples/flipped_center_camera.jpg "Flipped Center Camera Image"
 [image1]: ./examples/center_camera.jpg "Center Camera"
 [image2]: ./examples/left_camera.jpg "Left Camera"
 [image3]: ./examples/right_camera.jpg "Right Image"
@@ -68,9 +69,23 @@ c) Recovery from a situation that a car is on the right edge of the road
 d) Recovery from a situation that a car is on the left edge of the road
 
 During the learning process I take into account images from centeral, right and left camera (as it is presented below):
+
+Center Car Camera Image
 ![Center Camera][image1]
-![Right Camera][image2]
-![Left Camera][image3]
+
+Right Car Camera Image
+![Right Camera][image3]
+
+Left Car Camera Image
+![Left Camera][image2]
+
+To augment training data I also flipped images and this allowed to double training data. The example of a flipped image is shown below.
+
+Center Car Camera Image
+![Center Camera][image1]
+
+Flipped Center Car Camera
+![Flipped Image][image0]
 
 
 ### Model Architecture and Training Strategy
