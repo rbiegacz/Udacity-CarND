@@ -12,6 +12,7 @@ The steps of this project are the following:
 
 [//]: # (Image References)
 
+[image0]: ./examples/flipped_center_camera.jpg "Flipped Center Camera Image"
 [image1]: ./examples/center_camera.jpg "Center Camera"
 [image2]: ./examples/left_camera.jpg "Left Camera"
 [image3]: ./examples/right_camera.jpg "Right Image"
@@ -68,9 +69,23 @@ c) Recovery from a situation that a car is on the right edge of the road
 d) Recovery from a situation that a car is on the left edge of the road
 
 During the learning process I take into account images from centeral, right and left camera (as it is presented below):
+
+Center Car Camera Image
 ![Center Camera][image1]
-![Right Camera][image2]
-![Left Camera][image3]
+
+Right Car Camera Image
+![Right Camera][image3]
+
+Left Car Camera Image
+![Left Camera][image2]
+
+To augment training data I also flipped images and this allowed to double training data. The example of a flipped image is shown below.
+
+Center Car Camera Image
+![Center Camera][image1]
+
+Flipped Center Car Camera
+![Flipped Image][image0]
 
 
 ### Model Architecture and Training Strategy
@@ -89,40 +104,43 @@ The final architecture of the neural network used for this project is similar to
 
 The network topology consists of the following layers:
 1. Normalization layer (model.py: 178) using Keras lambda layer.
-2. Cropping the image only to this part of the image that is relevant for making steering decisions (model.py: 179)
-3. Convolutional Layer #1 (model.py: line 181)
+2. Cropping the image only to this part of the image that is relevant for making steering decisions (model.py: 181)
+3. Convolutional Layer #1 (model.py: line 1816
    model.add(Convolution2D(24, 5, 5, subsample=(2,2), activation="relu"))
    the output of this layer goes thru RELU activation function to introduce non-linearity
-4. Convolutional Layer #2 (model.py: line 182)
+4. Convolutional Layer #2 (model.py: line 187)
    model.add(Convolution2D(36, 5, 5, subsample=(2,2), activation="relu"))
    the output of this layer goes thru RELU activation function to introduce non-linearity
-5. Convolutional Layer #3 (model.py: line 183)
+5. Convolutional Layer #3 (model.py: line 188)
    model.add(Convolution2D(48, 5, 5, subsample=(2,2), activation="relu"))
    the output of this layer goes thru RELU activation function to introduce non-linearity
-6. Convolutional Layer #4 (model.py: line 185)
+6. Convolutional Layer #4 (model.py: line 189)
    model.add(Convolution2D(64, 3, 3, activation="relu"))
    the output of this layer goes thru RELU activation function to introduce non-linearity
-7. Convolutional Layer #5 (model.py: line 186)
+7. Convolutional Layer #5 (model.py: line 190)
    model.add(Convolution2D(64, 3, 3, activation="relu"))
    the output of this layer goes thru RELU activation function to introduce non-linearity
-8. Fully connected layer (model.py: line 187)
-9. Fully connected layer (model.py: line 188)
-9. Fully connected layer (model.py: line 189)
-9. Fully connected layer (model.py: line 190)
+8. Fully connected layer (model.py: line 193)
+9. Fully connected layer (model.py: line 194)
+10. Dropout layer (model.py: line 195)
+11. Fully connected layer (model.py: line 196)
+12. Fully connected layer (model.py: line 197)
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 274).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 282).
 
 #### 4. Training Process
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (model.py: lines 271-272). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+Data set used for training the model consists of 48216 images. During the process of training data I tried to avoid overfitting via 
 
-I managed to use course-provided data, I didn't need to prepare additional data to train models.
+- splitting data set into training and validation sets (model.py: lines 279-280) - 80% of the dataset is used for training (38572), 20% is used for validation (9644).
 
-Training data consited of images captured by center, left and right camera and I also flipped images & angles to augment the training data.
+- using Dropout layer in Neural Network architecture (model.py: lines 195)
 
-I finally randomly shuffled the data set and put Y% of the data into a validation set (model.py: line 58 in generator(...) function).
+I finally randomly shuffled the data set and put Y% of the data into a validation set (model.py: line 56 in generator(...) function).
+
+Training was done using batches of size 192 images per batch and 201 batches within one epoch.
 
 The console output from the training sessions is presented below:
 
@@ -141,6 +159,8 @@ Epoch 5/5
 38572/38572 [==============================] - 215s - loss: 0.0087 - val_loss: 0.0119
 
 As you can see 3-5 epochs were enought to get fully functional/trained model that allowed to achieve project goals.
+
+The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 #### Results
 
