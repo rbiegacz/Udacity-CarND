@@ -12,13 +12,12 @@ The steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[image1]: ./examples/center_camera.jpg "Center Camera"
+[image2]: ./examples/left_camera.jpg "Left Camera"
+[image3]: ./examples/right_camera.jpg "Right Image"
+[image4]: ./examples/right_edge.jpg "Recovery - right side"
+[image5]: ./examples/right_edge_half_recovery.jpg "Half recovery - right side"
+[image6]: ./examples/right_edge_recovery.jpg "Full recovery - right side"
 
 This project fulfills requirements/expectations that are documented in [rubric points](https://review.udacity.com/#!/rubrics/432/view).
 
@@ -59,6 +58,18 @@ python drive.py model.h5
 #### 3. Submission code is usable and readable
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
+
+### Training Set
+
+When it comes to training set I recorded the following:
+a) 3 full laps
+b) 1 full lap driven in an opposite direction
+c) Recovery from a situation that a car is on the right edge of the road
+d) Recovery from a situation that a car is on the left edge of the road
+
+During the learning process I take into account images from centeral, right and left camera (as it is presented below):
+[[!image1]
+
 
 ### Model Architecture and Training Strategy
 
@@ -101,7 +112,7 @@ The network topology consists of the following layers:
 
 The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 274).
 
-#### 4. Creation of the Training Set & Training Process
+#### 4. Training Process
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting (model.py: lines 271-272). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
