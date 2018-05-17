@@ -292,7 +292,7 @@ def train_model_2(model_type):
         model.save('t2_lenet_model.h5')
 
 if __name__ == '__main__':
-    if len(sys.argv[1]):
+    if len(sys.argv)>1 and len(sys.argv[1]):
         if not (sys.argv[1] in MODELS):
             print("Wrong model type!")
             exit()
