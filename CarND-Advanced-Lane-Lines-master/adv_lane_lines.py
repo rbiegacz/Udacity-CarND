@@ -33,15 +33,15 @@ def main():
     calibration = camera_calibration("camera_cal")
 
     # remove distortion from test images and store the resulting images in output_images folder
-    files_to_correct = glob("test_images/*.jpg")
-    distortion_correction(calibration, files_to_correct, "output_images")
+    # files_to_correct = glob("test_images/*.jpg")
+    # distortion_correction(calibration, files_to_correct, "output_images")
 
     # discovering lines
     # applying Sobel gradient and using HLS color map
     # stacking two methods over each other
     # storing the results of this transformation in "output_images" folder
-    files_to_transform = glob("output_images/undist*.jpg")
-    thresholds_pipeline(files_to_transform, "output_images")
+    # files_to_transform = glob("output_images/undist*.jpg")
+    # thresholds_pipeline(files_to_transform, "output_images")
 
     # change of perspective to birds' view
     perspective_pipeline()
@@ -54,7 +54,7 @@ def main():
 
     # processing the video
     # uncomment the line below if you want to run video processing
-    # roadlanes.main_video()
+    roadlanes.main_video()
 
 if __name__ == '__main__':
     main()
