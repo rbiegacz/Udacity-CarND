@@ -245,8 +245,8 @@ def annotate_movie(input_video=None, output_video=None):
 
 
 def main_video():
-    #annotate_movie("project_video.mp4", "annotated_project_video.mp4")
-    annotate_movie("challenge_video.mp4", "annotated_challenge_video.mp4")
+    annotate_movie("project_video.mp4", "annotated_project_video.mp4")
+    # annotate_movie("challenge_video.mp4", "annotated_challenge_video.mp4")
 
 
 def draw_lane_pipeline():
@@ -279,6 +279,7 @@ def draw_lane_pipeline():
         label_curve = 'Radius of curvature: %.1f m' % avg_curve
         result = cv2.putText(result, label_curve, (30, 40), 0, 1, (0, 0, 0), 2, cv2.LINE_AA)
         file_to_write = 'output_images/annotated_'+file.split('\\')[-1]
+        result = cv2.cvtColor(result, cv2.COLOR_RGB2BGR)
         cv2.imwrite(file_to_write, result)
 
 
