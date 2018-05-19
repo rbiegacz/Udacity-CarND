@@ -32,39 +32,14 @@ def perspective_transform(src_file, image=None):
     else:
         img = image
 
-    perspective_delta_x = 744
-    perspective_delta_y = int(perspective_delta_x * 30 / 3.7)
-    perspective_border_x = int(perspective_delta_x * 0.7)
-    perspective_max_y = perspective_delta_y
-    perspective_max_x = int(perspective_delta_x + 2 * perspective_border_x)
-    # perspective_pixels_per_meter = perspective_delta_x / 3.7
-    # print("X: {}".format(perspective_max_x))
-    # print("Y: {}".format(perspective_max_y))
-
-    perspective_origin_y_top = 440
-    perspective_origin_y_bottom = 670
-    perspective_origin_x_top_left = 609
-    perspective_origin_x_top_right = 673
-    perspective_origin_x_bottom_left = 289
-    perspective_origin_x_bottom_right = 1032
-
-    src = np.float32(
-        [[perspective_origin_x_top_left, perspective_origin_y_top],
-         [perspective_origin_x_top_right, perspective_origin_y_top],
-         [perspective_origin_x_bottom_left, perspective_origin_y_bottom],
-         [perspective_origin_x_bottom_right, perspective_origin_y_bottom]])
-
-    dst = np.float32(
-        [[perspective_border_x, 0],
-         [perspective_border_x + perspective_delta_x, 0],
-         [perspective_border_x, perspective_delta_y],
-         [perspective_border_x + perspective_delta_x, perspective_delta_y]])
+    src = np.float32([[545, 460], [735, 460], [1280, 700], [0, 700]])
+    dst = np.float32([[0, 0], [1280, 0], [1280, 720], [0, 720]])
 
     m = cv2.getPerspectiveTransform(src, dst)  # The transformation matrix
     minv = cv2.getPerspectiveTransform(dst, src)  # Inverse transformation
-    warped_img = cv2.warpPerspective(img, m, (perspective_max_x, perspective_max_y), flags=cv2.INTER_LINEAR)
+    warped_img = cv2.warpPerspective(img, m, (img.shape[1], img.shape[0]), flags=cv2.INTER_LINEAR)
     unwarped_img = \
-        cv2.warpPerspective(warped_img, minv, (img.shape[0], img.shape[1]), flags=cv2.INTER_LINEAR)
+        cv2.warpPerspective(warped_img, minv, (warped_img.shape[1], warped_img.shape[0]), flags=cv2.INTER_LINEAR)
     return warped_img, unwarped_img, m, minv
 
 
@@ -80,7 +55,6 @@ def main():
     original_img = cv2.imread(files_to_transform)
     original_img = cv2.cvtColor(original_img, cv2.COLOR_BGR2RGB)
     display_two_images(original_img, "Binary with Lines", warped, "Bird's eye perspective")
-
 
 if __name__ == '__main__':
     main()
