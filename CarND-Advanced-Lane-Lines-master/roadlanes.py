@@ -229,7 +229,8 @@ def annotate_movie(input_video=None, output_video=None):
         avg_curve = (curvature_output['left_curverad'] + curvature_output['right_curverad']) / 2
         label_curve = 'Radius of curvature: %.1f m' % avg_curve
         res = cv2.putText(res, label_curve, (30, 40), 0, 1, (0, 0, 0), 2, cv2.LINE_AA)
-        return cv2.cvtColor(res, cv2.COLOR_BGR2RGB)
+        #res = cv2.cvtColor(res, cv2.COLOR_BGR2RGB)
+        return res
 
     if input_video:
         video = VideoFileClip(input_video)
@@ -271,8 +272,6 @@ def draw_lane_pipeline():
                                      output['right_lane_inds'],
                                      output['nonzerox'],
                                      output['nonzeroy'])
-        print(curvature_output)
-
         warped = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
         result = draw_lane(original, undistorted, warped, output['left_fitx'], output['right_fitx'], output['ploty'], minv)
         avg_curve = (curvature_output['left_curverad'] + curvature_output['right_curverad']) / 2
@@ -303,8 +302,6 @@ def main_image():
                                  output['right_lane_inds'],
                                  output['nonzerox'],
                                  output['nonzeroy'])
-    print(curvature_output)
-
     warped = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
     result = draw_lane(original, undistorted, warped, output['left_fitx'], output['right_fitx'], output['ploty'], minv)
     avg_curve = (curvature_output['left_curverad'] + curvature_output['right_curverad']) / 2
