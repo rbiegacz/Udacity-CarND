@@ -50,7 +50,7 @@ def main():
     """
     files_to_transform = "output_images/lines_undist_straight_lines1.jpg"
     warped, _, _, _ = perspective_transform(files_to_transform)
-    warped = warped[2 * warped.shape[0] // 3:warped.shape[0], 100:warped.shape[0] - 100, :]
+    #warped = warped[2 * warped.shape[0] // 3:warped.shape[0], 100:warped.shape[0] - 100, :]
     warped = cv2.cvtColor(warped, cv2.COLOR_BGR2RGB)
     original_img = cv2.imread(files_to_transform)
     original_img = cv2.cvtColor(original_img, cv2.COLOR_BGR2RGB)
