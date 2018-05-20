@@ -171,15 +171,33 @@ def determine_lane_curvature(left_lane_inds, right_lane_inds, nonzerox, nonzeroy
     # Fit new polynomials to x,y in world space
     left_fit_cr = np.polyfit(lefty*ym_per_pix, leftx*xm_per_pix, 2)
     right_fit_cr = np.polyfit(righty*ym_per_pix, rightx*xm_per_pix, 2)
-    # Calculate the new radii of curvature
+
+    # Calculate radius of curvatures
     left_curverad = ((1 + (2*left_fit_cr[0]*y_eval*ym_per_pix + left_fit_cr[1])**2)**1.5) / np.absolute(2*left_fit_cr[0])
     right_curverad = ((1 + (2*right_fit_cr[0]*y_eval*ym_per_pix + right_fit_cr[1])**2)**1.5) / np.absolute(2*right_fit_cr[0])
-    # Now our radius of curvature is in meters
+
     output = {}
     output['left_curverad'] = left_curverad
     output['right_curverad'] = right_curverad
     return output
 
+def vehicle_position(image, output):
+    # Calculate vehicle center
+    xm_per_pix = 3.7 / 700
+    ym_per_pix = 30 / 720
+    xMax = image.shape[1]
+    yMax = image.shape[0]
+    vehicleCenter = xMax / 2
+    left_fit_m = output['left_lane_inds']
+    right_fit_m = output['right_lane_inds']
+    lineLeft = left_fit_m[0]
+    lineRight = right_fit_m[0]
+    car_position = lineRight + (lineRight - lineLeft) / 2
+    if car_position >= 0:
+        vehicleposition = 'Vehicle position from lane center: {:.2f} m right'.format(car_position)
+    else:
+        vehicleposition = 'Vehicle position from lanen center: {:.2f} m left'.format(-car_position)
+    return vehicleposition
 
 def annotate_movie(input_video=None, output_video=None):
     """
@@ -223,13 +241,15 @@ def annotate_movie(input_video=None, output_video=None):
                                      output['nonzerox'],
                                      output['nonzeroy'])
 
+        car_position_msg = vehicle_position(image, output)
+
         # drawing lane & annotating the image
         warped = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
         res = draw_lane(image, undistorted, warped, output['left_fitx'], output['right_fitx'], output['ploty'], minv)
         avg_curve = (curvature_output['left_curverad'] + curvature_output['right_curverad']) / 2
         label_curve = 'Radius of curvature: %.1f m' % avg_curve
         res = cv2.putText(res, label_curve, (30, 40), 0, 1, (0, 0, 0), 2, cv2.LINE_AA)
-        #res = cv2.cvtColor(res, cv2.COLOR_BGR2RGB)
+        res = cv2.putText(res, car_position_msg, (30, 80), 0, 1, (0, 0, 0), 2, cv2.LINE_AA)
         return res
 
     if input_video:
@@ -240,6 +260,7 @@ def annotate_movie(input_video=None, output_video=None):
         orig_image_name = "test_images/test3.jpg"
         original = cv2.imread(orig_image_name)
         result = annotate_image(image=original)
+        result = cv2.cvtColor(result, cv2.COLOR_BGR2RGB)
         plt.imshow(result)
         plt.show()
     return
@@ -250,10 +271,14 @@ def main_video():
     # annotate_movie("challenge_video.mp4", "annotated_challenge_video.mp4")
 
 
-def draw_lane_pipeline():
+def draw_lane_pipeline(files=None, display_images=False):
     """ this is the function that processes single image pointed by a name mentioned below """
     # orig_image_name = "straight_lines1.jpg"
-    files_to_process = glob("test_images/*.jpg")
+    if files is None:
+        files_to_process = glob("test_images/*.jpg")
+    else:
+        files_to_process = list()
+        files_to_process.append(files)
 
     for file in files_to_process:
         file_distortion_corrected = "output_images/lines_undist_{}".format(file.split('\\')[-1])
@@ -267,6 +292,9 @@ def draw_lane_pipeline():
         warped, _, _, minv = perspective_transform(file_distortion_corrected)
         result, output = search_for_lines(file_to_process)
 
+        # Calculate vehicle center
+        vehicleposition_msg = vehicle_position(original, output)
+
         curvature_output = \
             determine_lane_curvature(output['left_lane_inds'],
                                      output['right_lane_inds'],
@@ -277,37 +305,20 @@ def draw_lane_pipeline():
         avg_curve = (curvature_output['left_curverad'] + curvature_output['right_curverad']) / 2
         label_curve = 'Radius of curvature: %.1f m' % avg_curve
         result = cv2.putText(result, label_curve, (30, 40), 0, 1, (0, 0, 0), 2, cv2.LINE_AA)
+        result = cv2.putText(result, vehicleposition_msg, (30, 80), 0, 1, (0, 0, 0), 2, cv2.LINE_AA)
         file_to_write = 'output_images/annotated_'+file.split('\\')[-1]
         result = cv2.cvtColor(result, cv2.COLOR_RGB2BGR)
-        cv2.imwrite(file_to_write, result)
+        if display_images:
+            result = cv2.cvtColor(result, cv2.COLOR_BGR2RGB)
+            plt.imshow(result)
+            plt.show()
+        else:
+            cv2.imwrite(file_to_write, result)
 
 
 def main_image():
     """ this is the function that processes single image pointed by a name mentioned below """
-    # orig_image_name = "straight_lines1.jpg"
-    orig_image_name = "test3.jpg"
-    file_distortion_corrected = "output_images/lines_undist_{}".format(orig_image_name)
-    file_to_process = "output_images/warped_lines_undist_{}".format(orig_image_name)
-
-    original = cv2.imread("test_images/{}".format(orig_image_name))
-    original = cv2.cvtColor(original, cv2.COLOR_BGR2RGB)
-    undistorted = cv2.imread(file_distortion_corrected)
-    undistorted = cv2.cvtColor(undistorted, cv2.COLOR_BGR2RGB)
-
-    warped, _, _, minv = perspective_transform(file_distortion_corrected)
-    result, output = search_for_lines(file_to_process)
-
-    curvature_output = \
-        determine_lane_curvature(output['left_lane_inds'],
-                                 output['right_lane_inds'],
-                                 output['nonzerox'],
-                                 output['nonzeroy'])
-    warped = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
-    result = draw_lane(original, undistorted, warped, output['left_fitx'], output['right_fitx'], output['ploty'], minv)
-    avg_curve = (curvature_output['left_curverad'] + curvature_output['right_curverad']) / 2
-    label_curve = 'Radius of curvature: %.1f m' % avg_curve
-    result = cv2.putText(result, label_curve, (30, 40), 0, 1, (0, 0, 0), 2, cv2.LINE_AA)
-    display_two_images(original, "Original Image", result, "Drawn Lane")
+    draw_lane_pipeline("test_images\\test3.jpg", display_images=True)
 
 if __name__ == '__main__':
     main_video()
