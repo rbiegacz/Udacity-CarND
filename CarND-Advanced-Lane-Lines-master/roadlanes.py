@@ -192,7 +192,7 @@ def vehicle_position(image, output):
     right_fit_m = output['right_lane_inds']
     lineLeft = left_fit_m[0]
     lineRight = right_fit_m[0]
-    car_position = lineRight + (lineRight - lineLeft) / 2
+    car_position = xm_per_pix*1280/2 - (lineRight + lineLeft) / 2
     if car_position >= 0:
         vehicleposition = 'Vehicle position from lane center: {:.2f} m right'.format(car_position)
     else:

@@ -5,31 +5,31 @@ import numpy as np
 import cv2
 from utils import display_two_images
 
-#class Line:
-#    """
-#    this class stores information about a line
-#    """
-#    def __init__(self):
-#        # was the line detected in the last iteration?
-#        self.detected = False
-#        # x values of the last n fits of the line
-#        self.recent_xfitted = []
-#        # average x values of the fitted line over the last n iterations
-#        self.bestx = None
-#        # polynomial coefficients averaged over the last n iterations
-#        self.best_fit = None
-#        # polynomial coefficients for the most recent fit
-#        self.current_fit = [np.array([False])]
-#        # radius of curvature of the line in some units
-#        self.radius_of_curvature = None
-#        # distance in meters of vehicle center from the line
-#        self.line_base_pos = None
-#        # difference in fit coefficients between last and new fits
-#        self.diffs = np.array([0, 0, 0], dtype='float')
-#       # x values for detected line pixels
-#        self.allx = None
-#        # y values for detected line pixels
-#        self.ally = None
+class Line:
+    """
+    this class stores information about a line
+    """
+    def __init__(self):
+       # was the line detected in the last iteration?
+        self.detected = False
+        # x values of the last n fits of the line
+        self.recent_xfitted = []
+        # average x values of the fitted line over the last n iterations
+        self.bestx = None
+        # polynomial coefficients averaged over the last n iterations
+        self.best_fit = None
+        # polynomial coefficients for the most recent fit
+        self.current_fit = [np.array([False])]
+        # radius of curvature of the line in some units
+        self.radius_of_curvature = None
+        # distance in meters of vehicle center from the line
+        self.line_base_pos = None
+        # difference in fit coefficients between last and new fits
+        self.diffs = np.array([0, 0, 0], dtype='float')
+       # x values for detected line pixels
+        self.allx = None
+        # y values for detected line pixels
+        self.ally = None
 
 
 def apply_gradients_thresholds(image_file=None, s_thresh=(170, 255), sx_thresh=(20, 100), image=None):
@@ -154,9 +154,10 @@ def search_for_lines(file_image, img=None):
         win_xright_low = int(rightx_current - margin)
         win_xright_high = int(rightx_current + margin)
         # Draw the windows on the visualization image
-        line_color = (0, 255, 0)
-        cv2.rectangle(out_img, (win_xleft_low, win_y_low), (win_xleft_high, win_y_high), line_color, 2)
-        cv2.rectangle(out_img, (win_xright_low, win_y_low), (win_xright_high, win_y_high), line_color, 2)
+        line_color1 = (0, 255, 0)
+        line_color2 = (0, 0, 255)
+        cv2.rectangle(out_img, (win_xleft_low, win_y_low), (win_xleft_high, win_y_high), line_color1, 2)
+        cv2.rectangle(out_img, (win_xright_low, win_y_low), (win_xright_high, win_y_high), line_color2, 2)
         # Identify the nonzero pixels in x and y within the window
         good_left_inds = ((nonzeroy >= win_y_low) & (nonzeroy < win_y_high) &
                           (nonzerox >= win_xleft_low) & (nonzerox < win_xleft_high)).nonzero()[0]
@@ -244,7 +245,7 @@ def search_for_lines(file_image, img=None):
 
     # Draw the lane onto the warped blank image
     cv2.fillPoly(window_img, np.int_([left_line_pts]), (0, 255, 0))
-    cv2.fillPoly(window_img, np.int_([right_line_pts]), (0, 255, 0))
+    cv2.fillPoly(window_img, np.int_([right_line_pts]), (0, 0, 255))
     result = cv2.addWeighted(out_img, 1, window_img, 0.3, 0)
     output = dict()
     output['left_fit'] = left_fit
