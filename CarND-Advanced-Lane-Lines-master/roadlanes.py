@@ -10,14 +10,13 @@ from pathlib import Path
 
 from utils import display_two_images
 from correctcamera import camera_calibration, distortion_removal
-from searchlines import search_for_lines, apply_gradients_thresholds
+from searchlines import search_for_lines, apply_gradients_thresholds, Line
 from perspectivetransform import perspective_transform
 from moviepy.editor import VideoFileClip
 
 
-# from Line import Line
-# from line_fit import line_fit, tune_fit, calc_curve, calc_vehicle_offset
-
+left_line = Line()
+right_line = Line()
 
 def draw_lane(undist, image, warped, left_fitx, right_fitx, ploty, minv):
     """
@@ -218,6 +217,8 @@ def annotate_movie(input_video=None, output_video=None):
         :param image_file: file name of the image to annotate
         :return: annotated image/frame
         """
+        global left_line, right_line
+
         # if not image and not image_file:
         #    raise ValueError("annotate_image: wrong function arguments (both of them are null")
         if image.any() and image_file:
@@ -225,28 +226,41 @@ def annotate_movie(input_video=None, output_video=None):
         if not image.any():
             raise NotImplementedError("this function accepts only input in the form of image")
 
-        # removing distortion
-        undistorted = distortion_removal(calibration, imageFile=None, image=image)
+        if left_line.detected and right_line.detected:
+          pass
+        else:
+          # removing distortion
+          undistorted = distortion_removal(calibration, imageFile=None, image=image)
 
-        # discovering lines
-        gradient = apply_gradients_thresholds(image=undistorted)
+          # discovering lines
+          gradient = apply_gradients_thresholds(image=undistorted)
 
-        # changing perspective
-        warped, _, _, minv = perspective_transform(src_file=None, image=gradient)
-        _, output = search_for_lines(img=warped, file_image=None)
+          # changing perspective
+          warped, _, _, minv = perspective_transform(src_file=None, image=gradient)
+          _, output = search_for_lines(img=warped, file_image=None)
 
-        # discovering curvature
-        curvature_output = \
+          # discovering curvature
+          curvature_output = \
             determine_lane_curvature(output['left_lane_inds'],
                                      output['right_lane_inds'],
                                      output['nonzerox'],
                                      output['nonzeroy'])
 
+          left_line.allx = output['left_fitx']
+          left_line.ally = ploty
+          left_line.detected = False
+          left_line.allx = output['left_lane_inds']
+
+          right_line.ally = ploty
+          right_line.allx = output['right_fitx']
+          right_line.detected = False
+          right_line.allx = output['right_lane_inds']
+
         car_position_msg = vehicle_position(image, output)
 
         # drawing lane & annotating the image
         warped = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
-        res = draw_lane(image, undistorted, warped, output['left_fitx'], output['right_fitx'], output['ploty'], minv)
+        res = draw_lane(image, undistorted, warped, left_line.allx, right_line.allx, left_line.ally, minv)
         avg_curve = (curvature_output['left_curverad'] + curvature_output['right_curverad']) / 2
         label_curve = 'Radius of curvature: %.1f m' % avg_curve
         res = cv2.putText(res, label_curve, (30, 40), 0, 1, (0, 0, 0), 2, cv2.LINE_AA)
