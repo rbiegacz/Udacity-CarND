@@ -6,6 +6,7 @@ import numpy as np
 import imageio
 imageio.plugins.ffmpeg.download()
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 from utils import display_two_images
 from correctcamera import camera_calibration, distortion_removal
@@ -281,8 +282,12 @@ def draw_lane_pipeline(files=None, display_images=False):
         files_to_process.append(files)
 
     for file in files_to_process:
-        file_distortion_corrected = "output_images/lines_undist_{}".format(file.split('\\')[-1])
-        file_to_process = "output_images/warped_lines_undist_{}".format(file.split('\\')[-1])
+        if "\\" in file:
+            file_distortion_corrected = "output_images/lines_undist_{}".format(file.split('\\')[-1])
+            file_to_process = "output_images/warped_lines_undist_{}".format(file.split('\\')[-1])
+        else:
+            file_distortion_corrected = "output_images/lines_undist_{}".format(file.split('/')[-1])
+            file_to_process = "output_images/warped_lines_undist_{}".format(file.split('/')[-1])
 
         original = cv2.imread(file)
         original = cv2.cvtColor(original, cv2.COLOR_BGR2RGB)
@@ -318,7 +323,11 @@ def draw_lane_pipeline(files=None, display_images=False):
 
 def main_image():
     """ this is the function that processes single image pointed by a name mentioned below """
-    draw_lane_pipeline("test_images\\test3.jpg", display_images=True)
+    file_exists = Path("test_images\\test3.jpg")
+    if file_exists.is_file():
+      draw_lane_pipeline("test_images\\test3.jpg", display_images=True)
+    else:
+      draw_lane_pipeline("test_images/test3.jpg", display_images=True)
 
 if __name__ == '__main__':
     main_video()
