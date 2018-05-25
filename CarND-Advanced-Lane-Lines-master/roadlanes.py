@@ -1,18 +1,17 @@
 """ this module draws a road lane in a single image and in video """
 
-import cv2
+
+from pathlib import Path
 from glob import glob
 import numpy as np
-import imageio
-imageio.plugins.ffmpeg.download()
 import matplotlib.pyplot as plt
-from pathlib import Path
-
-from utils import display_two_images
+import cv2
+import imageio
 from correctcamera import camera_calibration, distortion_removal
 from searchlines import search_for_lines, apply_gradients_thresholds, Line
 from perspectivetransform import perspective_transform
 from moviepy.editor import VideoFileClip
+imageio.plugins.ffmpeg.download()
 
 
 left_line = Line()
@@ -182,17 +181,22 @@ def determine_lane_curvature(left_lane_inds, right_lane_inds, nonzerox, nonzeroy
     return output
 
 def vehicle_position(image, output):
+    """
+    This function calculates the position of a center of a car with respect to the center of a lane
+    :param image: image to process
+    :param output: information about lines
+    :return:
+    """
     # Calculate vehicle center
     xm_per_pix = 3.7 / 700
-    ym_per_pix = 30 / 720
+    # ym_per_pix = 30 / 720
     xMax = image.shape[1]
-    yMax = image.shape[0]
-    vehicleCenter = xMax / 2
+    # yMax = image.shape[0]
     left_fit_m = output['left_lane_inds']
     right_fit_m = output['right_lane_inds']
     lineLeft = left_fit_m[0]
     lineRight = right_fit_m[0]
-    car_position = xm_per_pix*1280/2 - (lineRight + lineLeft) / 2
+    car_position = xm_per_pix*(xMax/2 - (lineRight + lineLeft)/2)
     if car_position >= 0:
         vehicleposition = 'Vehicle position from lane center: {:.2f} m right'.format(car_position)
     else:
@@ -226,41 +230,52 @@ def annotate_movie(input_video=None, output_video=None):
         if not image.any():
             raise NotImplementedError("this function accepts only input in the form of image")
 
-        if left_line.detected and right_line.detected:
-          pass
-        else:
-          # removing distortion
-          undistorted = distortion_removal(calibration, imageFile=None, image=image)
+        # removing distortion
+        undistorted = distortion_removal(calibration, imageFile=None, image=image)
+        # discovering lines
+        gradient = apply_gradients_thresholds(image=undistorted)
+        # changing perspective
+        warped, _, _, minv = perspective_transform(src_file=None, image=gradient)
+        _, output = search_for_lines(img=warped, file_image=None)
 
-          # discovering lines
-          gradient = apply_gradients_thresholds(image=undistorted)
+        # discovering curvature
+        curvature_output = \
+          determine_lane_curvature(output['left_lane_inds'],
+                                   output['right_lane_inds'],
+                                   output['nonzerox'],
+                                   output['nonzeroy'])
 
-          # changing perspective
-          warped, _, _, minv = perspective_transform(src_file=None, image=gradient)
-          _, output = search_for_lines(img=warped, file_image=None)
+        left_line.current_fit = output['left_fit']
+        left_line.allx = output['left_fitx']
+        left_line.radius_of_curvature = curvature_output['left_curverad']
+        left_line.ally = output['ploty']
+        if not left_line.detected:
+            for i in range(0, left_line.N_Average):
+                left_line.recent_xfitted.append(output['left_fitx'])
+            left_line.Counter = 0
+            left_line.best_fit = output['left_fit']
+            left_line.detected = True
+        left_line.base_pos = (1280/2 - output['left_lane_inds'][0])*3.7/700
+        left_line.add_fit(output['left_fit'])
 
-          # discovering curvature
-          curvature_output = \
-            determine_lane_curvature(output['left_lane_inds'],
-                                     output['right_lane_inds'],
-                                     output['nonzerox'],
-                                     output['nonzeroy'])
-
-          left_line.allx = output['left_fitx']
-          left_line.ally = ploty
-          left_line.detected = False
-          left_line.allx = output['left_lane_inds']
-
-          right_line.ally = ploty
-          right_line.allx = output['right_fitx']
-          right_line.detected = False
-          right_line.allx = output['right_lane_inds']
+        right_line.current_fit = output['right_fit']
+        right_line.allx = output['right_fitx']
+        right_line.radius_of_curvature = curvature_output['right_curverad']
+        right_line.ally = output['ploty']
+        if not right_line.detected:
+            for i in range(0, right_line.N_Average):
+                right_line.recent_xfitted.append(output['right_fitx'])
+            right_line.Counter = 0
+            right_line.best_fit = output['right_fit']
+            right_line.detected = True
+        right_line.base_pos = (1280/2 - output['right_lane_inds'][0])*3.7/700
+        right_line.add_fit(output['right_fit'])
 
         car_position_msg = vehicle_position(image, output)
 
         # drawing lane & annotating the image
         warped = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
-        res = draw_lane(image, undistorted, warped, left_line.allx, right_line.allx, left_line.ally, minv)
+        res = draw_lane(image, undistorted, warped, left_line.bestx, right_line.bestx, left_line.ally, minv)
         avg_curve = (curvature_output['left_curverad'] + curvature_output['right_curverad']) / 2
         label_curve = 'Radius of curvature: %.1f m' % avg_curve
         res = cv2.putText(res, label_curve, (30, 40), 0, 1, (0, 0, 0), 2, cv2.LINE_AA)
@@ -282,6 +297,10 @@ def annotate_movie(input_video=None, output_video=None):
 
 
 def main_video():
+    """
+    this fuction runs video annotation
+    :return: this function doesn't return anything; the artifact is a "annotated" video stored as a file
+    """
     annotate_movie("project_video.mp4", "annotated_project_video.mp4")
     # annotate_movie("challenge_video.mp4", "annotated_challenge_video.mp4")
 
@@ -339,9 +358,9 @@ def main_image():
     """ this is the function that processes single image pointed by a name mentioned below """
     file_exists = Path("test_images\\test3.jpg")
     if file_exists.is_file():
-      draw_lane_pipeline("test_images\\test3.jpg", display_images=True)
+        draw_lane_pipeline("test_images\\test3.jpg", display_images=True)
     else:
-      draw_lane_pipeline("test_images/test3.jpg", display_images=True)
+        draw_lane_pipeline("test_images/test3.jpg", display_images=True)
 
 if __name__ == '__main__':
     main_video()

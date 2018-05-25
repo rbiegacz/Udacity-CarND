@@ -9,6 +9,8 @@ class Line:
     """
     this class stores information about a line
     """
+    Counter = 0
+    N_Average = 10
     def __init__(self):
        # was the line detected in the last iteration?
         self.detected = False
@@ -31,6 +33,23 @@ class Line:
         # y values for detected line pixels
         self.ally = None
 
+    def get_current_fit(self):
+        return self.current_fit
+
+    def get_best_fit(self):
+        return self.best_fit
+
+    def add_fit(self, fit_coeffs):
+        # add current coofiecients to the list
+        # x values of the last n fits of the line
+        self.recent_xfitted[Line.Counter%Line.N_Average] = self.allx
+        # difference in fit coefficients between last and new fits
+        self.diffs = self.best_fit - self.current_fit
+        # average x values of the fitted line over the last n iterations
+        self.bestx = self.allx
+        # polynomial coefficients averaged over the last n iterations
+        self.best_fit = self.current_fit
+        Line.Counter = (Line.Counter+1)%Line.N_Average
 
 def apply_gradients_thresholds(image_file=None, s_thresh=(170, 255), sx_thresh=(20, 100), image=None):
     """
