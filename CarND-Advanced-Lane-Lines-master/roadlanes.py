@@ -6,6 +6,7 @@ from glob import glob
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
+import random
 import imageio
 from correctcamera import camera_calibration, distortion_removal
 from searchlines import search_for_lines, apply_gradients_thresholds, Line
@@ -16,6 +17,7 @@ imageio.plugins.ffmpeg.download()
 # Define conversions in x and y from pixels space to meters
 ym_per_pix = 30/720  # meters per pixel in y dimension
 xm_per_pix = 3.7/800  # meters per pixel in x dimension
+y_eval = 719  # 720p video/image, so last (lowest on screen) y index is 719
 
 left_line = Line()
 right_line = Line()
@@ -158,7 +160,6 @@ def determine_lane_curvature(left_lane_inds, right_lane_inds, nonzerox, nonzeroy
     :param nonzeroy:
     :return:
     """
-    y_eval = 719  # 720p video/image, so last (lowest on screen) y index is 719
 
     # Extract left and right line pixel positions
     leftx = nonzerox[left_lane_inds]
@@ -179,6 +180,15 @@ def determine_lane_curvature(left_lane_inds, right_lane_inds, nonzerox, nonzeroy
     output['right_curverad'] = right_curverad
     return output
 
+def vehicle_position_lines(left_line, right_line):
+    car_position = xm_per_pix*(left_line.line_base_pos + right_line.line_base_pos)/2
+    if car_position >= 0:
+        vehicleposition = 'Vehicle position from lane center: {:.2f} m right'.format(car_position)
+    else:
+        vehicleposition = 'Vehicle position from lanen center: {:.2f} m left'.format(-car_position)
+    return vehicleposition
+
+
 def vehicle_position(image, output):
     """
     This function calculates the position of a center of a car with respect to the center of a lane
@@ -189,8 +199,8 @@ def vehicle_position(image, output):
     # Calculate vehicle center
     xMax = image.shape[1]
     # yMax = image.shape[0]
-    lineLeft = output['left_fitx'][0]
-    lineRight = output['right_fitx'][0]
+    lineLeft = output['left_fitx'][-1]
+    lineRight = output['right_fitx'][-1]
     car_position = xm_per_pix*(xMax/2 - (lineRight + lineLeft)/2)
     if car_position >= 0:
         vehicleposition = 'Vehicle position from lane center: {:.2f} m right'.format(car_position)
@@ -205,6 +215,8 @@ def annotate_movie(input_video=None, output_video=None):
     :param output_video: name of the video to store the annotated video (mp4)
     :return:
     """
+    global left_line, right_line
+
     # get data for calibration
     calibration = camera_calibration("camera_cal")
 
@@ -225,6 +237,7 @@ def annotate_movie(input_video=None, output_video=None):
         if not image.any():
             raise NotImplementedError("this function accepts only input in the form of image")
 
+
         # removing distortion
         undistorted = distortion_removal(calibration, imageFile=None, image=image)
         # discovering lines
@@ -235,10 +248,10 @@ def annotate_movie(input_video=None, output_video=None):
 
         # discovering curvature
         curvature_output = \
-          determine_lane_curvature(output['left_lane_inds'],
-                                   output['right_lane_inds'],
-                                   output['nonzerox'],
-                                   output['nonzeroy'])
+            determine_lane_curvature(output['left_lane_inds'],
+                                    output['right_lane_inds'],
+                                    output['nonzerox'],
+                                    output['nonzeroy'])
 
         left_line.current_fit = output['left_fit']
         left_line.allx = output['left_fitx']
@@ -250,6 +263,8 @@ def annotate_movie(input_video=None, output_video=None):
             left_line.Counter = 0
             left_line.best_fit = output['left_fit']
             left_line.detected = True
+        left_line.line_base_pos = image.shape[1]/2 - output['left_fitx'][-1]
+        left_line.radius_of_curvature = curvature_output['left_curverad']
         left_line.add_fit(output['left_fit'])
 
         right_line.current_fit = output['right_fit']
@@ -262,14 +277,16 @@ def annotate_movie(input_video=None, output_video=None):
             right_line.Counter = 0
             right_line.best_fit = output['right_fit']
             right_line.detected = True
+        right_line.radius_of_curvature = curvature_output['right_curverad']
+        right_line.line_base_pos = image.shape[1]/2 - output['right_fitx'][-1]
         right_line.add_fit(output['right_fit'])
 
-        car_position_msg = vehicle_position(image, output)
+        car_position_msg = vehicle_position_lines(left_line, right_line)
 
         # drawing lane & annotating the image
         warped = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
         res = draw_lane(image, undistorted, warped, left_line.bestx, right_line.bestx, left_line.ally, minv)
-        avg_curve = (curvature_output['left_curverad'] + curvature_output['right_curverad']) / 2
+        avg_curve = (left_line.radius_of_curvature + right_line.radius_of_curvature)/2
         label_curve = 'Radius of curvature: %.1f m' % avg_curve
         res = cv2.putText(res, label_curve, (30, 40), 0, 1, (0, 0, 0), 2, cv2.LINE_AA)
         res = cv2.putText(res, car_position_msg, (30, 80), 0, 1, (0, 0, 0), 2, cv2.LINE_AA)

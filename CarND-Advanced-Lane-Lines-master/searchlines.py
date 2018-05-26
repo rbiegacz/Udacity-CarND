@@ -10,7 +10,7 @@ class Line:
     this class stores information about a line
     """
     Counter = 0
-    N_Average = 20
+    N_Average = 5
     def __init__(self):
        # was the line detected in the last iteration?
         self.detected = False
@@ -42,14 +42,20 @@ class Line:
     def add_fit(self, fit_coeffs):
         # add current coofiecients to the list
         # x values of the last n fits of the line
-        self.recent_xfitted[Line.Counter%Line.N_Average] = fit_coeffs
-        # difference in fit coefficients between last and new fits
         self.diffs = self.best_fit - self.current_fit
-        # polynomial coefficients averaged over the last n iterations
-        self.best_fit= np.average(self.recent_xfitted, 0)
-        # average x values of the fitted line over the last n iterations
-        self.bestx = self.best_fit[0]*self.ally**2 + self.best_fit[1]*self.ally + self.best_fit[2]
-        Line.Counter = (Line.Counter+1)%Line.N_Average
+        self.diffs_sum = np.sum(np.absolute(self.diffs))
+
+        # if the different in coefficients is too high that something is wrong
+        # if the difference in coefficients is small then two curves are similar
+        if self.diffs_sum < 80:
+            self.recent_xfitted[Line.Counter%Line.N_Average] = fit_coeffs
+            # difference in fit coefficients between last and new fits
+            self.diffs = self.best_fit - self.current_fit
+            # polynomial coefficients averaged over the last n iterations
+            self.best_fit= np.average(self.recent_xfitted, 0)
+            # average x values of the fitted line over the last n iterations
+            self.bestx = self.best_fit[0]*self.ally**2 + self.best_fit[1]*self.ally + self.best_fit[2]
+            Line.Counter = (Line.Counter+1)%Line.N_Average
 
 def apply_gradients_thresholds(image_file=None, s_thresh=(170, 255), sx_thresh=(20, 100), image=None):
     """
@@ -200,9 +206,8 @@ def search_for_lines(file_image, img=None):
     right_fit = np.polyfit(righty, rightx, 2)
 
     # Generate x and y values for plotting
-    how_long_lane = 2
-    ystart = 0
-    ploty = np.linspace(ystart, (binary_warped.shape[0]-1-ystart)//how_long_lane, (binary_warped.shape[0]-ystart)//how_long_lane)
+    ystart = 200
+    ploty = np.linspace(ystart, binary_warped.shape[0]-1, binary_warped.shape[0])
 
     left_fitx = left_fit[0]*ploty**2 + left_fit[1]*ploty + left_fit[2]
     right_fitx = right_fit[0]*ploty**2 + right_fit[1]*ploty + right_fit[2]
@@ -231,11 +236,7 @@ def search_for_lines(file_image, img=None):
     left_fit = np.polyfit(lefty, leftx, 2)
     right_fit = np.polyfit(righty, rightx, 2)
     # Generate x and y values for plotting
-    how_long_lane = 1
-    ystart = 0
-    ploty = np.linspace(ystart,
-                        (binary_warped.shape[0]-1-ystart)//how_long_lane,
-                        (binary_warped.shape[0]-ystart)//how_long_lane)
+    ploty = np.linspace(ystart,(binary_warped.shape[0]-1),(binary_warped.shape[0]))
     left_fitx = left_fit[0]*ploty**2 + left_fit[1]*ploty + left_fit[2]
     right_fitx = right_fit[0]*ploty**2 + right_fit[1]*ploty + right_fit[2]
 
