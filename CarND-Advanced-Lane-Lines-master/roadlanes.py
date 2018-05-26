@@ -13,6 +13,9 @@ from perspectivetransform import perspective_transform
 from moviepy.editor import VideoFileClip
 imageio.plugins.ffmpeg.download()
 
+# Define conversions in x and y from pixels space to meters
+ym_per_pix = 30/720  # meters per pixel in y dimension
+xm_per_pix = 3.7/800  # meters per pixel in x dimension
 
 left_line = Line()
 right_line = Line()
@@ -157,10 +160,6 @@ def determine_lane_curvature(left_lane_inds, right_lane_inds, nonzerox, nonzeroy
     """
     y_eval = 719  # 720p video/image, so last (lowest on screen) y index is 719
 
-    # Define conversions in x and y from pixels space to meters
-    ym_per_pix = 30/720 # meters per pixel in y dimension
-    xm_per_pix = 3.7/700 # meters per pixel in x dimension
-
     # Extract left and right line pixel positions
     leftx = nonzerox[left_lane_inds]
     lefty = nonzeroy[left_lane_inds]
@@ -188,14 +187,10 @@ def vehicle_position(image, output):
     :return:
     """
     # Calculate vehicle center
-    xm_per_pix = 3.7 / 700
-    # ym_per_pix = 30 / 720
     xMax = image.shape[1]
     # yMax = image.shape[0]
-    left_fit_m = output['left_lane_inds']
-    right_fit_m = output['right_lane_inds']
-    lineLeft = left_fit_m[0]
-    lineRight = right_fit_m[0]
+    lineLeft = output['left_fitx'][0]
+    lineRight = output['right_fitx'][0]
     car_position = xm_per_pix*(xMax/2 - (lineRight + lineLeft)/2)
     if car_position >= 0:
         vehicleposition = 'Vehicle position from lane center: {:.2f} m right'.format(car_position)
@@ -251,11 +246,10 @@ def annotate_movie(input_video=None, output_video=None):
         left_line.ally = output['ploty']
         if not left_line.detected:
             for i in range(0, left_line.N_Average):
-                left_line.recent_xfitted.append(output['left_fitx'])
+                left_line.recent_xfitted.append(output['left_fit'])
             left_line.Counter = 0
             left_line.best_fit = output['left_fit']
             left_line.detected = True
-        left_line.base_pos = (1280/2 - output['left_lane_inds'][0])*3.7/700
         left_line.add_fit(output['left_fit'])
 
         right_line.current_fit = output['right_fit']
@@ -264,11 +258,10 @@ def annotate_movie(input_video=None, output_video=None):
         right_line.ally = output['ploty']
         if not right_line.detected:
             for i in range(0, right_line.N_Average):
-                right_line.recent_xfitted.append(output['right_fitx'])
+                right_line.recent_xfitted.append(output['right_fit'])
             right_line.Counter = 0
             right_line.best_fit = output['right_fit']
             right_line.detected = True
-        right_line.base_pos = (1280/2 - output['right_lane_inds'][0])*3.7/700
         right_line.add_fit(output['right_fit'])
 
         car_position_msg = vehicle_position(image, output)
